@@ -1,0 +1,139 @@
+.hero2 {
+  /* border: 1px solid #b38181; */
+  height: 330vh;
+  border-radius: 5px;
+  background: linear-gradient(135deg, #1b1515, #000000, #000000);
+  background: transparent;
+  margin: 10px;
+  margin-top: 0;
+  position: relative;
+}
+.timeline-container h3 {
+  font-weight: 800;
+  font-size: 1.5rem;
+  line-height: 1.1;
+  background: linear-gradient(90deg, #ff7373, #d15454, #8c1414);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: gradientMove 3s linear infinite;
+}
+.timeline-container p {
+  ont-weight: 800;
+  font-size: 1.2rem;
+  line-height: 1.1;
+  background: linear-gradient(90deg, #646161, #856767, #5c5050);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: gradientMove 3s linear infinite;
+}
+
+@keyframes slideS {
+  from {
+    opacity: 0;
+    scale: 0.8;
+  }
+  to {
+    opacity: 1;
+    scale: 1;
+  }
+}
+@keyframes slideUp {
+  from {
+    transform: translateY(-300px);
+  }
+  to {
+    transform: translateY(0px);
+  }
+}
+
+.animate-box {
+  animation: slideS ease forwards;
+  animation-timeline: view();
+  animation-range: entry 0% cover 40%;
+}
+
+.small-box {
+  height: 100%;
+  width: 50%;
+  padding: 15px;
+}
+.small-box img {
+  width: 95%;
+  border-radius: 15px;
+}
+.school {
+  height: 100%;
+  width: 50%;
+  padding: 25px;
+}
+.school img {
+  width: 100%;
+  height: 100%;
+  border-radius: 15px;
+}
+.para {
+  width: 100%;
+  padding-left: 20px;
+  text-align: left;
+  margin-top: 20px;
+}
+.card p {
+  width: 90%;
+  margin-left: 20px;
+  text-align: left;
+  color: #d15454;
+}
+.para a {
+  color: #ff7373;
+}
+.para a:hover {
+  color: #834747;
+}
+.photo {
+  height: 100px;
+  width: 100%;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}
+.card img {
+  height: 90px;
+  cursor: pointer;
+  transition:
+    transform 0.4s ease,
+    opacity 0.4s ease;
+}
+.photo2 {
+  height: 140px;
+  width: 100%;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}
+.photo2 img {
+  transition:
+    transform 0.4s ease,
+    opacity 0.4s ease;
+}
+.photo img:hover {
+  cursor: pointer;
+  transform: scale(1.1);
+  opacity: 0.5;
+}
+.photo2 img:hover {
+  cursor: pointer;
+  transform: scale(1.1);
+  opacity: 0.5;
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
