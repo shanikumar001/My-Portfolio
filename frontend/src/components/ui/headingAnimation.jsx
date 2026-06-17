@@ -1,9 +1,12 @@
 import { useEffect, useState } from "react";
 
 const lines = [
+  "B.TECH CSE STUDENT",
+  "FOUNDER OF ZIURODB & ZIUROWORKERS",
   "FULLSTACK DEVELOPER",
   "BLOCKCHAIN DEVELOPER",
   "UI & UX DESIGNER",
+  "DSA PROBLEM SOLVER",
 ];
 
 export default function TypingHeading() {

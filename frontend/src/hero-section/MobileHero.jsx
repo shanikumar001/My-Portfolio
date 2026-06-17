@@ -29,7 +29,7 @@ const MobileHero = ({ scrollToSection }) => {
   const socialLinks = [
     { icon: youtube2, href: 'https://www.youtube.com/@Coding_with_Shani', label: 'YouTube' },
     { icon: instagram2, href: 'https://www.instagram.com/sr.coding01/', label: 'Instagram' },
-    { icon: linkdin2, href: 'https://www.linkedin.com/in/shani-kumar-801503348/', label: 'LinkedIn' },
+    { icon: linkdin2, href: 'https://www.linkedin.com/in/balmiki-kumar', label: 'LinkedIn' },
   ];
 
   return (
@@ -69,7 +69,7 @@ const MobileHero = ({ scrollToSection }) => {
                 <div className="flip-face front">
                   <img 
                     src={shani} 
-                    alt="Shani Kumar - Front" 
+                    alt="Balmiki Kumar - Front" 
                     className="drop-shadow-2xl w-full h-full object-cover"
                     loading="eager"
                   />
@@ -77,7 +77,7 @@ const MobileHero = ({ scrollToSection }) => {
                 <div className="flip-face back">
                   <img 
                     src={shaniBack} 
-                    alt="Shani Kumar - Back" 
+                    alt="Balmiki Kumar - Back" 
                     className="drop-shadow-2xl w-full h-full object-cover"
                     loading="eager"
                   />
@@ -97,7 +97,7 @@ const MobileHero = ({ scrollToSection }) => {
               Hi,
             </span>
             <span className="ml-2 text-2xl sm:text-3xl font-medium text-foreground">
-              I'm <strong className="text-primary">Shani Kumar</strong>
+              I'm <strong className="text-primary">Balmiki Kumar</strong>
             </span>
           </h1>
 
@@ -105,7 +105,7 @@ const MobileHero = ({ scrollToSection }) => {
 
           {/* Description */}
           <p className="text-base text-muted-foreground leading-relaxed max-w-md mx-auto mb-6">
-            Passionate Full-stack | Blockchain Developer & UI/UX Designer, creating intuitive and visually appealing digital experiences with modern technologies.
+            Building scalable software, developer tools, and modern applications that solve real-world problems. Full-stack development, database engineering, system design, and cloud workflows.
           </p>
 
           {/* Buttons */}
@@ -159,7 +159,7 @@ const MobileHero = ({ scrollToSection }) => {
                   w-12 h-12
                   flex items-center justify-center
                   bg-card border-2 border-border
-                  rounded-full
+                  rounded-[4px]
                   transition-all duration-300
                   hover:border-primary hover:bg-primary/10
                   hover:rotate-12 hover:scale-110
@@ -176,7 +176,7 @@ const MobileHero = ({ scrollToSection }) => {
           {/* Scroll Down Indicator */}
           <button
             onClick={() => scrollToSection("about")}
-            className="pt-4 animate-bounce text-muted-foreground hover:text-foreground transition-colors focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 rounded-full p-2"
+            className="pt-4 animate-bounce text-muted-foreground hover:text-foreground transition-colors focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 rounded-[4px] p-2"
             aria-label="Scroll to about section"
           >
             <ArrowDown className="mx-auto h-6 w-6" />

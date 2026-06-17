@@ -3,9 +3,9 @@ import { ExternalLink, Github, Loader2 } from 'lucide-react';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { useGetUserProjects } from '../hooks/useQueries';
-import uniwork from "../assets/project-image/uniwork.png";
-import emoji from "../assets/project-image/emoji.png";
-import portfolio from "../assets/project-image/portfolio.png";
+import ziurodb from "../assets/project-image/ziurodb.png";
+import ziuroworkers from "../assets/project-image/ziuroworkers.png";
+import procoders from "../assets/project-image/procoders.png";
 
 const Projects = () => {
   const { data: projects, isLoading } = useGetUserProjects();
@@ -22,60 +22,65 @@ const Projects = () => {
     }
   }, [projects]);
 
-  // Default projects to show when no backend data
+  // Updated projects based on new profile details
   const defaultProjects = [
     {
       id: '1',
-      title: 'Uni-Work',
-      description: 'Uni-Work is a web platform that helps users find skilled workers for any job — plumbers, electricians, designers, developers, home-service experts, repair professionals, and more. It also allows individuals — freelancers, technicians, and service providers — to register as workers and offer their services to clients.',
-      image: uniwork,
-      liveURL: 'https://uni-work-6h5r.onrender.com',
-      repoURL: 'https://github.com/shanikumar001/uni-work'
+      title: 'ZiuroDB',
+      description: 'A modern cross-platform database administration platform to connect, manage, explore, and monitor MongoDB, MySQL, and PostgreSQL databases from a single interface, featuring an automated Database-to-REST API engine.',
+      image: ziurodb,
+      liveURL: 'https://ziurodb.ziuro.com',
+      repoURL: 'https://github.com/shanikumar001/ziurodb',
+      tags: ['React', 'TypeScript', 'Electron', 'Node.js', 'Express', 'MongoDB', 'PostgreSQL', 'MySQL', 'Redis', 'BullMQ', 'Docker']
     },
     {
       id: '2',
-      title: 'smart-emoji',
-      description: 'This project features an intelligent emoji UI that dynamically changes expressions based on the user’s selected emotion or interaction. Includes smooth animations, multiple facial expression states, and a clean responsive layout. Ideal for learning state-based UI design and creative front-end animation.',
-      image: emoji,
-      liveURL: 'https://emotion-based-emoji-expression.vercel.app/',
-      repoURL: 'https://github.com/shanikumar001/Emotion-Based-Emoji-Expression-System'
+      title: 'ZiuroWorkers',
+      description: 'A service marketplace platform connecting customers with local freelancers for online and offline services, managing booking lifecycles, escrow payments, vendor dashboards, and live order tracking.',
+      image: ziuroworkers,
+      liveURL: 'https://workers.ziuro.com',
+      repoURL: 'https://github.com/shanikumar001/ziuroworkers_app',
+      tags: ['Flutter', 'Dart', 'Node.js', 'Express.js', 'MongoDB', 'Firebase', 'Razorpay', 'Cloudinary']
     },
     {
       id: '3',
-      title: 'My Portfolio',
-      description: 'Modern portfolio template with CMS integration, blog functionality, and project showcase capabilities.',
-      image: portfolio,
-      liveURL: '',
-      repoURL: 'https://github.com'
+      title: 'ProCoders',
+      description: 'A full-stack programming assessment platform (like HackerRank) enabling secure programming assessments via a browser-based Monaco Editor development workspace and isolated queue-based code compilation execution.',
+      image: procoders,
+      liveURL: 'https://procoders-ubpm.onrender.com',
+      repoURL: 'https://github.com/shanikumar001/procoders',
+      tags: ['React', 'Tailwind CSS', 'Node.js', 'Express.js', 'MongoDB', 'Redis', 'BullMQ', 'Docker', 'Monaco Editor']
     }
   ];
 
   const displayProjects = projects && projects.length > 0 ? projects : defaultProjects;
 
-  const [viewProjects, setViewProjects] = useState();
-  const handleViewProjects = () => {
-      setViewProjects(!viewProjects);
-      alert('work on progress...')
-  }
-
   return (
-    <section id="projects" className="py-20 sm:py-32">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 ">
+    <section id="projects" className="py-24 sm:py-32 relative overflow-hidden bg-background">
+      {/* Decorative background grids */}
+      <div className="absolute inset-0 -z-10 overflow-hidden opacity-30 dark:opacity-20 select-none">
+        <div className="absolute top-1/3 left-[5%] w-[25rem] h-[25rem] bg-foreground/2 rounded-full blur-3xl" />
+        <div className="absolute bottom-1/3 right-[5%] w-[30rem] h-[30rem] bg-foreground/2 rounded-full blur-3xl" />
+      </div>
+
+      <div className="container mx-auto px-6 sm:px-12 lg:px-24">
         <div className="max-w-6xl mx-auto">
+          
           {/* Section Header */}
-          <div className="text-center mb-16">
-            <h2 className="text-4xl sm:text-5xl font-bold mb-4">
-              Featured <span className="bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">Projects</span>
-            </h2>
-            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              A selection of my recent work showcasing various technologies and design approaches.
+          <div className="text-center mb-20">
+            <p className="text-xs sm:text-sm font-black tracking-[3px] uppercase text-foreground/50 mb-3">
+              MY CREATIVE VENTURES
             </p>
+            <h2 className="text-4xl sm:text-5xl font-black mb-4 tracking-tight">
+              Featured <span className="bg-gradient-to-r from-foreground via-foreground/70 to-foreground bg-clip-text text-transparent">Projects</span>
+            </h2>
+            <div className="w-16 h-1 bg-foreground mx-auto rounded-[2px] mt-3 opacity-80" />
           </div>
 
           {/* Loading State */}
           {isLoading && (
             <div className="flex justify-center items-center py-20">
-              <Loader2 className="h-12 w-12 animate-spin text-primary" />
+              <Loader2 className="h-12 w-12 animate-spin text-foreground/60" />
             </div>
           )}
 
@@ -92,13 +97,6 @@ const Projects = () => {
             </div>
           )}
         </div>
-        <div className='h-20 w-full flex items-center '>
-          <button className='text-xl font-black leading-tight
-            bg-gradient-to-r from-primary via-accent to-primary
-            bg-clip-text text-transparent
-            bg-[length:200%_auto] ml-20 mt-10
-            animate-gradient' onClick={() => {handleViewProjects()}}>View more ➜</button>
-        </div>
       </div>
     </section>
   );
@@ -108,97 +106,121 @@ const ProjectCard = ({ project, imageUrl }) => {
   const [imageLoaded, setImageLoaded] = useState(false);
   const [imageError, setImageError] = useState(false);
 
-  // Use either backend URL or local import
-  const imageSrc =
-    imageUrl || (typeof project.image === 'string' ? project.image : project.image);
+  const imageSrc = imageUrl || (typeof project.image === 'string' ? project.image : project.image);
 
   return (
-    <Card className="group overflow-hidden hover:shadow-primary transition-all duration-300 hover:shadow-xl hover:-translate-y-1 animate-card-scale">
-      <div className="relative overflow-hidden aspect-video bg-muted">
-        {!imageLoaded && !imageError && (
-          <div className="absolute inset-0 flex items-center justify-center">
-            <Loader2 className="h-8 w-8 animate-spin text-primary" />
-          </div>
-        )}
-        {imageError && (
-          <div className="absolute inset-0 flex items-center justify-center bg-muted">
-            <div className="text-center p-4">
-              <div className="w-16 h-16 mx-auto mb-2 rounded-lg bg-primary/10 flex items-center justify-center">
-                <ExternalLink className="h-8 w-8 text-primary" />
-              </div>
-              <p className="text-sm text-muted-foreground">Image unavailable</p>
+    <Card className="group overflow-hidden border border-border/40 bg-card/45 dark:bg-card/25 backdrop-blur-md hover:border-foreground/25 hover:shadow-2xl hover:shadow-foreground/5 hover:-translate-y-1.5 transition-all duration-300 rounded-[4px] flex flex-col justify-between h-full">
+      <div>
+        {/* Project Thumbnail Image */}
+        <div className="relative overflow-hidden aspect-video bg-muted border-b border-border/40 select-none">
+          {!imageLoaded && !imageError && (
+            <div className="absolute inset-0 flex items-center justify-center">
+              <Loader2 className="h-8 w-8 animate-spin text-foreground/60" />
             </div>
+          )}
+          {imageError && (
+            <div className="absolute inset-0 flex items-center justify-center bg-muted">
+              <div className="text-center p-4">
+                <div className="w-16 h-16 mx-auto mb-2 rounded-[4px] bg-foreground/10 flex items-center justify-center">
+                  <ExternalLink className="h-8 w-8 text-foreground/80" />
+                </div>
+                <p className="text-xs text-foreground/60 font-medium">Image unavailable</p>
+              </div>
+            </div>
+          )}
+          {imageSrc && (
+            <img
+              src={imageSrc}
+              alt={project.title}
+              className={`
+                w-full h-full object-cover transition-transform duration-500
+                ${imageLoaded ? 'opacity-100 scale-100' : 'opacity-0 scale-105'}
+                group-hover:scale-105
+              `}
+              onLoad={() => setImageLoaded(true)}
+              onError={() => {
+                setImageError(true);
+                setImageLoaded(true);
+              }}
+              loading="lazy"
+            />
+          )}
+          <div className="absolute inset-0 bg-gradient-to-t from-background/95 via-background/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+        </div>
+
+        {/* Content */}
+        <CardHeader className="p-6 pb-3">
+          <CardTitle className="text-xl font-bold text-foreground transition-colors duration-200">
+            {project.title}
+          </CardTitle>
+          <CardDescription className="text-foreground/70 text-xs sm:text-sm leading-relaxed mt-2 line-clamp-3 min-h-[3.75rem]">
+            {project.description}
+          </CardDescription>
+        </CardHeader>
+      </div>
+
+      <div>
+        {/* Project tags list */}
+        {project.tags && project.tags.length > 0 && (
+          <div className="px-6 pb-3 flex flex-wrap gap-1.5 select-none">
+            {project.tags.slice(0, 5).map((tag, idx) => (
+              <span 
+                key={idx} 
+                className="px-2 py-0.5 rounded-[3px] bg-foreground/5 dark:bg-card/80 border border-border/60 text-[10px] font-mono font-semibold text-foreground/70"
+              >
+                {tag}
+              </span>
+            ))}
+            {project.tags.length > 5 && (
+              <span className="px-2 py-0.5 rounded-[3px] bg-foreground/5 dark:bg-card/80 border border-border/60 text-[10px] font-mono font-semibold text-foreground/60">
+                +{project.tags.length - 5} more
+              </span>
+            )}
           </div>
         )}
-        {imageSrc && (
-          <img
-            src={imageSrc}
-            alt={project.title}
-            className={`
-              w-full h-full object-cover transition-transform duration-500
-              ${imageLoaded ? 'opacity-100 scale-100' : 'opacity-0 scale-105'}
-              group-hover:scale-110
-            `}
-            onLoad={() => setImageLoaded(true)}
-            onError={() => {
-              setImageError(true);
-              setImageLoaded(true);
-            }}
-            loading="lazy"
-          />
-        )}
-        <div className="absolute inset-0 bg-gradient-to-t from-background/90 via-background/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+
+        {/* Footer Actions */}
+        <CardFooter className="p-6 pt-3 flex gap-3">
+          {project.liveURL && (
+            <a
+              href={project.liveURL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex-1"
+              aria-label={`View ${project.title} live demo`}
+            >
+              <Button
+                variant="default"
+                size="sm"
+                className="w-full text-xs font-bold tracking-wide rounded-[4px] transition-all duration-300 hover:scale-[1.03]"
+              >
+                <ExternalLink className="h-4 w-4 mr-1.5" />
+                Live Demo
+              </Button>
+            </a>
+          )}
+          {project.repoURL && (
+            <a
+              href={project.repoURL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex-1"
+              aria-label={`View ${project.title} source code`}
+            >
+              <Button
+                variant="outline"
+                size="sm"
+                className="w-full text-xs font-bold tracking-wide rounded-[4px] border border-border/70 hover:bg-foreground hover:text-background transition-all duration-300 hover:scale-[1.03]"
+              >
+                <Github className="h-4 w-4 mr-1.5" />
+                Code
+              </Button>
+            </a>
+          )}
+        </CardFooter>
       </div>
-      <CardHeader>
-        <CardTitle className="text-xl group-hover:text-primary transition-colors duration-200">
-          {project.title}
-        </CardTitle>
-        <CardDescription className="line-clamp-2 min-h-[2.5rem]">
-          {project.description}
-        </CardDescription>
-      </CardHeader>
-      <CardFooter className="flex gap-2">
-        {project.liveURL && (
-          <a
-            href={project.liveURL}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex-1"
-            aria-label={`View ${project.title} live demo`}
-          >
-            <Button
-              variant="default"
-              size="sm"
-              className="w-full transition-all duration-200 hover:scale-105"
-            >
-              <ExternalLink className="h-4 w-4 mr-2" />
-              Live Demo
-            </Button>
-          </a>
-        )}
-        {project.repoURL && (
-          <a
-            href={project.repoURL}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex-1"
-            aria-label={`View ${project.title} source code`}
-          >
-            <Button
-              variant="outline"
-              size="sm"
-              className="w-full transition-all duration-200 hover:scale-105"
-            >
-              <Github className="h-4 w-4 mr-2" />
-              Code
-            </Button>
-          </a>
-        )}
-      </CardFooter>
     </Card>
   );
 };
 
-
 export default Projects;
-

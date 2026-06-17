@@ -46,14 +46,14 @@ const Contact = () => {
     {
       name: 'Email',
       icon: Mail,
-      href: 'mailto:shanikumar00321@gmail.com',
-      label: 'shanikumar00321@gmail.com'
+      href: 'mailto:contact@balmikikumar.com',
+      label: 'contact@balmikikumar.com'
     },
     {
       name: 'LinkedIn',
       icon: SiLinkedin,
-      href: 'https://www.linkedin.com/in/shani-kumar-801503348/',
-      label: 'linkedin.com/in/shani-kumar'
+      href: 'https://www.linkedin.com/in/balmiki-kumar',
+      label: 'linkedin.com/in/balmiki-kumar'
     },
     {
       name: 'GitHub',
@@ -166,9 +166,9 @@ const Contact = () => {
                         target="_blank"
                         rel="noopener noreferrer"
                         aria-label={`Visit ${link.name} profile`}
-                        className="flex items-center gap-4 p-4 rounded-lg border-2 border-border hover:border-primary/50 hover:bg-accent/5 transition-all duration-200 hover:scale-[1.02] group focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
+                        className="flex items-center gap-4 p-4 rounded-[4px] border-2 border-border hover:border-primary/50 hover:bg-accent/5 transition-all duration-200 hover:scale-[1.02] group focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
                       >
-                        <div className="flex items-center justify-center w-12 h-12 rounded-full bg-primary/10 group-hover:bg-primary/20 transition-colors">
+                        <div className="flex items-center justify-center w-12 h-12 rounded-[4px] bg-primary/10 group-hover:bg-primary/20 transition-colors">
                           <IconComponent className="h-6 w-6 text-primary" />
                         </div>
                         <div className="flex-1 min-w-0">
