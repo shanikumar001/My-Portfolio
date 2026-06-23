@@ -41,7 +41,7 @@ const DesktopHero = () => {
     <section
       id="hero"
       className="
-        min-h-screen flex flex-col lg:flex-row justify-between items-center
+        min-h-screen flex flex-col lg:flex-row justify-between items-center border
         px-6 sm:px-12 lg:px-24 py-20 lg:py-28
         relative overflow-hidden
         bg-gradient-to-br from-background via-background to-muted/10
@@ -205,27 +205,27 @@ const DesktopHero = () => {
                 <div className="absolute bottom-0 left-0 w-32 h-32 bg-accent/10 rounded-[4px] blur-2xl -z-10" />
 
                 {/* Glowing Photo Frame */}
-                <div className="relative w-44 h-44 sm:w-52 sm:h-52 lg:w-50 lg:h-150 rounded-[4px] p-[2px] bg-gradient-to-tr from-primary to-accent mt-4 shadow-xl">
+                <div className="relative rounded-[full]">
                   {/* <div className="absolute inset-0 rounded-[4px] bg-gradient-to-tr from-primary to-accent animate-spin-slow opacity-75 -z-10 blur-sm" /> */}
-                  <div className="h-full rounded-[4px] bg-card overflow-hidden p-1 flex items-center justify-center">
+                  <div className="h-full rounded-[full] bg-card overflow-hidden p-1 flex items-center justify-center">
                     <img
                       src={frontImage}
                       alt="Balmiki Kumar - Front"
-                      className="h-full object-cover rounded-[4px]"
+                      className="h-[100%] object-cover rounded-[4px]"
                       loading="eager"
                     />
                   </div>
                 </div>
 
                 {/* Mini Identity Details */}
-                <div className="mt-4 mb-2">
+                {/* <div className="absolute border">
                   <h3 className="text-xl sm:text-2xl font-bold text-foreground">Balmiki Kumar</h3>
                   <p className="text-xs text-foreground/75 mt-1 tracking-wider uppercase font-bold">Founder & Full-Stack Engineer</p>
                   <div className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-[4px] bg-emerald-500/10 border border-emerald-500/20 text-[10px] font-bold text-emerald-500 mt-3.5 uppercase tracking-wider animate-pulse">
                     <span className="w-1.5 h-1.5 rounded-[2px] bg-emerald-500" />
                     Available For Work
                   </div>
-                </div>
+                </div> */}
 
                 {/* Prompt to flip */}
                 <span className="text-[10px] text-foreground/60 mb-2 hover:text-primary transition-colors flex items-center gap-1">

@@ -18,8 +18,8 @@ const MyBackground = () => {
   const [clGImage, setClgImage] = useState(clgimages[0]);
 
   return (
-    <div className="hero2 relative select-none">
-      <div className="Background-container relative">
+    <div className="hero2 relative select-none justify-center items-center ">
+      <div className="Background-container relative max-w-[1600px] mx-auto">
         {/* PATH 1 */}
         <div className="absolute inset-0 top-[10px] left-[150px] h-[150px] w-[100px] border-l-2 border-primary bg-gradient-to-r from-primary via-accent to-primary bg-no-repeat bg-bottom bg-[length:100%_2px]"></div>
 
@@ -31,14 +31,14 @@ const MyBackground = () => {
         </div>
 
         {/* PATH 2 */}
-        <div className="absolute inset-0 top-[160px] left-[770px] h-[130px] w-[100px] border-r-2 border-primary bg-gradient-to-r from-primary via-accent to-primary bg-no-repeat bg-top bg-[length:100%_2px]"></div>
+        <div className="absolute inset-0 top-[160px] left-[770px] h-[180px] w-[100px] border-r-2 border-primary bg-gradient-to-r from-primary via-accent to-primary bg-no-repeat bg-top bg-[length:100%_2px]"></div>
 
         {/* CARD 1: Bihar Hometown */}
-        <div className="absolute top-[300px] right-[100px] h-[400px] w-[1200px] flex items-stretch border border-border/40 bg-card/45 dark:bg-card/25 backdrop-blur-md shadow-md hover:shadow-xl hover:shadow-primary/10 hover:border-primary/40 rounded-[4px] overflow-hidden hover:scale-[1.005] transition-all duration-500 ease-out animate-box">
+        <div className="absolute top-[350px] left-[400px] h-[400px] max-w-[1100px] flex items-stretch border border-border/40 bg-card/45 dark:bg-card/25 backdrop-blur-md shadow-md hover:shadow-xl hover:shadow-primary/10 hover:border-primary/40 rounded-[4px] overflow-hidden hover:scale-[1.005] transition-all duration-500 ease-out animate-card-scale">
           <div className="absolute inset-0 opacity-[0.03] dark:opacity-[0.05] pointer-events-none bg-[radial-gradient(ellipse_at_center,#000_1px,transparent_1px)] dark:bg-[radial-gradient(ellipse_at_center,#fff_1px,transparent_1px)] bg-[size:10px_10px]" />
           <div className="w-1/2 h-full p-6 flex items-center justify-center relative group">
             <div className="w-full h-full overflow-hidden border border-border/20 rounded-[4px]">
-              <img src={bigImage} alt="Big Display" className="w-full h-full object-cover filter grayscale contrast-[1.15] hover:grayscale-0 hover:scale-[1.02] transition-all duration-700 ease-in-out" />
+              <img src={bigImage} alt="Big Display" className="w-full h-full object-cover  hover:scale-[1.02] transition-all duration-700 ease-in-out" />
             </div>
           </div>
 
@@ -95,7 +95,7 @@ const MyBackground = () => {
         </div>
 
         {/* PATH 3 */}
-        <div className="absolute inset-0 top-[500px] left-[40px] h-[450px] w-[100px] border-t-2 border-l-2 border-primary bg-gradient-to-r from-primary via-accent to-primary bg-no-repeat bg-bottom bg-[length:100%_2px]"></div>
+        <div className="absolute inset-0 top-[500px] left-[40px] h-[450px] w-[340px] border-t-2 border-l-2 border-primary bg-gradient-to-r from-primary via-accent to-primary bg-no-repeat bg-bottom bg-[length:100%_2px]"></div>
 
         {/* HEADER Capsule 2: Schooling */}
         <div className="absolute top-[900px] left-[150px] h-[100px] w-[600px] flex items-center justify-center border-2 border-dashed border-primary/60 bg-card/30 backdrop-blur-md rounded-[4px] animate-slideS [animation-timeline:view()] [animation-range:entry_0%_cover_60%]">
@@ -160,7 +160,7 @@ const MyBackground = () => {
           </div>
           <div className="w-1/2 h-full p-6 flex items-center justify-center relative group">
             <div className="w-full h-full overflow-hidden border border-border/20 rounded-[4px]">
-              <img src={sutara} alt="sutara school" className="w-full h-full object-cover filter grayscale contrast-[1.15] hover:grayscale-0 hover:scale-102 transition-all duration-700 ease-in-out" />
+              <img src={sutara} alt="sutara school" className="w-full h-full object-cover  hover:scale-102 transition-all duration-700 ease-in-out" />
             </div>
           </div>
         </div>
@@ -221,7 +221,7 @@ const MyBackground = () => {
           </div>
           <div className="w-1/2 h-full p-6 flex items-center justify-center relative group">
             <div className="w-full h-full overflow-hidden border border-border/20 rounded-[4px]">
-              <img src={jai} alt="Jai Mala Siksha Niketan" className="w-full h-full object-cover filter grayscale contrast-[1.15] hover:grayscale-0 hover:scale-102 transition-all duration-700 ease-in-out" />
+              <img src={jai} alt="Jai Mala Siksha Niketan" className="w-full h-full object-cover  hover:scale-102 transition-all duration-700 ease-in-out" />
             </div>
           </div>
         </div>
@@ -230,7 +230,7 @@ const MyBackground = () => {
         <div className="absolute inset-0 top-[1750px] left-[860px] h-[300px] w-[200px] border-r-2 border-primary bg-gradient-to-r from-primary via-accent to-primary bg-no-repeat bg-top bg-[length:100%_2px]"></div>
 
         {/* HEADER Capsule 3: B.Tech */}
-        <div className="absolute top-[2060px] left-[550px] h-[100px] w-[700px] flex items-center justify-center border-2 border-dashed border-primary/60 bg-card/30 backdrop-blur-md rounded-[4px] animate-box">
+        <div className="absolute top-[2060px] left-[550px] h-[100px] w-[750px] flex items-center justify-center border-2 border-dashed border-primary/60 bg-card/30 backdrop-blur-md rounded-[4px] animate-box">
           <h3 className="text-xl font-mono font-black tracking-wider uppercase text-foreground">
             Currently I am doing B.Tech in Computer Science from
           </h3>
@@ -307,7 +307,7 @@ const MyBackground = () => {
           </div>
           <div className="w-1/2 h-full p-6 flex items-center justify-center relative group">
             <div className="w-full h-full overflow-hidden border border-border/20 rounded-[4px]">
-              <img src={clGImage} alt="Assam Down Town University" className="w-full h-full object-cover filter grayscale contrast-[1.15] hover:grayscale-0 hover:scale-102 transition-all duration-700 ease-in-out" />
+              <img src={clGImage} alt="Assam Down Town University" className="w-full h-full object-cover  hover:scale-102 transition-all duration-700 ease-in-out" />
             </div>
           </div>
         </div>

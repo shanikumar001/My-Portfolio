@@ -103,9 +103,9 @@ const Footer = () => {
             <span>© 2026 Balmiki Kumar. All rights reserved.</span>
           </div>
           <div className="flex items-center gap-1.5">
-            <span>Crafted with</span>
-            <Heart className="w-3.5 h-3.5 text-red-500 fill-red-500 animate-pulse" />
-            <span>using React & Tailwind</span>
+            <span>Built By</span>
+            {/* <Heart className="w-3.5 h-3.5 text-red-500 fill-red-500 animate-pulse" /> */}
+            <span>Balmiki Kumar</span>
           </div>
         </div>
 

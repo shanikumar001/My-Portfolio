@@ -49,9 +49,9 @@ const About = () => {
   ];
 
   const stats = [
-    { value: '5+', label: 'Years Coding' },
-    { value: '40+', label: 'Projects Built' },
-    { value: '10+', label: 'Smart Contracts Deployed' },
+    { value: '2+', label: 'Years Coding' },
+    { value: '10+', label: 'Projects Built' },
+    { value: '2+', label: 'Smart Contracts Deployed' },
     { value: 'B.Tech', label: 'CSE ADTU' }
   ];
 
