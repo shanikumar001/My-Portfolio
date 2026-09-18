@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+
+# Host
+Host: https://shanikumar.ziuro.com
+
+# Sitemaps
+Sitemap: https://shanikumar.ziuro.com/sitemap.xml
