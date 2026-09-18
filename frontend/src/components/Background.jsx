@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import "./background.css";
 import bihar from "../assets/images/bihar.jpg";
 import bihar2 from "../assets/images/bihar2.jpg";
@@ -8,7 +8,21 @@ import jai from "../assets/images/jai.jpg";
 import clg from "../assets/images/down.jpg";
 import clg2 from "../assets/images/d.jpg";
 import clg3 from "../assets/images/do.jpg";
-import { GraduationCap, MapPin, Calendar, BookOpen, ArrowRight } from "lucide-react";
+import {
+  GraduationCap,
+  MapPin,
+  Calendar,
+  BookOpen,
+  ArrowRight,
+  ExternalLink,
+  Sparkles,
+  Building2,
+  Compass,
+  CheckCircle2,
+  Navigation as NavigationIcon,
+  Flag,
+  Milestone
+} from "lucide-react";
 
 const MyBackground = () => {
   const stateimages = [bihar, bihar2, bihar3];
@@ -17,302 +31,642 @@ const MyBackground = () => {
   const clgimages = [clg, clg2, clg3];
   const [clGImage, setClgImage] = useState(clgimages[0]);
 
+  // Section reference to compute scroll road progress
+  const sectionRef = useRef(null);
+  const roadTrackRef = useRef(null);
+  const [scrollProgress, setScrollProgress] = useState(0);
+
+  // Track which checkpoint nodes have been activated
+  const [activeNodes, setActiveNodes] = useState({
+    1: false,
+    2: false,
+    3: false,
+    4: false,
+  });
+
+  // Calculate smooth road progression based on viewport scroll
+  useEffect(() => {
+    const handleScroll = () => {
+      if (!sectionRef.current || !roadTrackRef.current) return;
+      const roadRect = roadTrackRef.current.getBoundingClientRect();
+      const windowHeight = window.innerHeight;
+
+      // Traveler leads cursor as it passes through the viewport center
+      const triggerOffset = windowHeight * 0.55;
+      const traveled = triggerOffset - roadRect.top;
+      const totalRoadLength = roadRect.height;
+
+      const progress = Math.min(Math.max(traveled / totalRoadLength, 0), 1);
+      setScrollProgress(progress);
+
+      // Checkpoint trigger milestones along the road
+      setActiveNodes({
+        1: progress >= 0.08,
+        2: progress >= 0.34,
+        3: progress >= 0.62,
+        4: progress >= 0.88,
+      });
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    handleScroll();
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
   return (
-    <div className="hero2 relative select-none justify-center items-center ">
-      <div className="Background-container relative max-w-[1600px] mx-auto">
-        {/* PATH 1 */}
-        <div className="absolute inset-0 top-[10px] left-[150px] h-[150px] w-[100px] border-l-2 border-primary bg-gradient-to-r from-primary via-accent to-primary bg-no-repeat bg-bottom bg-[length:100%_2px]"></div>
+    <section
+      id="journey"
+      ref={sectionRef}
+      className="journey-section py-20 sm:py-28 lg:py-36 relative overflow-hidden bg-background text-foreground select-none"
+    >
+      {/* Background Decorative Ambient Glows */}
+      <div className="absolute inset-0 -z-10 overflow-hidden pointer-events-none">
+        <div className="w-[500px] h-[500px] bg-primary/10 rounded-full blur-[100px] absolute top-[5%] -left-[100px]" />
+        <div className="w-[600px] h-[600px] bg-accent/10 rounded-full blur-[120px] absolute top-[40%] -right-[150px]" />
+        <div className="w-[550px] h-[550px] bg-primary/10 rounded-full blur-[100px] absolute bottom-[5%] left-[20%]" />
+        <div className="absolute inset-0 opacity-[0.03] dark:opacity-[0.05] bg-[radial-gradient(ellipse_at_center,#000_1px,transparent_1px)] dark:bg-[radial-gradient(ellipse_at_center,#fff_1px,transparent_1px)] bg-[size:24px_24px]" />
+      </div>
 
-        {/* HEADER Capsule 1: Bihar Hometown */}
-        <div className="absolute inset-0 top-[100px] left-[260px] h-[100px] w-[500px] flex items-center justify-center text-center border-2 border-dashed border-primary/60 bg-card/30 backdrop-blur-md rounded-[4px] shadow-sm animate-box">
-          <h3 className="text-xl font-mono font-black tracking-wider uppercase text-foreground">
-            I am from Bihar
-          </h3>
+      <div className="container mx-auto px-4 sm:px-6 lg:px-12 max-w-6xl relative">
+        {/* SECTION HEADER */}
+        <div className="text-center mb-20 sm:mb-28">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-[4px] border border-primary/20 bg-primary/5 text-primary text-xs font-mono font-bold tracking-widest uppercase mb-4 shadow-sm">
+            <Compass className="w-3.5 h-3.5 animate-spin-slow" />
+            <span>ROAD OF MILESTONES & HERITAGE</span>
+          </div>
+
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight mb-4">
+            My Roots &{" "}
+            <span className="bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent bg-[length:200%_auto] animate-gradient">
+              Academic Journey
+            </span>
+          </h2>
+
+          <p className="text-muted-foreground text-sm sm:text-base max-w-2xl mx-auto leading-relaxed">
+            Traveling along the road that shaped my foundations, from the cultural heart of Bihar to advanced Computer Science research in Assam.
+          </p>
+          <div className="w-16 h-1 bg-gradient-to-r from-primary to-accent mx-auto rounded-[2px] mt-4 opacity-80" />
         </div>
 
-        {/* PATH 2 */}
-        <div className="absolute inset-0 top-[160px] left-[770px] h-[180px] w-[100px] border-r-2 border-primary bg-gradient-to-r from-primary via-accent to-primary bg-no-repeat bg-top bg-[length:100%_2px]"></div>
+        {/* ==================================================================== */}
+        {/* ROAD TIMELINE HIGHWAY CONTAINER */}
+        {/* ==================================================================== */}
+        <div className="relative">
 
-        {/* CARD 1: Bihar Hometown */}
-        <div className="absolute top-[350px] left-[400px] h-[400px] max-w-[1100px] flex items-stretch border border-border/40 bg-card/45 dark:bg-card/25 backdrop-blur-md shadow-md hover:shadow-xl hover:shadow-primary/10 hover:border-primary/40 rounded-[4px] overflow-hidden hover:scale-[1.005] transition-all duration-500 ease-out animate-card-scale">
-          <div className="absolute inset-0 opacity-[0.03] dark:opacity-[0.05] pointer-events-none bg-[radial-gradient(ellipse_at_center,#000_1px,transparent_1px)] dark:bg-[radial-gradient(ellipse_at_center,#fff_1px,transparent_1px)] bg-[size:10px_10px]" />
-          <div className="w-1/2 h-full p-6 flex items-center justify-center relative group">
-            <div className="w-full h-full overflow-hidden border border-border/20 rounded-[4px]">
-              <img src={bigImage} alt="Big Display" className="w-full h-full object-cover  hover:scale-[1.02] transition-all duration-700 ease-in-out" />
+          {/* DESKTOP CENTER ROAD TRACK */}
+          <div
+            ref={roadTrackRef}
+            className="hidden lg:block journey-road-track left-1/2 -translate-x-1/2"
+          >
+            {/* Center Dashed Highway Line */}
+            <div className="journey-road-divider" />
+            {/* Road Progress Fill */}
+            <div
+              className="journey-road-progress"
+              style={{ height: `${scrollProgress * 100}%` }}
+            />
+          </div>
+
+          {/* MOBILE LEFT ROAD TRACK */}
+          <div className="block lg:hidden journey-road-track left-6 sm:left-8">
+            <div className="journey-road-divider" />
+            <div
+              className="journey-road-progress"
+              style={{ height: `${scrollProgress * 100}%` }}
+            />
+          </div>
+
+          {/* ROAD TRAVELER BEACON (Moves down the road with scroll) */}
+          {/* Desktop Traveler */}
+          <div
+            className="hidden lg:block road-traveler"
+            style={{
+              top: `calc(40px + ${scrollProgress} * (100% - 120px))`,
+            }}
+          >
+            <div className="relative flex items-center justify-center">
+              <div className="traveler-puck">
+                <NavigationIcon className="w-5 h-5 fill-current transform rotate-[135deg]" />
+              </div>
+              <div className="traveler-shockwave" />
             </div>
           </div>
 
-          <div className="w-1/2 h-full p-8 flex flex-col justify-between text-left relative z-10">
-            <div>
-              <div className="flex flex-wrap gap-2 mb-3">
-                <span className="inline-flex items-center gap-1 text-[9px] font-mono font-bold tracking-wider uppercase border border-border bg-muted/30 px-2.5 py-1 rounded-[3px] text-foreground/80">
-                  <MapPin className="w-3 h-3" /> PATNA, BIHAR
-                </span>
-                <span className="inline-flex items-center gap-1 text-[9px] font-mono font-bold tracking-wider uppercase border border-border bg-muted/30 px-2.5 py-1 rounded-[3px] text-foreground/80">
-                  HOMETOWN
-                </span>
+          {/* Mobile Traveler */}
+          <div
+            className="block lg:hidden road-traveler"
+            style={{
+              left: "24px",
+              top: `calc(40px + ${scrollProgress} * (100% - 120px))`,
+            }}
+          >
+            <div className="relative flex items-center justify-center">
+              <div className="traveler-puck w-8 h-8">
+                <NavigationIcon className="w-4 h-4 fill-current transform rotate-[135deg]" />
               </div>
-              <h3 className="text-[22px] font-black leading-tight bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent bg-[length:200%_auto] animate-gradient mb-3">
-                Bihar
-              </h3>
-              <p className="text-xs sm:text-sm text-foreground/75 leading-relaxed max-w-[500px]">
-                A state where history, culture, and nature blend beautifully,
-                Bihar shines with ancient monuments like Nalanda and Bodh Gaya,
-                lush green fields, and the holy Ganga. Its festivals, vibrant
-                traditions, and warm hospitality make it unique. Rich heritage and
-                natural beauty together create Bihar’s timeless charm.
-              </p>
+              <div className="traveler-shockwave" />
             </div>
+          </div>
 
-            <div className="space-y-4">
-              <div className="flex gap-2">
-                {stateimages.map((img, index) => (
-                  <div
-                    key={index}
-                    className={`w-16 h-10 rounded-[4px] overflow-hidden border-2 cursor-pointer transition-all hover:opacity-80 ${
-                      bigImage === img ? "border-primary" : "border-border/60"
-                    }`}
-                    onClick={() => setBigImage(img)}
-                  >
-                    <img src={img} alt={`Thumbnail ${index}`} className="w-full h-full object-cover" />
-                  </div>
-                ))}
+          {/* ================================================================== */}
+          {/* TREE BRANCH ROWS (Alternating Right -> Left -> Right -> Left) */}
+          {/* ================================================================== */}
+          <div className="space-y-24 sm:space-y-32 lg:space-y-40">
+
+            {/* ---------------------------------------------------------------- */}
+            {/* ROW 1: CARD ON RIGHT | SIGNBOARD ON LEFT */}
+            {/* ---------------------------------------------------------------- */}
+            <div className="relative flex flex-col lg:flex-row items-center justify-between min-h-[340px]">
+              {/* Checkpoint Node on Central Road */}
+              <div className="absolute left-6 sm:left-8 lg:left-1/2 -translate-x-1/2 top-4 lg:top-1/2 lg:-translate-y-1/2 z-20">
+                <div className={`checkpoint-node ${activeNodes[1] ? "active" : ""}`}>
+                  <MapPin className={`w-5 h-5 transition-colors ${activeNodes[1] ? "text-primary" : "text-muted-foreground"}`} />
+                </div>
               </div>
 
-              <div>
-                <a
-                  href="https://en.wikipedia.org/wiki/Bihar"
-                  target="_blank"
-                  rel="noreferrer"
-                  className="inline-flex items-center gap-1 text-xs font-bold text-foreground/75 hover:text-foreground border-b border-border/60 hover:border-foreground pb-0.5 transition-all duration-200 group"
+              {/* Branch Connector Line to Right Card (Desktop) */}
+              <div
+                className={`hidden lg:block tree-branch-line left-1/2 w-[42px] ${
+                  activeNodes[1] ? "active" : ""
+                }`}
+              />
+
+              {/* LEFT COLUMN: Milestone Signboard (Desktop) */}
+              <div className="w-full lg:w-[calc(50%-42px)] hidden lg:flex justify-end pr-8">
+                <div
+                  className={`milestone-signboard text-right ${
+                    activeNodes[1] ? "is-revealed" : ""
+                  }`}
                 >
-                  <span>view more</span>
-                  <ArrowRight className="w-3.5 h-3.5 transition-transform group-hover:translate-x-1" />
-                </a>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* PATH 3 */}
-        <div className="absolute inset-0 top-[500px] left-[40px] h-[450px] w-[340px] border-t-2 border-l-2 border-primary bg-gradient-to-r from-primary via-accent to-primary bg-no-repeat bg-bottom bg-[length:100%_2px]"></div>
-
-        {/* HEADER Capsule 2: Schooling */}
-        <div className="absolute top-[900px] left-[150px] h-[100px] w-[600px] flex items-center justify-center border-2 border-dashed border-primary/60 bg-card/30 backdrop-blur-md rounded-[4px] animate-slideS [animation-timeline:view()] [animation-range:entry_0%_cover_60%]">
-          <h3 className="text-xl font-mono font-black tracking-wider uppercase text-foreground">
-            I have completed my schooling from
-          </h3>
-        </div>
-
-        {/* PATH 4 */}
-        <div className="absolute inset-0 top-[950px] left-[750px] h-[100px] w-[100px] border-r-2 border-primary bg-gradient-to-r from-primary via-accent to-primary bg-no-repeat bg-top bg-[length:100%_2px]"></div>
-        
-        {/* CARD 2: Primary School */}
-        <div className="absolute top-[1050px] left-[550px] h-[400px] w-[800px] flex items-stretch border border-border/40 bg-card/45 dark:bg-card/25 backdrop-blur-md shadow-md hover:shadow-xl hover:shadow-primary/10 hover:border-primary/40 rounded-[4px] overflow-hidden hover:scale-[1.005] transition-all duration-500 ease-out animate-box">
-          <div className="absolute inset-0 opacity-[0.03] dark:opacity-[0.05] pointer-events-none bg-[radial-gradient(ellipse_at_center,#000_1px,transparent_1px)] dark:bg-[radial-gradient(ellipse_at_center,#fff_1px,transparent_1px)] bg-[size:10px_10px]" />
-          <div className="w-1/2 h-full p-8 flex flex-col justify-between text-left relative z-10">
-            <div>
-              <div className="flex flex-wrap gap-2 mb-3">
-                <span className="inline-flex items-center gap-1 text-[9px] font-mono font-bold tracking-wider uppercase border border-border bg-muted/30 px-2.5 py-1 rounded-[3px] text-foreground/80">
-                  <Calendar className="w-3 h-3" /> ESTD 1998
-                </span>
-                <span className="inline-flex items-center gap-1 text-[9px] font-mono font-bold tracking-wider uppercase border border-border bg-muted/30 px-2.5 py-1 rounded-[3px] text-foreground/80">
-                  <MapPin className="w-3 h-3" /> PATNA, BIHAR
-                </span>
-                <span className="inline-flex items-center gap-1 text-[9px] font-mono font-bold tracking-wider uppercase border border-border bg-muted/30 px-2.5 py-1 rounded-[3px] text-foreground/80">
-                  <GraduationCap className="w-3 h-3" /> PRIMARY
-                </span>
-              </div>
-              <h3 className="text-[20px] font-black leading-tight bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent bg-[length:200%_auto] animate-gradient mb-2">
-                SUTARA MEHI MISSION SCHOOL
-              </h3>
-              <p className="text-xs text-foreground/75 leading-relaxed mb-4">
-                My primary school is one of the most memorable places of my
-                childhood. It is located in a quiet area surrounded by trees, with
-                a large playground where we used to play every day. The building
-                was simple but colorful, with neatly arranged classrooms, a small
-                library, and a garden full of flowers.
-              </p>
-              
-              <div className="grid grid-cols-2 gap-2 text-[10px] text-foreground/70 mb-2 font-mono">
-                <div className="flex items-center gap-1.5">
-                  <span className="w-1.5 h-1.5 bg-primary rounded-[1px]" />
-                  <span>Creative Arts</span>
-                </div>
-                <div className="flex items-center gap-1.5">
-                  <span className="w-1.5 h-1.5 bg-primary rounded-[1px]" />
-                  <span>Green Playgrounds</span>
-                </div>
-              </div>
-            </div>
-            
-            <div>
-              <a
-                href="https://en.wikipedia.org/wiki/Bihar"
-                target="_blank"
-                rel="noreferrer"
-                className="inline-flex items-center gap-1 text-xs font-bold text-foreground/75 hover:text-foreground border-b border-border/60 hover:border-foreground pb-0.5 transition-all duration-200 group"
-              >
-                <span>view more</span>
-                <ArrowRight className="w-3.5 h-3.5 transition-transform group-hover:translate-x-1" />
-              </a>
-            </div>
-          </div>
-          <div className="w-1/2 h-full p-6 flex items-center justify-center relative group">
-            <div className="w-full h-full overflow-hidden border border-border/20 rounded-[4px]">
-              <img src={sutara} alt="sutara school" className="w-full h-full object-cover  hover:scale-102 transition-all duration-700 ease-in-out" />
-            </div>
-          </div>
-        </div>
-
-        {/* PATH 5 */}
-        <div className="absolute inset-0 top-[1250px] left-[340px] h-[300px] w-[200px] border-l-2 border-primary bg-gradient-to-r from-primary via-accent to-primary bg-no-repeat bg-top bg-[length:100%_2px]"></div>
-        
-        {/* CARD 3: Secondary School */}
-        <div className="absolute top-[1560px] left-[50px] h-[400px] w-[800px] flex items-stretch border border-border/40 bg-card/45 dark:bg-card/25 backdrop-blur-md shadow-md hover:shadow-xl hover:shadow-primary/10 hover:border-primary/40 rounded-[4px] overflow-hidden hover:scale-[1.005] transition-all duration-500 ease-out animate-box">
-          <div className="absolute inset-0 opacity-[0.03] dark:opacity-[0.05] pointer-events-none bg-[radial-gradient(ellipse_at_center,#000_1px,transparent_1px)] dark:bg-[radial-gradient(ellipse_at_center,#fff_1px,transparent_1px)] bg-[size:10px_10px]" />
-          <div className="w-1/2 h-full p-8 flex flex-col justify-between text-left relative z-10">
-            <div>
-              <div className="flex flex-wrap gap-2 mb-3">
-                <span className="inline-flex items-center gap-1 text-[9px] font-mono font-bold tracking-wider uppercase border border-border bg-muted/30 px-2.5 py-1 rounded-[3px] text-foreground/80">
-                  <Calendar className="w-3 h-3" /> ESTD 2005
-                </span>
-                <span className="inline-flex items-center gap-1 text-[9px] font-mono font-bold tracking-wider uppercase border border-border bg-muted/30 px-2.5 py-1 rounded-[3px] text-foreground/80">
-                  <MapPin className="w-3 h-3" /> PATNA, BIHAR
-                </span>
-                <span className="inline-flex items-center gap-1 text-[9px] font-mono font-bold tracking-wider uppercase border border-border bg-muted/30 px-2.5 py-1 rounded-[3px] text-foreground/80">
-                  <GraduationCap className="w-3 h-3" /> HIGH SCHOOL
-                </span>
-              </div>
-              <h3 className="text-[20px] font-black leading-tight bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent bg-[length:200%_auto] animate-gradient mb-2">
-                JAI MALA SIKSHA NIKETAN
-              </h3>
-              <p className="text-xs text-foreground/75 leading-relaxed mb-4">
-                My secondary school holds countless memories. It is located in a
-                peaceful area surrounded by trees, with a large playground where
-                we played every day. The building was simple but colorful, with
-                neatly arranged classrooms, a small library, and a garden full of
-                flowers.
-              </p>
-              
-              <div className="grid grid-cols-2 gap-2 text-[10px] text-foreground/70 mb-2 font-mono">
-                <div className="flex items-center gap-1.5">
-                  <span className="w-1.5 h-1.5 bg-primary rounded-[1px]" />
-                  <span>Academic Base</span>
-                </div>
-                <div className="flex items-center gap-1.5">
-                  <span className="w-1.5 h-1.5 bg-primary rounded-[1px]" />
-                  <span>Science Labs</span>
-                </div>
-              </div>
-            </div>
-            
-            <div>
-              <a
-                href="https://en.wikipedia.org/wiki/Bihar"
-                target="_blank"
-                rel="noreferrer"
-                className="inline-flex items-center gap-1 text-xs font-bold text-foreground/75 hover:text-foreground border-b border-border/60 hover:border-foreground pb-0.5 transition-all duration-200 group"
-              >
-                <span>view more</span>
-                <ArrowRight className="w-3.5 h-3.5 transition-transform group-hover:translate-x-1" />
-              </a>
-            </div>
-          </div>
-          <div className="w-1/2 h-full p-6 flex items-center justify-center relative group">
-            <div className="w-full h-full overflow-hidden border border-border/20 rounded-[4px]">
-              <img src={jai} alt="Jai Mala Siksha Niketan" className="w-full h-full object-cover  hover:scale-102 transition-all duration-700 ease-in-out" />
-            </div>
-          </div>
-        </div>
-
-        {/* PATH 6 */}
-        <div className="absolute inset-0 top-[1750px] left-[860px] h-[300px] w-[200px] border-r-2 border-primary bg-gradient-to-r from-primary via-accent to-primary bg-no-repeat bg-top bg-[length:100%_2px]"></div>
-
-        {/* HEADER Capsule 3: B.Tech */}
-        <div className="absolute top-[2060px] left-[550px] h-[100px] w-[750px] flex items-center justify-center border-2 border-dashed border-primary/60 bg-card/30 backdrop-blur-md rounded-[4px] animate-box">
-          <h3 className="text-xl font-mono font-black tracking-wider uppercase text-foreground">
-            Currently I am doing B.Tech in Computer Science from
-          </h3>
-        </div>
-
-        {/* PATH 7 */}
-        <div className="absolute inset-0 top-[2110px] left-[340px] h-[150px] w-[200px] bg-gradient-to-r from-primary via-accent to-primary bg-no-repeat bg-top bg-[length:100%_2px] border-l-2 border-primary animate-box"></div>
-        
-        {/* CARD 4: University ADTU */}
-        <div className="absolute top-[2270px] left-[50px] h-[450px] w-[1200px] flex items-stretch border border-border/40 bg-card/45 dark:bg-card/25 backdrop-blur-md shadow-md hover:shadow-xl hover:shadow-primary/10 hover:border-primary/40 rounded-[4px] overflow-hidden hover:scale-[1.005] transition-all duration-500 ease-out animate-box">
-          <div className="absolute inset-0 opacity-[0.03] dark:opacity-[0.05] pointer-events-none bg-[radial-gradient(ellipse_at_center,#000_1px,transparent_1px)] dark:bg-[radial-gradient(ellipse_at_center,#fff_1px,transparent_1px)] bg-[size:10px_10px]" />
-          <div className="w-1/2 h-full p-8 flex flex-col justify-between text-left relative z-10">
-            <div>
-              <div className="flex flex-wrap gap-2 mb-3">
-                <span className="inline-flex items-center gap-1 text-[9px] font-mono font-bold tracking-wider uppercase border border-border bg-muted/30 px-2.5 py-1 rounded-[3px] text-foreground/80">
-                  <Calendar className="w-3 h-3" /> 2023 - 2027
-                </span>
-                <span className="inline-flex items-center gap-1 text-[9px] font-mono font-bold tracking-wider uppercase border border-border bg-muted/30 px-2.5 py-1 rounded-[3px] text-foreground/80">
-                  <MapPin className="w-3 h-3" /> GUWAHATI, ASSAM
-                </span>
-                <span className="inline-flex items-center gap-1 text-[9px] font-mono font-bold tracking-wider uppercase border border-border bg-muted/30 px-2.5 py-1 rounded-[3px] text-foreground/80">
-                  <GraduationCap className="w-3 h-3" /> B.TECH CSE
-                </span>
-              </div>
-              <h3 className="text-[22px] font-black leading-tight bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent bg-[length:200%_auto] animate-gradient mb-2">
-                ASSAM DOWN TOWN UNIVERSITY
-              </h3>
-              <p className="text-xs sm:text-sm text-foreground/75 leading-relaxed mb-4">
-                Assam Down Town University (ADTU) was established in 2010 by the
-                Down Town Charity Trust to fill a need for quality private higher
-                education in the Northeast of India. The campus is located at
-                Panikhaiti (Chandrapur), about 12 km from Dispur, Guwahati,
-                overlooking the Brahmaputra River.
-              </p>
-
-              <div className="grid grid-cols-2 gap-2 text-[10px] text-foreground/70 mb-4 font-mono">
-                <div className="flex items-center gap-1.5">
-                  <span className="w-1.5 h-1.5 bg-primary rounded-[1px]" />
-                  <span>Overlooking Brahmaputra</span>
-                </div>
-                <div className="flex items-center gap-1.5">
-                  <span className="w-1.5 h-1.5 bg-primary rounded-[1px]" />
-                  <span>State-of-the-art Labs</span>
-                </div>
-              </div>
-            </div>
-
-            <div className="space-y-4">
-              <div className="flex gap-2">
-                {clgimages.map((img, index) => (
-                  <div
-                    key={index}
-                    className={`w-16 h-10 rounded-[4px] overflow-hidden border-2 cursor-pointer transition-all hover:opacity-80 ${
-                      clGImage === img ? "border-primary" : "border-border/60"
-                    }`}
-                    onClick={() => setClgImage(img)}
-                  >
-                    <img src={img} alt={`Thumbnail ${index}`} className="w-full h-full object-cover" />
+                  <span className="text-[10px] font-mono tracking-[2px] uppercase text-primary font-bold block mb-1">
+                    WAYPOINT 01 // ORIGIN & ROOTS
+                  </span>
+                  <div className="inline-flex items-center gap-2 px-4 py-2 rounded-[4px] border border-primary/40 bg-card/80 dark:bg-card/50 backdrop-blur-md shadow-sm">
+                    <span className="w-2 h-2 rounded-full bg-primary animate-ping" />
+                    <h4 className="text-base font-mono font-black tracking-wider uppercase text-foreground">
+                      I AM FROM BIHAR
+                    </h4>
                   </div>
-                ))}
+                  <p className="text-xs text-muted-foreground mt-2 max-w-[280px] ml-auto font-mono">
+                    Cultural capital, ancient Nalanda, & the Ganges river basin.
+                  </p>
+                </div>
               </div>
-              <div>
-                <a 
-                  href="https://adtu.in/" 
-                  target="_blank" 
-                  rel="noreferrer"
-                  className="inline-flex items-center gap-1 text-xs font-bold text-foreground/75 hover:text-foreground border-b border-border/60 hover:border-foreground pb-0.5 transition-all duration-200 group"
+
+              {/* RIGHT COLUMN: CARD 1 (Bihar) */}
+              <div className="w-full lg:w-[calc(50%-42px)] pl-14 sm:pl-16 lg:pl-8">
+                {/* Mobile Waypoint Title */}
+                <div className="block lg:hidden mb-4">
+                  <span className="text-[10px] font-mono tracking-[2px] uppercase text-primary font-bold block mb-1">
+                    WAYPOINT 01 // ORIGIN
+                  </span>
+                  <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-[4px] border border-primary/40 bg-card/80 backdrop-blur-md">
+                    <span className="w-2 h-2 rounded-full bg-primary" />
+                    <span className="text-xs font-mono font-black tracking-wider uppercase text-foreground">
+                      I AM FROM BIHAR
+                    </span>
+                  </div>
+                </div>
+
+                {/* Card */}
+                <div
+                  className={`tree-card-wrapper from-right ${
+                    activeNodes[1] ? "is-revealed" : ""
+                  } rounded-[4px] border border-border/60 bg-card/75 dark:bg-card/40 backdrop-blur-xl shadow-lg hover:shadow-2xl hover:border-primary/40 transition-all duration-500 overflow-hidden group`}
                 >
-                  <span>view more</span>
-                  <ArrowRight className="w-3.5 h-3.5 transition-transform group-hover:translate-x-1" />
-                </a>
+                  {/* Interactive Big Display Image */}
+                  <div className="relative w-full h-[220px] overflow-hidden border-b border-border/40 group/img">
+                    <img
+                      src={bigImage}
+                      alt="Bihar Heritage"
+                      className="w-full h-full object-cover gallery-display-img group-hover/img:scale-105 transition-transform duration-700 ease-out"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
+                    <div className="absolute bottom-3 left-4 flex items-center gap-2">
+                      <span className="text-[11px] font-mono font-bold text-white bg-black/60 backdrop-blur-md px-2.5 py-1 rounded-[3px] border border-white/10">
+                        Patna & Ganges
+                      </span>
+                    </div>
+                  </div>
+
+                  {/* Card Body */}
+                  <div className="p-6">
+                    <div className="flex flex-wrap items-center gap-2 mb-3">
+                      <span className="inline-flex items-center gap-1.5 text-[10px] font-mono font-bold tracking-wider uppercase border border-border/60 bg-muted/40 px-2 py-0.5 rounded-[3px] text-foreground/85">
+                        <MapPin className="w-3 h-3 text-primary" /> PATNA, BIHAR
+                      </span>
+                      <span className="inline-flex items-center gap-1.5 text-[10px] font-mono font-bold tracking-wider uppercase border border-primary/30 bg-primary/10 px-2 py-0.5 rounded-[3px] text-primary">
+                        <Sparkles className="w-3 h-3" /> HOMETOWN
+                      </span>
+                    </div>
+
+                    <h3 className="text-xl sm:text-2xl font-black tracking-tight mb-2.5 text-foreground">
+                      Bihar
+                    </h3>
+
+                    <p className="text-xs sm:text-sm text-foreground/75 leading-relaxed mb-4">
+                      A state where history, culture, and nature blend beautifully. Bihar shines with ancient monuments like Nalanda and Bodh Gaya, lush green plains, and the sacred Ganga.
+                    </p>
+
+                    {/* Thumbnail Switcher */}
+                    <div className="pt-3 border-t border-border/30 mb-4">
+                      <span className="text-[10px] font-mono uppercase tracking-wider text-muted-foreground block mb-2">
+                        Angles & Heritage Views:
+                      </span>
+                      <div className="flex items-center gap-2">
+                        {stateimages.map((img, index) => (
+                          <button
+                            key={index}
+                            type="button"
+                            onClick={() => setBigImage(img)}
+                            aria-label={`View Bihar photo ${index + 1}`}
+                            className={`relative w-14 h-9 rounded-[3px] overflow-hidden border-2 transition-all cursor-pointer ${
+                              bigImage === img
+                                ? "border-primary ring-2 ring-primary/20 scale-105"
+                                : "border-border/60 opacity-60 hover:opacity-100"
+                            }`}
+                          >
+                            <img src={img} alt="Thumbnail" className="w-full h-full object-cover" />
+                          </button>
+                        ))}
+                      </div>
+                    </div>
+
+                    {/* Footer link */}
+                    <a
+                      href="https://en.wikipedia.org/wiki/Bihar"
+                      target="_blank"
+                      rel="noreferrer"
+                      className="inline-flex items-center gap-1.5 text-xs font-bold text-foreground/80 hover:text-primary transition-colors group/link"
+                    >
+                      <span>Explore Cultural History</span>
+                      <ArrowRight className="w-3.5 h-3.5 transition-transform group-hover/link:translate-x-1" />
+                    </a>
+                  </div>
+                </div>
               </div>
             </div>
-          </div>
-          <div className="w-1/2 h-full p-6 flex items-center justify-center relative group">
-            <div className="w-full h-full overflow-hidden border border-border/20 rounded-[4px]">
-              <img src={clGImage} alt="Assam Down Town University" className="w-full h-full object-cover  hover:scale-102 transition-all duration-700 ease-in-out" />
+
+            {/* ---------------------------------------------------------------- */}
+            {/* ROW 2: CARD ON LEFT | SIGNBOARD ON RIGHT */}
+            {/* ---------------------------------------------------------------- */}
+            <div className="relative flex flex-col lg:flex-row items-center justify-between min-h-[340px]">
+              {/* Checkpoint Node on Central Road */}
+              <div className="absolute left-6 sm:left-8 lg:left-1/2 -translate-x-1/2 top-4 lg:top-1/2 lg:-translate-y-1/2 z-20">
+                <div className={`checkpoint-node ${activeNodes[2] ? "active" : ""}`}>
+                  <BookOpen className={`w-5 h-5 transition-colors ${activeNodes[2] ? "text-primary" : "text-muted-foreground"}`} />
+                </div>
+              </div>
+
+              {/* Branch Connector Line to Left Card (Desktop) */}
+              <div
+                className={`hidden lg:block tree-branch-line to-left right-1/2 w-[42px] ${
+                  activeNodes[2] ? "active" : ""
+                }`}
+              />
+
+              {/* LEFT COLUMN: CARD 2 (Sutara Mehi Mission School) */}
+              <div className="w-full lg:w-[calc(50%-42px)] pl-14 sm:pl-16 lg:pl-0 lg:pr-8 order-2 lg:order-1">
+                {/* Mobile Waypoint Title */}
+                <div className="block lg:hidden mb-4">
+                  <span className="text-[10px] font-mono tracking-[2px] uppercase text-primary font-bold block mb-1">
+                    WAYPOINT 02 // PRIMARY
+                  </span>
+                  <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-[4px] border border-primary/40 bg-card/80 backdrop-blur-md">
+                    <span className="w-2 h-2 rounded-full bg-primary" />
+                    <span className="text-xs font-mono font-black tracking-wider uppercase text-foreground">
+                      I HAVE COMPLETED MY SCHOOLING FROM
+                    </span>
+                  </div>
+                </div>
+
+                {/* Card */}
+                <div
+                  className={`tree-card-wrapper from-left ${
+                    activeNodes[2] ? "is-revealed" : ""
+                  } rounded-[4px] border border-border/60 bg-card/75 dark:bg-card/40 backdrop-blur-xl shadow-lg hover:shadow-2xl hover:border-primary/40 transition-all duration-500 overflow-hidden group`}
+                >
+                  <div className="relative w-full h-[220px] overflow-hidden border-b border-border/40 group/img">
+                    <img
+                      src={sutara}
+                      alt="Sutara Mehi Mission School"
+                      className="w-full h-full object-cover gallery-display-img group-hover/img:scale-105 transition-transform duration-700 ease-out"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
+                    <div className="absolute bottom-3 left-4 flex items-center gap-2">
+                      <span className="text-[11px] font-mono font-bold text-white bg-black/60 backdrop-blur-md px-2.5 py-1 rounded-[3px] border border-white/10">
+                        Primary Campus & Trees
+                      </span>
+                    </div>
+                  </div>
+
+                  <div className="p-6">
+                    <div className="flex flex-wrap items-center gap-2 mb-3">
+                      <span className="inline-flex items-center gap-1.5 text-[10px] font-mono font-bold tracking-wider uppercase border border-border/60 bg-muted/40 px-2 py-0.5 rounded-[3px] text-foreground/85">
+                        <Calendar className="w-3 h-3 text-primary" /> ESTD 1998
+                      </span>
+                      <span className="inline-flex items-center gap-1.5 text-[10px] font-mono font-bold tracking-wider uppercase border border-border/60 bg-muted/40 px-2 py-0.5 rounded-[3px] text-foreground/85">
+                        <MapPin className="w-3 h-3 text-primary" /> PATNA, BIHAR
+                      </span>
+                      <span className="inline-flex items-center gap-1.5 text-[10px] font-mono font-bold tracking-wider uppercase border border-primary/30 bg-primary/10 px-2 py-0.5 rounded-[3px] text-primary">
+                        <BookOpen className="w-3 h-3" /> PRIMARY
+                      </span>
+                    </div>
+
+                    <h3 className="text-xl sm:text-2xl font-black tracking-tight mb-2.5 text-foreground">
+                      SUTARA MEHI MISSION SCHOOL
+                    </h3>
+
+                    <p className="text-xs sm:text-sm text-foreground/75 leading-relaxed mb-4">
+                      My primary school is one of the most memorable milestones of my childhood. Located in a quiet area surrounded by lush greenery, it fostered our curiosity with vibrant classrooms and open playgrounds.
+                    </p>
+
+                    <div className="grid grid-cols-2 gap-2 text-xs font-mono text-foreground/75 pt-3 border-t border-border/30">
+                      <div className="flex items-center gap-1.5">
+                        <span className="w-1.5 h-1.5 bg-primary rounded-[1px]" />
+                        <span>Creative Arts</span>
+                      </div>
+                      <div className="flex items-center gap-1.5">
+                        <span className="w-1.5 h-1.5 bg-primary rounded-[1px]" />
+                        <span>Green Playgrounds</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* RIGHT COLUMN: Milestone Signboard (Desktop) */}
+              <div className="w-full lg:w-[calc(50%-42px)] hidden lg:flex justify-start pl-8 order-1 lg:order-2">
+                <div
+                  className={`milestone-signboard text-left ${
+                    activeNodes[2] ? "is-revealed" : ""
+                  }`}
+                >
+                  <span className="text-[10px] font-mono tracking-[2px] uppercase text-primary font-bold block mb-1">
+                    WAYPOINT 02 // PRIMARY SCHOOLING
+                  </span>
+                  <div className="inline-flex items-center gap-2 px-4 py-2 rounded-[4px] border border-primary/40 bg-card/80 dark:bg-card/50 backdrop-blur-md shadow-sm">
+                    <span className="w-2 h-2 rounded-full bg-primary animate-ping" />
+                    <h4 className="text-base font-mono font-black tracking-wider uppercase text-foreground">
+                      I COMPLETED MY SCHOOLING FROM
+                    </h4>
+                  </div>
+                  <p className="text-xs text-muted-foreground mt-2 max-w-[280px] font-mono">
+                    Foundational discipline, early reading, and creative curiosity.
+                  </p>
+                </div>
+              </div>
             </div>
+
+            {/* ---------------------------------------------------------------- */}
+            {/* ROW 3: CARD ON RIGHT | SIGNBOARD ON LEFT */}
+            {/* ---------------------------------------------------------------- */}
+            <div className="relative flex flex-col lg:flex-row items-center justify-between min-h-[340px]">
+              {/* Checkpoint Node on Central Road */}
+              <div className="absolute left-6 sm:left-8 lg:left-1/2 -translate-x-1/2 top-4 lg:top-1/2 lg:-translate-y-1/2 z-20">
+                <div className={`checkpoint-node ${activeNodes[3] ? "active" : ""}`}>
+                  <Building2 className={`w-5 h-5 transition-colors ${activeNodes[3] ? "text-primary" : "text-muted-foreground"}`} />
+                </div>
+              </div>
+
+              {/* Branch Connector Line to Right Card (Desktop) */}
+              <div
+                className={`hidden lg:block tree-branch-line left-1/2 w-[42px] ${
+                  activeNodes[3] ? "active" : ""
+                }`}
+              />
+
+              {/* LEFT COLUMN: Milestone Signboard (Desktop) */}
+              <div className="w-full lg:w-[calc(50%-42px)] hidden lg:flex justify-end pr-8">
+                <div
+                  className={`milestone-signboard text-right ${
+                    activeNodes[3] ? "is-revealed" : ""
+                  }`}
+                >
+                  <span className="text-[10px] font-mono tracking-[2px] uppercase text-primary font-bold block mb-1">
+                    WAYPOINT 03 // SECONDARY SCHOOL
+                  </span>
+                  <div className="inline-flex items-center gap-2 px-4 py-2 rounded-[4px] border border-primary/40 bg-card/80 dark:bg-card/50 backdrop-blur-md shadow-sm">
+                    <span className="w-2 h-2 rounded-full bg-primary animate-ping" />
+                    <h4 className="text-base font-mono font-black tracking-wider uppercase text-foreground">
+                      SECONDARY EDUCATION
+                    </h4>
+                  </div>
+                  <p className="text-xs text-muted-foreground mt-2 max-w-[280px] ml-auto font-mono">
+                    Science laboratories, mathematics foundations, and high school benchmarks.
+                  </p>
+                </div>
+              </div>
+
+              {/* RIGHT COLUMN: CARD 3 (Jai Mala Siksha Niketan) */}
+              <div className="w-full lg:w-[calc(50%-42px)] pl-14 sm:pl-16 lg:pl-8">
+                {/* Mobile Waypoint Title */}
+                <div className="block lg:hidden mb-4">
+                  <span className="text-[10px] font-mono tracking-[2px] uppercase text-primary font-bold block mb-1">
+                    WAYPOINT 03 // SECONDARY
+                  </span>
+                  <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-[4px] border border-primary/40 bg-card/80 backdrop-blur-md">
+                    <span className="w-2 h-2 rounded-full bg-primary" />
+                    <span className="text-xs font-mono font-black tracking-wider uppercase text-foreground">
+                      SECONDARY EDUCATION
+                    </span>
+                  </div>
+                </div>
+
+                {/* Card */}
+                <div
+                  className={`tree-card-wrapper from-right ${
+                    activeNodes[3] ? "is-revealed" : ""
+                  } rounded-[4px] border border-border/60 bg-card/75 dark:bg-card/40 backdrop-blur-xl shadow-lg hover:shadow-2xl hover:border-primary/40 transition-all duration-500 overflow-hidden group`}
+                >
+                  <div className="relative w-full h-[220px] overflow-hidden border-b border-border/40 group/img">
+                    <img
+                      src={jai}
+                      alt="Jai Mala Siksha Niketan"
+                      className="w-full h-full object-cover gallery-display-img group-hover/img:scale-105 transition-transform duration-700 ease-out"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
+                    <div className="absolute bottom-3 left-4 flex items-center gap-2">
+                      <span className="text-[11px] font-mono font-bold text-white bg-black/60 backdrop-blur-md px-2.5 py-1 rounded-[3px] border border-white/10">
+                        Academic Building
+                      </span>
+                    </div>
+                  </div>
+
+                  <div className="p-6">
+                    <div className="flex flex-wrap items-center gap-2 mb-3">
+                      <span className="inline-flex items-center gap-1.5 text-[10px] font-mono font-bold tracking-wider uppercase border border-border/60 bg-muted/40 px-2 py-0.5 rounded-[3px] text-foreground/85">
+                        <Calendar className="w-3 h-3 text-primary" /> ESTD 2005
+                      </span>
+                      <span className="inline-flex items-center gap-1.5 text-[10px] font-mono font-bold tracking-wider uppercase border border-border/60 bg-muted/40 px-2 py-0.5 rounded-[3px] text-foreground/85">
+                        <MapPin className="w-3 h-3 text-primary" /> PATNA, BIHAR
+                      </span>
+                      <span className="inline-flex items-center gap-1.5 text-[10px] font-mono font-bold tracking-wider uppercase border border-primary/30 bg-primary/10 px-2 py-0.5 rounded-[3px] text-primary">
+                        <GraduationCap className="w-3 h-3" /> HIGH SCHOOL
+                      </span>
+                    </div>
+
+                    <h3 className="text-xl sm:text-2xl font-black tracking-tight mb-2.5 text-foreground">
+                      JAI MALA SIKSHA NIKETAN
+                    </h3>
+
+                    <p className="text-xs sm:text-sm text-foreground/75 leading-relaxed mb-4">
+                      My secondary school held defining formative experiences. With dedicated teachers and rigorous science courses, this is where my passion for science and computing was ignited.
+                    </p>
+
+                    <div className="grid grid-cols-2 gap-2 text-xs font-mono text-foreground/75 pt-3 border-t border-border/30">
+                      <div className="flex items-center gap-1.5">
+                        <span className="w-1.5 h-1.5 bg-primary rounded-[1px]" />
+                        <span>Academic Base</span>
+                      </div>
+                      <div className="flex items-center gap-1.5">
+                        <span className="w-1.5 h-1.5 bg-primary rounded-[1px]" />
+                        <span>Science Labs</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* ---------------------------------------------------------------- */}
+            {/* ROW 4: CARD ON LEFT | SIGNBOARD ON RIGHT */}
+            {/* ---------------------------------------------------------------- */}
+            <div className="relative flex flex-col lg:flex-row items-center justify-between min-h-[340px]">
+              {/* Checkpoint Node on Central Road */}
+              <div className="absolute left-6 sm:left-8 lg:left-1/2 -translate-x-1/2 top-4 lg:top-1/2 lg:-translate-y-1/2 z-20">
+                <div className={`checkpoint-node ${activeNodes[4] ? "active" : ""}`}>
+                  <GraduationCap className={`w-5 h-5 transition-colors ${activeNodes[4] ? "text-primary" : "text-muted-foreground"}`} />
+                </div>
+              </div>
+
+              {/* Branch Connector Line to Left Card (Desktop) */}
+              <div
+                className={`hidden lg:block tree-branch-line to-left right-1/2 w-[42px] ${
+                  activeNodes[4] ? "active" : ""
+                }`}
+              />
+
+              {/* LEFT COLUMN: CARD 4 (Assam Down Town University) */}
+              <div className="w-full lg:w-[calc(50%-42px)] pl-14 sm:pl-16 lg:pl-0 lg:pr-8 order-2 lg:order-1">
+                {/* Mobile Waypoint Title */}
+                <div className="block lg:hidden mb-4">
+                  <span className="text-[10px] font-mono tracking-[2px] uppercase text-primary font-bold block mb-1">
+                    WAYPOINT 04 // CURRENT HIGHER ED
+                  </span>
+                  <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-[4px] border border-primary/50 bg-primary/10 backdrop-blur-md">
+                    <span className="w-2 h-2 rounded-full bg-primary" />
+                    <span className="text-xs font-mono font-black tracking-wider uppercase text-foreground">
+                      B.TECH IN COMPUTER SCIENCE
+                    </span>
+                  </div>
+                </div>
+
+                {/* Card */}
+                <div
+                  className={`tree-card-wrapper from-left ${
+                    activeNodes[4] ? "is-revealed" : ""
+                  } rounded-[4px] border border-border/60 bg-card/75 dark:bg-card/40 backdrop-blur-xl shadow-lg hover:shadow-2xl hover:border-primary/50 transition-all duration-500 overflow-hidden group`}
+                >
+                  <div className="relative w-full h-[220px] overflow-hidden border-b border-border/40 group/img">
+                    <img
+                      src={clGImage}
+                      alt="Assam Down Town University"
+                      className="w-full h-full object-cover gallery-display-img group-hover/img:scale-105 transition-transform duration-700 ease-out"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
+                    <div className="absolute bottom-3 left-4 flex items-center gap-2">
+                      <span className="text-[11px] font-mono font-bold text-white bg-black/60 backdrop-blur-md px-2.5 py-1 rounded-[3px] border border-white/10">
+                        Panikhaiti Campus & Brahmaputra
+                      </span>
+                    </div>
+                  </div>
+
+                  <div className="p-6">
+                    <div className="flex flex-wrap items-center gap-2 mb-3">
+                      <span className="inline-flex items-center gap-1.5 text-[10px] font-mono font-bold tracking-wider uppercase border border-border/60 bg-muted/40 px-2 py-0.5 rounded-[3px] text-foreground/85">
+                        <Calendar className="w-3 h-3 text-primary" /> 2023 - 2027
+                      </span>
+                      <span className="inline-flex items-center gap-1.5 text-[10px] font-mono font-bold tracking-wider uppercase border border-border/60 bg-muted/40 px-2 py-0.5 rounded-[3px] text-foreground/85">
+                        <MapPin className="w-3 h-3 text-primary" /> GUWAHATI, ASSAM
+                      </span>
+                      <span className="inline-flex items-center gap-1.5 text-[10px] font-mono font-bold tracking-wider uppercase border border-primary/30 bg-primary/15 px-2 py-0.5 rounded-[3px] text-primary font-black">
+                        <GraduationCap className="w-3 h-3" /> B.TECH CSE
+                      </span>
+                    </div>
+
+                    <h3 className="text-xl sm:text-2xl font-black tracking-tight mb-2.5 bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent bg-[length:200%_auto] animate-gradient">
+                      ASSAM DOWN TOWN UNIVERSITY
+                    </h3>
+
+                    <p className="text-xs sm:text-sm text-foreground/75 leading-relaxed mb-4">
+                      Assam Down Town University (ADTU) is a premier university in Northeast India, overlooking the Brahmaputra River. It provides state-of-the-art computer laboratories, full-stack engineering research, and cloud infrastructure.
+                    </p>
+
+                    {/* Thumbnail Switcher */}
+                    <div className="pt-3 border-t border-border/30 mb-4">
+                      <span className="text-[10px] font-mono uppercase tracking-wider text-muted-foreground block mb-2">
+                        Campus Angles:
+                      </span>
+                      <div className="flex items-center gap-2">
+                        {clgimages.map((img, index) => (
+                          <button
+                            key={index}
+                            type="button"
+                            onClick={() => setClgImage(img)}
+                            aria-label={`View ADTU campus photo ${index + 1}`}
+                            className={`relative w-14 h-9 rounded-[3px] overflow-hidden border-2 transition-all cursor-pointer ${
+                              clGImage === img
+                                ? "border-primary ring-2 ring-primary/20 scale-105"
+                                : "border-border/60 opacity-60 hover:opacity-100"
+                            }`}
+                          >
+                            <img src={img} alt="Campus angle" className="w-full h-full object-cover" />
+                          </button>
+                        ))}
+                      </div>
+                    </div>
+
+                    <a
+                      href="https://adtu.in/"
+                      target="_blank"
+                      rel="noreferrer"
+                      className="inline-flex items-center gap-1.5 text-xs font-bold text-foreground/80 hover:text-primary transition-colors group/link"
+                    >
+                      <span>Visit Official University Portal</span>
+                      <ExternalLink className="w-3.5 h-3.5 transition-transform group-hover/link:translate-x-0.5 group-hover/link:-translate-y-0.5" />
+                    </a>
+                  </div>
+                </div>
+              </div>
+
+              {/* RIGHT COLUMN: Milestone Signboard (Desktop) */}
+              <div className="w-full lg:w-[calc(50%-42px)] hidden lg:flex justify-start pl-8 order-1 lg:order-2">
+                <div
+                  className={`milestone-signboard text-left ${
+                    activeNodes[4] ? "is-revealed" : ""
+                  }`}
+                >
+                  <span className="text-[10px] font-mono tracking-[2px] uppercase text-primary font-bold block mb-1">
+                    WAYPOINT 04 // HIGHER EDUCATION
+                  </span>
+                  <div className="inline-flex items-center gap-2 px-4 py-2 rounded-[4px] border border-primary/50 bg-primary/10 backdrop-blur-md shadow-sm">
+                    <span className="w-2 h-2 rounded-full bg-primary animate-ping" />
+                    <h4 className="text-base font-mono font-black tracking-wider uppercase text-foreground">
+                      CURRENTLY DOING B.TECH IN CSE
+                    </h4>
+                  </div>
+                  <p className="text-xs text-muted-foreground mt-2 max-w-[280px] font-mono">
+                    Specializing in Software Systems, Cloud Architectures, and Full-Stack Engineering.
+                  </p>
+                </div>
+              </div>
+            </div>
+
           </div>
         </div>
       </div>
-    </div>
+    </section>
   );
 };
 

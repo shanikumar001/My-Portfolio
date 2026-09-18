@@ -10,13 +10,11 @@ import Footer from './components/Footer';
 import ScrollToTop from './components/ScrollToTop';
 import { useInternetIdentity } from './hooks/useInternetIdentity';
 import { useCheckUser } from './hooks/useQueries';
-import { useIsMobile } from './components/frame/MobileFrame';
 import MyBackground from './components/Background';
 
 function App() {
   const { identity, isInitializing } = useInternetIdentity();
   const { mutate: checkUser } = useCheckUser();
-  const isMobile = useIsMobile();
 
   useEffect(() => {
     if (identity && !isInitializing) {
@@ -31,7 +29,7 @@ function App() {
         <Navigation />
         <main className="relative">
           <Hero />
-          {!isMobile? <MyBackground /> : ''}
+          <MyBackground />
           <About />
           <Projects />
           <Contact />
