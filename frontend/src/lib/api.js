@@ -1,6 +1,13 @@
 // API configuration and utility functions for Portfolio
 
-const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:5002/api';
+// Normalizes base API URL ensuring consistent /api endpoint without trailing slashes
+const getApiBaseUrl = () => {
+  let envUrl = (import.meta.env.VITE_API_URL || 'http://localhost:5002/api').trim();
+  envUrl = envUrl.replace(/\/+$/, '');
+  return envUrl.endsWith('/api') ? envUrl : `${envUrl}/api`;
+};
+
+const API_BASE_URL = getApiBaseUrl();
 
 /**
  * Get stored JWT auth token

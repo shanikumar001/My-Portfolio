@@ -14,29 +14,61 @@ const PORT = process.env.PORT || 5002;
 
 // Enable CORS for frontend
 const allowedOrigins = [
-  process.env.FRONTEND_URL || "http://localhost:5173",
+  process.env.FRONTEND_URL,
+  "https://shanikumar.ziuro.com",
   "http://localhost:5173",
   "http://localhost:3000",
   "http://127.0.0.1:5173",
-];
+].filter(Boolean);
 
 app.use(
   cors({
     origin: (origin, callback) => {
       // Allow requests with no origin (e.g. mobile apps, curl, server-to-server)
-      if (!origin || allowedOrigins.includes(origin)) {
+      if (!origin) return callback(null, true);
+      
+      const isAllowed =
+        allowedOrigins.includes(origin) ||
+        origin.endsWith(".vercel.app") ||
+        origin.endsWith(".ziuro.com");
+
+      if (isAllowed || process.env.NODE_ENV !== "production") {
         return callback(null, true);
       }
-      return callback(null, true); // Permissive in development
+      return callback(null, true);
     },
-    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-    allowedHeaders: ["Content-Type", "Authorization"],
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH"],
+    allowedHeaders: ["Content-Type", "Authorization", "X-Requested-With"],
     credentials: true,
   })
 );
 
 app.use(express.json({ limit: "15mb" }));
 app.use(express.urlencoded({ extended: true, limit: "15mb" }));
+
+// Root endpoint for Render & browser validation
+app.get("/", (req, res) => {
+  res.json({
+    status: "ok",
+    service: "Balmiki Kumar (Shani Kumar) Portfolio API",
+    version: "1.0.0",
+    health: "/api/health",
+    timestamp: new Date().toISOString(),
+  });
+});
+
+// Health check endpoints (supports both /health and /api/health)
+app.get("/health", (req, res) => {
+  res.status(200).json({ status: "ok", uptime: process.uptime() });
+});
+
+app.get("/api/health", (req, res) => {
+  res.json({
+    status: "ok",
+    message: "Portfolio API is healthy and connected to MongoDB Atlas & Cloudinary",
+    timestamp: new Date().toISOString(),
+  });
+});
 
 // Mount API Routes
 app.use("/api/projects", projectsRouter);
@@ -47,15 +79,6 @@ app.use("/api/auth", authRouter);
 
 // Backwards compatibility for root /contact endpoint
 app.use("/contact", contactRouter);
-
-// Health check endpoint
-app.get("/api/health", (req, res) => {
-  res.json({
-    status: "ok",
-    message: "Portfolio API is healthy and connected to MongoDB Atlas & Cloudinary",
-    timestamp: new Date().toISOString(),
-  });
-});
 
 // Global Error Handler
 app.use((err, req, res, next) => {
