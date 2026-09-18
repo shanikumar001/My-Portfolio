@@ -1,187 +1,196 @@
-import { useState, useEffect } from 'react';
-import { ArrowDown, Download, ExternalLink } from 'lucide-react'; 
-import { Button } from '@/components/ui/button';
-import { useTheme } from '@/hooks/useTheme';
+import React, { useState, useEffect } from "react";
+import { ArrowDown, Download, ExternalLink, Code2, Link2, Palette, MapPin, Terminal, ArrowRight, Navigation } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { useTheme } from "@/hooks/useTheme";
 import shani from "../assets/shani4.png";
 import shaniBack from "../assets/shani4.png";
 import instagram2 from "../assets/icon/instagram2.png";
 import youtube2 from "../assets/icon/youtube2.png";
 import linkdin2 from "../assets/icon/linkdin2.png";
-import TypingHeading from '../components/ui/headingAnimation';
+import TypingHeading from "../components/ui/headingAnimation";
 
 const MobileHero = ({ scrollToSection }) => {
   const [flipped, setFlipped] = useState(false);
   const { resolvedTheme } = useTheme();
 
-  // Automatically flip card when theme changes
   useEffect(() => {
-    // Flip to back when dark theme, front when light theme
-    setFlipped(resolvedTheme === 'dark');
+    setFlipped(resolvedTheme === "dark");
   }, [resolvedTheme]);
 
   const handleDownloadCV = () => {
-    // In a real implementation, this would download the CV
-    // For now, we'll just show a toast or open a link
-    alert('CV download will be available soon!')
-    window.open('/cv.pdf', '_blank') || alert('CV download will be available soon!');
+    window.open("/cv.pdf", "_blank") || alert("CV download will be available soon!");
   };
 
   const socialLinks = [
-    { icon: youtube2, href: 'https://www.youtube.com/@Coding_with_Shani', label: 'YouTube' },
-    { icon: instagram2, href: 'https://www.instagram.com/sr.coding01/', label: 'Instagram' },
-    { icon: linkdin2, href: 'https://www.linkedin.com/in/balmiki-kumar', label: 'LinkedIn' },
+    { icon: youtube2, href: "https://www.youtube.com/@Coding_with_Shani", label: "YouTube" },
+    { icon: instagram2, href: "https://www.instagram.com/sr.coding01/", label: "Instagram" },
+    { icon: linkdin2, href: "https://www.linkedin.com/in/balmiki-kumar", label: "LinkedIn" },
   ];
 
   return (
     <section
       id="hero"
-      className="min-h-screen flex items-center justify-center relative overflow-hidden pt-16 bg-gradient-to-br from-background via-background to-muted/20"
+      className="min-h-screen flex flex-col items-center justify-center relative overflow-hidden pt-20 pb-16 px-4 bg-gradient-to-br from-background via-background to-muted/20 select-none"
     >
-      {/* Background decorative elements */}
-      <div className="absolute inset-0 -z-10 overflow-hidden">
-        <div className="absolute top-1/4 left-1/4 w-64 h-64 bg-primary/10 rounded-full blur-3xl animate-pulse" />
-        <div className="absolute bottom-1/4 right-1/4 w-64 h-64 bg-accent/10 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }} />
+      {/* Mobile Winding Road SVG */}
+      <div className="absolute inset-0 w-full h-full pointer-events-none z-0 overflow-hidden">
+        <svg
+          className="w-full h-full"
+          viewBox="0 0 400 850"
+          fill="none"
+          preserveAspectRatio="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <defs>
+            <linearGradient id="mobileRoadBeam" x1="0%" y1="0%" x2="0%" y2="100%">
+              <stop offset="0%" stopColor="oklch(var(--primary))" stopOpacity="0" />
+              <stop offset="50%" stopColor="oklch(var(--primary))" stopOpacity="1" />
+              <stop offset="100%" stopColor="oklch(var(--accent))" stopOpacity="0" />
+            </linearGradient>
+          </defs>
+
+          {/* Road ribbon */}
+          <path
+            id="mobileRoadMasterPath"
+            d="M 280,100 C 360,220 340,380 200,480 C 80,580 40,700 24,850"
+            stroke="oklch(var(--border) / 0.4)"
+            strokeWidth="16"
+            strokeLinecap="round"
+          />
+          {/* Inner road */}
+          <path
+            d="M 280,100 C 360,220 340,380 200,480 C 80,580 40,700 24,850"
+            stroke="oklch(var(--card) / 0.6)"
+            strokeWidth="12"
+            strokeLinecap="round"
+          />
+          {/* Dashed center */}
+          <path
+            d="M 280,100 C 360,220 340,380 200,480 C 80,580 40,700 24,850"
+            stroke="oklch(var(--muted-foreground) / 0.4)"
+            strokeWidth="2"
+            strokeDasharray="6 8"
+          />
+          {/* Beam */}
+          <path
+            d="M 280,100 C 360,220 340,380 200,480 C 80,580 40,700 24,850"
+            stroke="url(#mobileRoadBeam)"
+            strokeWidth="3"
+            strokeDasharray="60 300"
+            className="animate-hero-road-flow"
+          />
+        </svg>
       </div>
 
-      <div className="container mx-auto px-4 text-center relative z-10">
-        <div className="space-y-6 sm:space-y-8">
+      <div className="w-full max-w-md mx-auto text-center relative z-10 space-y-6">
+        {/* Status Pill */}
+        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-primary/25 bg-primary/10 backdrop-blur-md shadow-sm">
+          <span className="w-2 h-2 rounded-full bg-emerald-500 animate-ping" />
+          <span className="text-[10px] font-mono font-bold tracking-widest uppercase text-foreground/80">
+            AVAILABLE FOR HIRE
+          </span>
+        </div>
 
-          {/* Profile Image with Flip Card */}
-          <div className="flex flex-col items-center gap-4">
-            {/* Flip Button */}
-            {/* <Button
-              onClick={() => setFlipped(!flipped)}
-              variant="outline"
-              size="sm"
-              className="
-                border-2 border-primary/50
-                transition-all duration-300
-                hover:bg-primary/10 hover:border-primary
-                focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2
-              "
-            >
-              {flipped ? 'Show Front' : 'Flip Card'}
-            </Button> */}
-
-            {/* Flip Card */}
-            <div className="flip-wrapper w-[200px] h-[200px] sm:w-[250px] sm:h-[250px]">
-              <div className={`flip-card ${flipped ? "flipped" : ""}`}>
-                <div className="flip-face front">
-                  <img 
-                    src={shani} 
-                    alt="Balmiki Kumar - Front" 
-                    className="drop-shadow-2xl w-full h-full object-cover"
-                    loading="eager"
+        {/* Profile Card */}
+        <div className="flex justify-center my-2">
+          <div className="p-[2px] bg-gradient-to-r from-primary via-accent to-primary animate-gradient rounded-[6px] shadow-xl">
+            <div className="flip-wrapper w-[210px] h-[260px]">
+              <div
+                className={`flip-card cursor-pointer ${flipped ? "flipped" : ""}`}
+                onClick={() => setFlipped(!flipped)}
+              >
+                <div className="flip-face front p-2 bg-card">
+                  <img
+                    src={shani}
+                    alt="Balmiki Kumar"
+                    className="w-full h-full object-cover object-top rounded-[4px]"
                   />
                 </div>
-                <div className="flip-face back">
-                  <img 
-                    src={shaniBack} 
-                    alt="Balmiki Kumar - Back" 
-                    className="drop-shadow-2xl w-full h-full object-cover"
-                    loading="eager"
-                  />
+                <div className="flip-face back p-4 bg-card text-left flex flex-col justify-between">
+                  <div>
+                    <div className="flex items-center gap-1.5 text-xs font-mono font-bold text-primary mb-2">
+                      <Terminal className="w-3.5 h-3.5" />
+                      <span>Balmiki.sh</span>
+                    </div>
+                    <p className="text-xs font-bold text-foreground">B.Tech CSE Scholar</p>
+                    <p className="text-[10px] text-muted-foreground">ADTU Guwahati (2023-2027)</p>
+                    <p className="text-[10px] text-foreground/80 mt-2">Full-Stack MERN & Systems Builder</p>
+                  </div>
+                  <span className="text-[10px] text-primary font-mono font-bold">Tap to flip back</span>
                 </div>
               </div>
             </div>
           </div>
+        </div>
 
-          {/* Welcome Text */}
-          <p className="text-sm font-semibold tracking-[2px] uppercase text-muted-foreground">
-            WELCOME TO MY WORLD ✨
-          </p>
-
-          {/* Name and Title */}
-          <h1 className="">
-            <span className="bg-gradient-to-r from-primary to-accent bg-clip-text text-3xl sm:text-4xl font-bold text-transparent">
-              Hi,
-            </span>
-            <span className="ml-2 text-2xl sm:text-3xl font-medium text-foreground">
-              I'm <strong className="text-primary">Balmiki Kumar</strong>
+        {/* Name and Title */}
+        <div>
+          <span className="text-xs font-mono tracking-widest uppercase text-muted-foreground block mb-1">
+            WELCOME TO MY PORTFOLIO
+          </span>
+          <h1 className="text-3xl font-black tracking-tight mb-2">
+            Hi, I'm{" "}
+            <span className="bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent bg-[length:200%_auto] animate-gradient">
+              Balmiki Kumar
             </span>
           </h1>
-
-          <TypingHeading />
-
-          {/* Description */}
-          <p className="text-base text-muted-foreground leading-relaxed max-w-md mx-auto mb-6">
-            Building scalable software, developer tools, and modern applications that solve real-world problems. Full-stack development, database engineering, system design, and cloud workflows.
-          </p>
-
-          {/* Buttons */}
-          <div className="flex flex-col gap-4 mb-8">
-            <Button
-              size="lg"
-              onClick={() => scrollToSection("projects")}
-              className="
-                bg-gradient-to-r from-primary to-accent text-primary-foreground
-                font-semibold
-                mx-20
-                shadow-lg shadow-primary/30
-                transition-all duration-300
-                hover:-translate-y-1 hover:shadow-xl hover:shadow-primary/40
-                focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2
-              "
-            >
-              <ExternalLink className="mr-2 h-5 w-5" />
-              My Projects
-            </Button>
-
-            <Button
-              size="lg"
-              variant="outline"
-              onClick={handleDownloadCV}
-              className="
-                border-2 border-primary/50
-                mx-20
-                font-semibold
-                transition-all duration-300
-                hover:bg-gradient-to-r hover:from-primary hover:to-accent hover:text-primary-foreground hover:border-transparent
-                hover:scale-105
-                focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2
-              "
-            >
-              <Download className="mr-2 h-5 w-5" />
-              Download CV
-            </Button>
+          <div className="min-h-[2.8rem] flex items-center justify-center">
+            <TypingHeading />
           </div>
+        </div>
 
-          {/* Social Icons */}
-          <div className="flex gap-4 justify-center mb-6">
-            {socialLinks.map((social, i) => (
-              <a
-                key={i}
-                href={social.href}
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label={social.label}
-                className="
-                  w-12 h-12
-                  flex items-center justify-center
-                  bg-card border-2 border-border
-                  rounded-[4px]
-                  transition-all duration-300
-                  hover:border-primary hover:bg-primary/10
-                  hover:rotate-12 hover:scale-110
-                  focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2
-                  cursor-pointer
-                  group
-                "
-              >
-                <img src={social.icon} alt={social.label} className="w-5 h-5 group-hover:scale-110 transition-transform" />
-              </a>
-            ))}
-          </div>
+        {/* Description */}
+        <p className="text-xs text-muted-foreground leading-relaxed px-2">
+          Building scalable full-stack software, developer tools, and database systems that solve real-world problems.
+        </p>
 
-          {/* Scroll Down Indicator */}
-          <button
-            onClick={() => scrollToSection("about")}
-            className="pt-4 animate-bounce text-muted-foreground hover:text-foreground transition-colors focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 rounded-[4px] p-2"
-            aria-label="Scroll to about section"
+        {/* Action Buttons */}
+        <div className="flex flex-col sm:flex-row gap-3 justify-center px-4">
+          <Button
+            size="default"
+            onClick={() => scrollToSection("projects")}
+            className="w-full bg-gradient-to-r from-primary to-accent text-primary-foreground font-bold text-xs py-5 rounded-[4px] shadow-md"
           >
-            <ArrowDown className="mx-auto h-6 w-6" />
-          </button>
+            <ExternalLink className="mr-2 h-3.5 w-3.5" />
+            My Projects
+          </Button>
 
+          <Button
+            size="default"
+            variant="outline"
+            onClick={handleDownloadCV}
+            className="w-full border-primary/40 font-bold text-xs py-5 rounded-[4px]"
+          >
+            <Download className="mr-2 h-3.5 w-3.5" />
+            Download CV
+          </Button>
+        </div>
+
+        {/* Social Icons */}
+        <div className="flex gap-3 justify-center pt-1">
+          {socialLinks.map((social, i) => (
+            <a
+              key={i}
+              href={social.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label={social.label}
+              className="w-10 h-10 flex items-center justify-center bg-card border border-border/70 rounded-[4px] shadow-sm hover:border-primary"
+            >
+              <img src={social.icon} alt={social.label} className="w-4 h-4" />
+            </a>
+          ))}
+        </div>
+
+        {/* Road Connection Portal */}
+        <div className="pt-4">
+          <button
+            onClick={() => scrollToSection("journey")}
+            className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-primary/40 bg-card/80 backdrop-blur-sm text-[11px] font-mono font-bold tracking-wider uppercase text-foreground"
+          >
+            <Navigation className="w-3 h-3 text-primary animate-bounce" />
+            <span>Follow Road to Roots</span>
+          </button>
         </div>
       </div>
     </section>

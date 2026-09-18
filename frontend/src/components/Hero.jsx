@@ -20,7 +20,7 @@ const Hero = () => {
   return isMobile ? (
     <MobileHero scrollToSection={scrollToSection} />
   ) : (
-    <DesktopHero />
+    <DesktopHero scrollToSection={scrollToSection} />
   );
 };
 

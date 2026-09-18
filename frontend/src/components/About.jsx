@@ -64,8 +64,8 @@ const About = () => {
       </div>
 
       <div className="container mx-auto px-6 sm:px-12 lg:px-24">
-        <div className="max-w-6xl mx-auto">
-          
+        <div className="max-w-8xl mx-auto">
+
           {/* Section Header */}
           <div className="text-center mb-20">
             <p className="text-xs sm:text-sm font-black tracking-[3px] uppercase text-foreground/50 mb-3">
@@ -79,7 +79,7 @@ const About = () => {
 
           {/* Dual-Column Dashboard Grid */}
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start mb-20">
-            
+
             {/* LEFT COLUMN: Biography & Stats */}
             <div className="lg:col-span-7 flex flex-col gap-6">
               {/* Background Bio Card */}
@@ -89,7 +89,7 @@ const About = () => {
                     <GraduationCap className="w-6 h-6 text-foreground/80 animate-pulse" />
                     <h3 className="text-xl sm:text-2xl font-bold text-foreground">Biography & Journey</h3>
                   </div>
-                  
+
                   <p className="text-foreground/75 leading-relaxed mb-4 text-sm sm:text-base">
                     I'm a Computer Science undergraduate at Assam Down Town University with a strong interest in building production-ready software. I enjoy solving engineering problems through scalable backend systems, intuitive user interfaces, and modern cloud technologies.
                   </p>
@@ -102,8 +102,8 @@ const About = () => {
               {/* Stats Dashboard Grid */}
               <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
                 {stats.map((stat, idx) => (
-                  <div 
-                    key={idx} 
+                  <div
+                    key={idx}
                     className="p-5 rounded-[4px] bg-card/45 dark:bg-card/25 border border-border/40 text-center backdrop-blur-sm shadow-sm hover:border-foreground/25 hover:shadow-md transition-all duration-300 hover:-translate-y-0.5"
                   >
                     <span className="block text-2xl sm:text-3xl font-black text-foreground">{stat.value}</span>
@@ -119,7 +119,7 @@ const About = () => {
                   <Box className="w-5 h-5 text-foreground/80" />
                   <span>Technical Stack</span>
                 </h3>
-                
+
                 <div className="flex flex-col gap-6">
                   {skillCategories.map((category, idx) => {
                     const Icon = category.icon;
@@ -129,7 +129,7 @@ const About = () => {
                           <Icon className="w-4 h-4 text-foreground/70" />
                           <span>{category.title}</span>
                         </div>
-                        
+
                         <div className="flex flex-wrap gap-2">
                           {category.skills.map((skill, sIdx) => (
                             <span
@@ -161,13 +161,13 @@ const About = () => {
               <Terminal className="w-4 h-4 text-foreground/60 animate-pulse" />
               <span>Developer Philosophy</span>
             </h3>
-            
+
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
               {highlights.map((highlight, index) => {
                 const IconComponent = highlight.icon;
                 return (
-                  <Card 
-                    key={index} 
+                  <Card
+                    key={index}
                     className="
                       border border-border/40 bg-card/35 dark:bg-card/20 backdrop-blur-sm
                       hover:border-foreground/35 hover:shadow-lg hover:shadow-foreground/5 

@@ -77,7 +77,7 @@ const MyBackground = () => {
     <section
       id="journey"
       ref={sectionRef}
-      className="journey-section py-20 sm:py-28 lg:py-36 relative overflow-hidden bg-background text-foreground select-none"
+      className="journey-section pt-0 pb-24 sm:pb-32 relative overflow-hidden bg-background text-foreground select-none"
     >
       {/* Background Decorative Ambient Glows */}
       <div className="absolute inset-0 -z-10 overflow-hidden pointer-events-none">
@@ -87,27 +87,7 @@ const MyBackground = () => {
         <div className="absolute inset-0 opacity-[0.03] dark:opacity-[0.05] bg-[radial-gradient(ellipse_at_center,#000_1px,transparent_1px)] dark:bg-[radial-gradient(ellipse_at_center,#fff_1px,transparent_1px)] bg-[size:24px_24px]" />
       </div>
 
-      <div className="container mx-auto px-4 sm:px-6 lg:px-12 max-w-6xl relative">
-        {/* SECTION HEADER */}
-        <div className="text-center mb-20 sm:mb-28">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-[4px] border border-primary/20 bg-primary/5 text-primary text-xs font-mono font-bold tracking-widest uppercase mb-4 shadow-sm">
-            <Compass className="w-3.5 h-3.5 animate-spin-slow" />
-            <span>ROAD OF MILESTONES & HERITAGE</span>
-          </div>
-
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight mb-4">
-            My Roots &{" "}
-            <span className="bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent bg-[length:200%_auto] animate-gradient">
-              Academic Journey
-            </span>
-          </h2>
-
-          <p className="text-muted-foreground text-sm sm:text-base max-w-2xl mx-auto leading-relaxed">
-            Traveling along the road that shaped my foundations, from the cultural heart of Bihar to advanced Computer Science research in Assam.
-          </p>
-          <div className="w-16 h-1 bg-gradient-to-r from-primary to-accent mx-auto rounded-[2px] mt-4 opacity-80" />
-        </div>
-
+      <div className="container mx-auto px-4 sm:px-6 lg:px-12 max-w-8xl relative">
         {/* ==================================================================== */}
         {/* ROAD TIMELINE HIGHWAY CONTAINER */}
         {/* ==================================================================== */}
@@ -186,17 +166,15 @@ const MyBackground = () => {
 
               {/* Branch Connector Line to Right Card (Desktop) */}
               <div
-                className={`hidden lg:block tree-branch-line left-1/2 w-[42px] ${
-                  activeNodes[1] ? "active" : ""
-                }`}
+                className={`hidden lg:block tree-branch-line left-1/2 w-[42px] ${activeNodes[1] ? "active" : ""
+                  }`}
               />
 
               {/* LEFT COLUMN: Milestone Signboard (Desktop) */}
               <div className="w-full lg:w-[calc(50%-42px)] hidden lg:flex justify-end pr-8">
                 <div
-                  className={`milestone-signboard text-right ${
-                    activeNodes[1] ? "is-revealed" : ""
-                  }`}
+                  className={`milestone-signboard text-right ${activeNodes[1] ? "is-revealed" : ""
+                    }`}
                 >
                   <span className="text-[10px] font-mono tracking-[2px] uppercase text-primary font-bold block mb-1">
                     WAYPOINT 01 // ORIGIN & ROOTS
@@ -230,9 +208,8 @@ const MyBackground = () => {
 
                 {/* Card */}
                 <div
-                  className={`tree-card-wrapper from-right ${
-                    activeNodes[1] ? "is-revealed" : ""
-                  } rounded-[4px] border border-border/60 bg-card/75 dark:bg-card/40 backdrop-blur-xl shadow-lg hover:shadow-2xl hover:border-primary/40 transition-all duration-500 overflow-hidden group`}
+                  className={`tree-card-wrapper from-right ${activeNodes[1] ? "is-revealed" : ""
+                    } rounded-[4px] border border-border/60 bg-card/75 dark:bg-card/40 backdrop-blur-xl shadow-lg hover:shadow-2xl hover:border-primary/40 transition-all duration-500 overflow-hidden group`}
                 >
                   {/* Interactive Big Display Image */}
                   <div className="relative w-full h-[220px] overflow-hidden border-b border-border/40 group/img">
@@ -280,11 +257,10 @@ const MyBackground = () => {
                             type="button"
                             onClick={() => setBigImage(img)}
                             aria-label={`View Bihar photo ${index + 1}`}
-                            className={`relative w-14 h-9 rounded-[3px] overflow-hidden border-2 transition-all cursor-pointer ${
-                              bigImage === img
-                                ? "border-primary ring-2 ring-primary/20 scale-105"
-                                : "border-border/60 opacity-60 hover:opacity-100"
-                            }`}
+                            className={`relative w-14 h-9 rounded-[3px] overflow-hidden border-2 transition-all cursor-pointer ${bigImage === img
+                              ? "border-primary ring-2 ring-primary/20 scale-105"
+                              : "border-border/60 opacity-60 hover:opacity-100"
+                              }`}
                           >
                             <img src={img} alt="Thumbnail" className="w-full h-full object-cover" />
                           </button>
@@ -320,9 +296,8 @@ const MyBackground = () => {
 
               {/* Branch Connector Line to Left Card (Desktop) */}
               <div
-                className={`hidden lg:block tree-branch-line to-left right-1/2 w-[42px] ${
-                  activeNodes[2] ? "active" : ""
-                }`}
+                className={`hidden lg:block tree-branch-line to-left right-1/2 w-[42px] ${activeNodes[2] ? "active" : ""
+                  }`}
               />
 
               {/* LEFT COLUMN: CARD 2 (Sutara Mehi Mission School) */}
@@ -342,9 +317,8 @@ const MyBackground = () => {
 
                 {/* Card */}
                 <div
-                  className={`tree-card-wrapper from-left ${
-                    activeNodes[2] ? "is-revealed" : ""
-                  } rounded-[4px] border border-border/60 bg-card/75 dark:bg-card/40 backdrop-blur-xl shadow-lg hover:shadow-2xl hover:border-primary/40 transition-all duration-500 overflow-hidden group`}
+                  className={`tree-card-wrapper from-left ${activeNodes[2] ? "is-revealed" : ""
+                    } rounded-[4px] border border-border/60 bg-card/75 dark:bg-card/40 backdrop-blur-xl shadow-lg hover:shadow-2xl hover:border-primary/40 transition-all duration-500 overflow-hidden group`}
                 >
                   <div className="relative w-full h-[220px] overflow-hidden border-b border-border/40 group/img">
                     <img
@@ -398,9 +372,8 @@ const MyBackground = () => {
               {/* RIGHT COLUMN: Milestone Signboard (Desktop) */}
               <div className="w-full lg:w-[calc(50%-42px)] hidden lg:flex justify-start pl-8 order-1 lg:order-2">
                 <div
-                  className={`milestone-signboard text-left ${
-                    activeNodes[2] ? "is-revealed" : ""
-                  }`}
+                  className={`milestone-signboard text-left ${activeNodes[2] ? "is-revealed" : ""
+                    }`}
                 >
                   <span className="text-[10px] font-mono tracking-[2px] uppercase text-primary font-bold block mb-1">
                     WAYPOINT 02 // PRIMARY SCHOOLING
@@ -431,17 +404,15 @@ const MyBackground = () => {
 
               {/* Branch Connector Line to Right Card (Desktop) */}
               <div
-                className={`hidden lg:block tree-branch-line left-1/2 w-[42px] ${
-                  activeNodes[3] ? "active" : ""
-                }`}
+                className={`hidden lg:block tree-branch-line left-1/2 w-[42px] ${activeNodes[3] ? "active" : ""
+                  }`}
               />
 
               {/* LEFT COLUMN: Milestone Signboard (Desktop) */}
               <div className="w-full lg:w-[calc(50%-42px)] hidden lg:flex justify-end pr-8">
                 <div
-                  className={`milestone-signboard text-right ${
-                    activeNodes[3] ? "is-revealed" : ""
-                  }`}
+                  className={`milestone-signboard text-right ${activeNodes[3] ? "is-revealed" : ""
+                    }`}
                 >
                   <span className="text-[10px] font-mono tracking-[2px] uppercase text-primary font-bold block mb-1">
                     WAYPOINT 03 // SECONDARY SCHOOL
@@ -475,9 +446,8 @@ const MyBackground = () => {
 
                 {/* Card */}
                 <div
-                  className={`tree-card-wrapper from-right ${
-                    activeNodes[3] ? "is-revealed" : ""
-                  } rounded-[4px] border border-border/60 bg-card/75 dark:bg-card/40 backdrop-blur-xl shadow-lg hover:shadow-2xl hover:border-primary/40 transition-all duration-500 overflow-hidden group`}
+                  className={`tree-card-wrapper from-right ${activeNodes[3] ? "is-revealed" : ""
+                    } rounded-[4px] border border-border/60 bg-card/75 dark:bg-card/40 backdrop-blur-xl shadow-lg hover:shadow-2xl hover:border-primary/40 transition-all duration-500 overflow-hidden group`}
                 >
                   <div className="relative w-full h-[220px] overflow-hidden border-b border-border/40 group/img">
                     <img
@@ -542,9 +512,8 @@ const MyBackground = () => {
 
               {/* Branch Connector Line to Left Card (Desktop) */}
               <div
-                className={`hidden lg:block tree-branch-line to-left right-1/2 w-[42px] ${
-                  activeNodes[4] ? "active" : ""
-                }`}
+                className={`hidden lg:block tree-branch-line to-left right-1/2 w-[42px] ${activeNodes[4] ? "active" : ""
+                  }`}
               />
 
               {/* LEFT COLUMN: CARD 4 (Assam Down Town University) */}
@@ -564,9 +533,8 @@ const MyBackground = () => {
 
                 {/* Card */}
                 <div
-                  className={`tree-card-wrapper from-left ${
-                    activeNodes[4] ? "is-revealed" : ""
-                  } rounded-[4px] border border-border/60 bg-card/75 dark:bg-card/40 backdrop-blur-xl shadow-lg hover:shadow-2xl hover:border-primary/50 transition-all duration-500 overflow-hidden group`}
+                  className={`tree-card-wrapper from-left ${activeNodes[4] ? "is-revealed" : ""
+                    } rounded-[4px] border border-border/60 bg-card/75 dark:bg-card/40 backdrop-blur-xl shadow-lg hover:shadow-2xl hover:border-primary/50 transition-all duration-500 overflow-hidden group`}
                 >
                   <div className="relative w-full h-[220px] overflow-hidden border-b border-border/40 group/img">
                     <img
@@ -615,11 +583,10 @@ const MyBackground = () => {
                             type="button"
                             onClick={() => setClgImage(img)}
                             aria-label={`View ADTU campus photo ${index + 1}`}
-                            className={`relative w-14 h-9 rounded-[3px] overflow-hidden border-2 transition-all cursor-pointer ${
-                              clGImage === img
-                                ? "border-primary ring-2 ring-primary/20 scale-105"
-                                : "border-border/60 opacity-60 hover:opacity-100"
-                            }`}
+                            className={`relative w-14 h-9 rounded-[3px] overflow-hidden border-2 transition-all cursor-pointer ${clGImage === img
+                              ? "border-primary ring-2 ring-primary/20 scale-105"
+                              : "border-border/60 opacity-60 hover:opacity-100"
+                              }`}
                           >
                             <img src={img} alt="Campus angle" className="w-full h-full object-cover" />
                           </button>
@@ -643,9 +610,8 @@ const MyBackground = () => {
               {/* RIGHT COLUMN: Milestone Signboard (Desktop) */}
               <div className="w-full lg:w-[calc(50%-42px)] hidden lg:flex justify-start pl-8 order-1 lg:order-2">
                 <div
-                  className={`milestone-signboard text-left ${
-                    activeNodes[4] ? "is-revealed" : ""
-                  }`}
+                  className={`milestone-signboard text-left ${activeNodes[4] ? "is-revealed" : ""
+                    }`}
                 >
                   <span className="text-[10px] font-mono tracking-[2px] uppercase text-primary font-bold block mb-1">
                     WAYPOINT 04 // HIGHER EDUCATION

@@ -1,25 +1,40 @@
+import React, { useState, useEffect } from "react";
 import frontImage from "../assets/shani4.png";
 import backImage from "../assets/shani4.png";
 import instagram2 from "../assets/icon/instagram2.png";
 import youtube2 from "../assets/icon/youtube2.png";
 import linkdin2 from "../assets/icon/linkdin2.png";
-import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
-import { Download, ExternalLink, Code2, Link2, Database, Palette, Shield, Terminal, ArrowRight } from "lucide-react";
-import { useTheme } from '@/hooks/useTheme';
+import {
+  Download,
+  ExternalLink,
+  Code2,
+  Link2,
+  Database,
+  Palette,
+  Terminal,
+  ArrowRight,
+  ArrowDown,
+  Navigation,
+  MapPin,
+  Sparkles
+} from "lucide-react";
+import { useTheme } from "@/hooks/useTheme";
 import TypingHeading from "../components/ui/headingAnimation";
 
-const DesktopHero = () => {
+const DesktopHero = ({ scrollToSection: externalScrollToSection }) => {
   const [flipped, setFlipped] = useState(false);
   const { resolvedTheme } = useTheme();
 
-  // Automatically flip card when theme changes
   useEffect(() => {
-    // Flip to back when dark theme, front when light theme
-    setFlipped(resolvedTheme === 'dark');
+    setFlipped(resolvedTheme === "dark");
   }, [resolvedTheme]);
 
   const scrollToSection = (id) => {
+    if (externalScrollToSection) {
+      externalScrollToSection(id);
+      return;
+    }
     const element = document.getElementById(id);
     if (element) {
       element.scrollIntoView({ behavior: "smooth", block: "start" });
@@ -27,277 +42,358 @@ const DesktopHero = () => {
   };
 
   const handleDownloadCV = () => {
-    alert('CV download will be available soon!');
-    window.open('/cv.pdf', '_blank') || alert('CV download will be available soon!');
+    window.open("/cv.pdf", "_blank") || alert("CV download will be available soon!");
   };
 
   const socialLinks = [
-    { icon: youtube2, href: 'https://www.youtube.com/@Coding_with_Shani', label: 'YouTube' },
-    { icon: instagram2, href: 'https://www.instagram.com/sr.coding01/', label: 'Instagram' },
-    { icon: linkdin2, href: 'https://www.linkedin.com/in/balmiki-kumar', label: 'LinkedIn' },
+    { icon: youtube2, href: "https://www.youtube.com/@Coding_with_Shani", label: "YouTube" },
+    { icon: instagram2, href: "https://www.instagram.com/sr.coding01/", label: "Instagram" },
+    { icon: linkdin2, href: "https://www.linkedin.com/in/balmiki-kumar", label: "LinkedIn" },
   ];
 
   return (
     <section
       id="hero"
-      className="
-        min-h-screen flex flex-col lg:flex-row justify-between items-center border
-        px-6 sm:px-12 lg:px-24 py-20 lg:py-28
-        relative overflow-hidden
-        bg-gradient-to-br from-background via-background to-muted/10
-        gap-12 lg:gap-8
-      "
+      className="flex justify-center items-center bg-gradient-to-br from-background via-background to-muted/10 pt-20 pb-0 select-none overflow-hidden min-h-[90vh] max-w-8xl"
     >
-      {/* Background decorative elements */}
-      <div className="absolute inset-0 -z-10 overflow-hidden">
-        {/* Animated Orbs */}
-        <div className="absolute top-[10%] left-[5%] w-[30rem] h-[30rem] bg-primary/8 rounded-full blur-3xl animate-pulse duration-7000" />
-        <div className="absolute bottom-[10%] right-[5%] w-[35rem] h-[35rem] bg-accent/8 rounded-full blur-3xl animate-pulse duration-10000" style={{ animationDelay: '2s' }} />
-        <div className="absolute top-[40%] right-[30%] w-[20rem] h-[20rem] bg-primary/5 rounded-full blur-3xl animate-pulse duration-5000" style={{ animationDelay: '4s' }} />
-
-        {/* Subtle grid pattern overlay */}
-        <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.02)_1px,transparent_1px)] dark:bg-[linear-gradient(to_right,rgba(255,255,255,0.01)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.01)_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_50%,#000_70%,transparent_100%)]" />
+      {/* Ambient background glows */}
+      <div className="absolute inset-0 pointer-events-none z-0 overflow-hidden">
+        <div className="absolute top-[10%] left-[8%] w-[28rem] h-[28rem] bg-primary/8 rounded-full blur-3xl" />
+        <div className="absolute bottom-[10%] right-[10%] w-[32rem] h-[32rem] bg-accent/8 rounded-full blur-3xl" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,#000_1px,transparent_1px)] dark:bg-[radial-gradient(ellipse_at_center,#fff_1px,transparent_1px)] opacity-[0.025] dark:opacity-[0.04] bg-[size:28px_28px]" />
       </div>
 
-      {/* TEXT SECTION */}
-      <section className="w-full lg:max-w-[50%] z-10 text-center lg:text-left flex flex-col justify-center items-center lg:items-start">
-        {/* Welcome Tag */}
-        <p className="opacity-0 animate-fade-up stagger-1 text-xs sm:text-sm font-black tracking-[3px] uppercase text-primary mb-4 bg-primary/10 px-4 py-2 rounded-[4px] border border-primary/20 inline-block w-fit">
-          WELCOME TO MY WORLD
-        </p>
+      {/* ==================================================================== */}
+      {/* MAIN CONTAINER: Locks both content and road SVG to same width        */}
+      {/* ==================================================================== */}
+      <div className="container mx-auto px-6 sm:px-8 lg:px-12 relative z-10 w-full mt-10">
 
-        {/* Title */}
-        <h1 className="mb-4 opacity-0 animate-fade-up stagger-2 flex flex-col gap-1 sm:gap-2">
-          <span className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-muted-foreground">
-            Hi, I'm
-          </span>
-          <span className="text-5xl sm:text-6xl lg:text-[4.8rem] font-black tracking-tight leading-none bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent bg-[length:200%_auto] animate-gradient">
-            Balmiki Kumar
-          </span>
-        </h1>
+        {/* ------------------------------------------------------------------ */}
+        {/* WINDING HIGHWAY ROAD (Curves from profile into bottom center)       */}
+        {/* ------------------------------------------------------------------ */}
 
-        {/* Subtitle / Typing animation */}
-        <div className="opacity-0 animate-fade-up stagger-3 mb-6 min-h-[3.5rem] flex items-center">
-          <TypingHeading />
-        </div>
+        {
+          // {
+          //           <div className="hidden lg:block absolute inset-0 w-full h-full pointer-events-none z-0">
+          //   <svg
+          //     className="w-full h-full"
+          //     viewBox="0 0 1000 520"
+          //     fill="none"
+          //     preserveAspectRatio="none"
+          //     xmlns="http://www.w3.org/2000/svg"
+          //   >
+          //     <defs>
+          //       <linearGradient id="heroRoadBeam" x1="0%" y1="0%" x2="100%" y2="100%">
+          //         <stop offset="0%" stopColor="oklch(var(--primary))" stopOpacity="0" />
+          //         <stop offset="50%" stopColor="oklch(var(--primary))" stopOpacity="1" />
+          //         <stop offset="100%" stopColor="oklch(var(--accent))" stopOpacity="0" />
+          //       </linearGradient>
+          //     </defs>
 
-        {/* Description */}
-        <p className="opacity-0 animate-fade-up stagger-4 text-base sm:text-lg text-muted-foreground leading-relaxed max-w-[560px] mb-10 text-center lg:text-left">
-          Building scalable software, developer tools, and modern applications that solve real-world problems. Full-stack development, database engineering, system design, and cloud workflows.
-        </p>
+          //     {/* Road Outer Highway Ribbon */}
+          //     <path
+          //       id="desktopHeroRoadPath"
+          //       d="M 800,80 C 900,180 860,320 720,380 C 600,430 500,450 500,520"
+          //       stroke="oklch(var(--border) / 0.45)"
+          //       strokeWidth="16"
+          //       strokeLinecap="round"
+          //     />
 
-        {/* BUTTONS */}
-        <div className="opacity-0 animate-fade-up [animation-delay:0.5s] [animation-fill-mode:forwards] flex flex-wrap gap-4 mb-10 justify-center lg:justify-start">
-          <Button
-            onClick={() => scrollToSection("projects")}
-            size="lg"
-            className="
-              relative overflow-hidden group
-              bg-gradient-to-r from-primary to-accent text-primary-foreground
-              font-bold tracking-wide
-              px-8 py-6
-              rounded-[4px]
-              shadow-lg shadow-primary/25
-              transition-all duration-300
-              hover:-translate-y-1 hover:shadow-xl hover:shadow-primary/35
-              active:translate-y-0
-              focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2
-            "
-          >
-            {/* Shine Sweep Effect */}
-            <span className="absolute inset-0 w-full h-full bg-gradient-to-r from-white/0 via-white/20 to-white/0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 ease-out" />
-            <ExternalLink className="mr-2 h-5 w-5 group-hover:scale-110 transition-transform duration-300" />
-            My Projects
-          </Button>
+          //     {/* Inner Asphalt Road */}
+          //     <path
+          //       d="M 800,80 C 900,180 860,320 720,380 C 600,430 500,450 500,520"
+          //       stroke="oklch(var(--card) / 0.65)"
+          //       strokeWidth="12"
+          //       strokeLinecap="round"
+          //     />
 
-          <Button
-            onClick={handleDownloadCV}
-            size="lg"
-            variant="outline"
-            className="
-              border-2 border-primary/30 dark:border-primary/40 bg-transparent
-              font-bold tracking-wide
-              px-8 py-6
-              rounded-[4px]
-              transition-all duration-300
-              hover:bg-primary hover:text-primary-foreground hover:border-primary
-              hover:-translate-y-1 hover:shadow-lg hover:shadow-primary/15
-              active:translate-y-0
-              group
-            "
-          >
-            <Download className="mr-2 h-5 w-5 group-hover:translate-y-0.5 transition-transform duration-300" />
-            Download CV
-          </Button>
-        </div>
+          //     {/* Center Dashed Lane Marker */}
+          //     <path
+          //       d="M 800,80 C 900,180 860,320 720,380 C 600,430 500,450 500,520"
+          //       stroke="oklch(var(--muted-foreground) / 0.45)"
+          //       strokeWidth="1.5"
+          //       strokeDasharray="6 8"
+          //       strokeLinecap="round"
+          //     />
 
-        {/* SOCIAL ICONS */}
-        <div className="opacity-0 animate-fade-up [animation-delay:0.6s] [animation-fill-mode:forwards] flex gap-4 justify-center lg:justify-start">
-          {socialLinks.map((social, i) => {
-            let hoverGlow = "hover:shadow-foreground/10 dark:hover:shadow-foreground/20 hover:border-foreground hover:bg-foreground/5 hover:text-foreground";
+          //     {/* Luminous Animated Beam */}
+          //     <path
+          //       d="M 800,80 C 900,180 860,320 720,380 C 600,430 500,450 500,520"
+          //       stroke="url(#heroRoadBeam)"
+          //       strokeWidth="3"
+          //       strokeDasharray="70 280"
+          //       className="animate-hero-road-flow"
+          //     />
 
-            return (
-              <a
-                key={i}
-                href={social.href}
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label={social.label}
-                className={`
-                  w-12 h-12
-                  flex items-center justify-center
-                  bg-background/80 dark:bg-card/85 backdrop-blur-sm
-                  border border-border/80
+          //     {/* TRAVELER VEHICLE (Smoothly drives along curve to bottom center) */}
+          //     <g className="hero-traveler-vehicle">
+          //       <animateMotion dur="5.5s" repeatCount="indefinite" rotate="auto">
+          //         <mpath href="#desktopHeroRoadPath" />
+          //       </animateMotion>
+          //       <circle r="12" fill="oklch(var(--primary) / 0.25)" />
+          //       <circle r="7.5" fill="oklch(var(--primary))" stroke="oklch(var(--card))" strokeWidth="2" />
+          //       <polygon points="-2.5,-2.5 4,0 -2.5,2.5" fill="oklch(var(--primary-foreground))" />
+          //     </g>
+          //   </svg>
+          // </div>
+          // }
+        }
+
+        {/* ------------------------------------------------------------------ */}
+        {/* TWO-COLUMN BALANCED CONTENT GRID                                    */}
+        {/* ------------------------------------------------------------------ */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center relative z-10 py-6">
+
+          {/* LEFT COLUMN: HERO TEXT & ACTIONS */}
+          <div className="lg:col-span-7 flex flex-col justify-center items-center lg:items-start text-center lg:text-left">
+            {/* Live Status Pill */}
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-primary/20 bg-primary/5 dark:bg-primary/10 backdrop-blur-md mb-5 shadow-sm">
+              <span className="relative flex h-2 w-2">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+              </span>
+              <span className="text-[11px] font-mono font-bold tracking-widest uppercase text-foreground/85">
+                AVAILABLE FOR HIRE & FULL-STACK PROJECTS
+              </span>
+            </div>
+
+            {/* Name & Title */}
+            <h1 className="mb-3.5 flex flex-col gap-1">
+              <span className="text-2xl sm:text-3xl font-extrabold tracking-tight text-muted-foreground">
+                Hi, I'm
+              </span>
+              <span className="text-4xl sm:text-5xl lg:text-6xl font-black tracking-tight leading-none bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent bg-[length:200%_auto] animate-gradient">
+                Balmiki Kumar
+              </span>
+            </h1>
+
+            {/* Typing Heading / Role */}
+            <div className="mb-5 min-h-[3rem] flex items-center justify-center lg:justify-start">
+              <TypingHeading />
+            </div>
+
+            {/* Narrative Description */}
+            <p className="text-sm sm:text-base text-muted-foreground leading-relaxed max-w-lg mb-6">
+              Building scalable software, developer productivity tools, and distributed database systems that solve real-world problems. Focused on robust full-stack architecture and clean system design.
+            </p>
+
+            {/* Tech Chips */}
+            <div className="flex flex-wrap gap-2 justify-center lg:justify-start mb-7 text-xs font-mono">
+              <span className="px-2.5 py-1 rounded-[3px] bg-card/70 border border-border/60 text-foreground/85">React & Next.js</span>
+              <span className="px-2.5 py-1 rounded-[3px] bg-card/70 border border-border/60 text-foreground/85">Node & Express</span>
+              <span className="px-2.5 py-1 rounded-[3px] bg-card/70 border border-border/60 text-foreground/85">MongoDB & SQL</span>
+              <span className="px-2.5 py-1 rounded-[3px] bg-card/70 border border-border/60 text-foreground/85">Web3 & Solidity</span>
+              <span className="px-2.5 py-1 rounded-[3px] bg-primary/10 border border-primary/30 text-primary font-bold">ZiuroDB</span>
+            </div>
+
+            {/* Action Buttons */}
+            <div className="flex flex-wrap gap-3.5 mb-7 justify-center lg:justify-start">
+              <Button
+                onClick={() => scrollToSection("projects")}
+                size="lg"
+                className="
+                  relative overflow-hidden group
+                  bg-gradient-to-r from-primary to-accent text-primary-foreground
+                  font-bold tracking-wide
+                  px-7 py-6
                   rounded-[4px]
-                  shadow-md
+                  shadow-lg shadow-primary/20
                   transition-all duration-300
-                  hover:rotate-6 hover:scale-110 hover:shadow-lg
-                  ${hoverGlow}
-                  focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2
-                  cursor-pointer
-                  group
-                `}
+                  hover:-translate-y-0.5 hover:shadow-xl hover:shadow-primary/30
+                "
               >
-                <img
-                  src={social.icon}
-                  alt={social.label}
-                  className="w-5 h-5 group-hover:scale-115 transition-transform duration-300 ease-out"
-                />
-              </a>
-            );
-          })}
-        </div>
-      </section>
+                <span className="absolute inset-0 w-full h-full bg-gradient-to-r from-white/0 via-white/20 to-white/0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 ease-out" />
+                <ExternalLink className="mr-2 h-4 w-4 group-hover:scale-110 transition-transform" />
+                View Projects
+              </Button>
 
-      {/* IMAGE SECTION */}
-      <section className="w-full lg:max-w-[45%] max-w-[480px] h-[450px] sm:h-[500px] lg:h-[550px] flex flex-col justify-center items-center animate-fade-right relative z-10">
+              <Button
+                onClick={handleDownloadCV}
+                size="lg"
+                variant="outline"
+                className="
+                  border-2 border-primary/30 dark:border-primary/40 bg-card/50 backdrop-blur-sm
+                  font-bold tracking-wide
+                  px-7 py-6
+                  rounded-[4px]
+                  transition-all duration-300
+                  hover:bg-primary hover:text-primary-foreground hover:border-primary
+                  hover:-translate-y-0.5 hover:shadow-md
+                "
+              >
+                <Download className="mr-2 h-4 w-4 group-hover:translate-y-0.5 transition-transform" />
+                Download CV
+              </Button>
 
-        {/* Floating Tech Badges */}
-        <div className="absolute top-[10%] -left-8 z-20 bg-background/80 dark:bg-card/85 backdrop-blur-md border border-border/50 px-4 py-2.5 rounded-[4px] shadow-lg flex items-center gap-2 animate-float-1 hover:scale-105 transition-transform duration-300 select-none">
-          <div className="w-2 h-2 rounded-[2px] bg-foreground animate-ping" />
-          <Code2 className="w-4 h-4 text-foreground" />
-          <span className="text-xs font-semibold tracking-wide">MERN Stack Developer</span>
-        </div>
+              <Button
+                onClick={() => scrollToSection("journey")}
+                size="lg"
+                variant="ghost"
+                className="
+                  border border-border/60 bg-card/40 backdrop-blur-sm
+                  font-mono text-xs font-bold tracking-wider uppercase
+                  px-5 py-6
+                  rounded-[4px]
+                  hover:border-primary/40
+                  transition-all duration-300
+                  group
+                "
+              >
+                <Navigation className="mr-2 h-4 w-4 text-primary group-hover:rotate-45 transition-transform" />
+                Trace Road ↓
+              </Button>
+            </div>
 
-        <div className="absolute bottom-[8%] -right-6 z-20 bg-background/80 dark:bg-card/85 backdrop-blur-md border border-border/50 px-4 py-2.5 rounded-[4px] shadow-lg flex items-center gap-2 animate-float-2 hover:scale-105 transition-transform duration-300 select-none">
-          <div className="w-2 h-2 rounded-[2px] bg-foreground animate-ping" />
-          <Link2 className="w-4 h-4 text-foreground" />
-          <span className="text-xs font-semibold tracking-wide">Web3 & Solidity</span>
-        </div>
+            {/* Social Icons */}
+            <div className="flex gap-3 justify-center lg:justify-start">
+              {socialLinks.map((social, i) => (
+                <a
+                  key={i}
+                  href={social.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={social.label}
+                  className="
+                    w-10 h-10
+                    flex items-center justify-center
+                    bg-card/80 dark:bg-card/60 backdrop-blur-sm
+                    border border-border/70
+                    rounded-[4px]
+                    shadow-sm
+                    transition-all duration-300
+                    hover:scale-110 hover:border-primary hover:shadow-md
+                    cursor-pointer
+                  "
+                >
+                  <img
+                    src={social.icon}
+                    alt={social.label}
+                    className="w-4 h-4 transition-transform duration-300 ease-out"
+                  />
+                </a>
+              ))}
+            </div>
+          </div>
 
-        <div className="absolute top-1/2 -right-10 z-20 bg-background/80 dark:bg-card/85 backdrop-blur-md border border-border/50 px-4 py-2.5 rounded-[4px] shadow-lg flex items-center gap-2 animate-float-3 hover:scale-105 transition-transform duration-300 select-none">
-          <div className="w-2 h-2 rounded-[2px] bg-foreground animate-ping" />
-          <Palette className="w-4 h-4 text-foreground" />
-          <span className="text-xs font-semibold tracking-wide">UI/UX Designer</span>
-        </div>
+          {/* RIGHT COLUMN: 3D PROFILE FLIP CARD & FLOATING TECH BADGES */}
+          <div className="lg:col-span-5 flex justify-center items-center relative py-6 border ml-20">
 
-        {/* Gradient Border Card Wrapper */}
-        <div className="p-[3px] bg-gradient-to-r from-primary via-accent to-primary animate-gradient rounded-[4px] hover:scale-[1.02] hover:shadow-2xl hover:shadow-primary/25 transition-all duration-500 ease-out select-none">
-          <div className="flip-wrapper w-[290px] h-[380px] sm:w-[340px] sm:h-[430px] lg:w-[380px] lg:h-[470px]">
-            <div
-              className={`flip-card cursor-pointer ${flipped ? "flipped" : ""}`}
-              onClick={() => setFlipped(!flipped)}
-            >
-              {/* FRONT FACE */}
-              <div className="flip-face front p-6 flex flex-col justify-between items-center text-center relative overflow-hidden">
-                {/* Decorative Background Elements */}
-                <div className="absolute top-0 right-0 w-32 h-32 bg-primary/10 rounded-[4px] blur-2xl -z-10" />
-                <div className="absolute bottom-0 left-0 w-32 h-32 bg-accent/10 rounded-[4px] blur-2xl -z-10" />
+            {/* Floating Tech Badges (Tightly anchored around the card) */}
+            {/* <div className="absolute -top-3 -left-4 sm:-left-6 z-20 bg-card/90 dark:bg-card/85 backdrop-blur-md border border-border/60 px-3 py-1.5 rounded-[4px] shadow-lg flex items-center gap-2 animate-float-1 select-none">
+              <span className="w-2 h-2 rounded-full bg-primary animate-ping" />
+              <Code2 className="w-3.5 h-3.5 text-primary" />
+              <span className="text-[11px] font-bold tracking-wide">MERN Stack</span>
+            </div>
 
-                {/* Glowing Photo Frame */}
-                <div className="relative rounded-[full]">
-                  {/* <div className="absolute inset-0 rounded-[4px] bg-gradient-to-tr from-primary to-accent animate-spin-slow opacity-75 -z-10 blur-sm" /> */}
-                  <div className="h-full rounded-[full] bg-card overflow-hidden p-1 flex items-center justify-center">
-                    <img
-                      src={frontImage}
-                      alt="Balmiki Kumar - Front"
-                      className="h-[100%] object-cover rounded-[4px]"
-                      loading="eager"
-                    />
-                  </div>
-                </div>
+            <div className="absolute top-1/2 -right-4 sm:-right-6 -translate-y-1/2 z-20 bg-card/90 dark:bg-card/85 backdrop-blur-md border border-border/60 px-3 py-1.5 rounded-[4px] shadow-lg flex items-center gap-2 animate-float-2 select-none">
+              <span className="w-2 h-2 rounded-full bg-accent animate-ping" />
+              <Palette className="w-3.5 h-3.5 text-accent" />
+              <span className="text-[11px] font-bold tracking-wide">UI/UX Designer</span>
+            </div>
 
-                {/* Mini Identity Details */}
-                {/* <div className="absolute border">
-                  <h3 className="text-xl sm:text-2xl font-bold text-foreground">Balmiki Kumar</h3>
-                  <p className="text-xs text-foreground/75 mt-1 tracking-wider uppercase font-bold">Founder & Full-Stack Engineer</p>
-                  <div className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-[4px] bg-emerald-500/10 border border-emerald-500/20 text-[10px] font-bold text-emerald-500 mt-3.5 uppercase tracking-wider animate-pulse">
-                    <span className="w-1.5 h-1.5 rounded-[2px] bg-emerald-500" />
-                    Available For Work
-                  </div>
-                </div> */}
+            <div className="absolute -bottom-3 -left-4 sm:-left-6 z-20 bg-card/90 dark:bg-card/85 backdrop-blur-md border border-border/60 px-3 py-1.5 rounded-[4px] shadow-lg flex items-center gap-2 animate-float-3 select-none">
+              <span className="w-2 h-2 rounded-full bg-primary animate-ping" />
+              <Link2 className="w-3.5 h-3.5 text-primary" />
+              <span className="text-[11px] font-bold tracking-wide">Web3 & Solidity</span>
+            </div> */}
 
-                {/* Prompt to flip */}
-                <span className="text-[10px] text-foreground/60 mb-2 hover:text-primary transition-colors flex items-center gap-1">
-                  Click to Flip Profile <ArrowRight className="w-3 h-3 animate-bounce" />
-                </span>
-              </div>
+            {/* Profile Card Frame */}
+            <div className="p-[2.5px] bg-gradient-to-r from-primary via-accent to-primary animate-gradient rounded-[6px] hover:scale-[1.015] hover:shadow-2xl hover:shadow-primary/20 transition-all duration-500 ease-out select-none">
+              <div className="flip-wrapper w-[290px] h-[390px] sm:w-[330px] sm:h-[430px] lg:w-[360px] lg:h-[470px]">
+                <div
+                  className={`flip-card cursor-pointer ${flipped ? "flipped" : ""}`}
+                  onClick={() => setFlipped(!flipped)}
+                >
+                  {/* FRONT FACE */}
+                  <div className="flip-face front p-5 flex flex-col justify-between items-center text-center relative overflow-hidden bg-card/95">
+                    <div className="h-[88%] w-full rounded-[4px] overflow-hidden bg-muted/20 flex items-center justify-center border border-border/30">
+                      <img
+                        src={frontImage}
+                        alt="Balmiki Kumar"
+                        className="h-full w-full object-cover object-top"
+                        loading="eager"
+                      />
+                    </div>
 
-              {/* BACK FACE */}
-              <div className="flip-face back p-6 sm:p-8 flex flex-col justify-between items-stretch text-left relative overflow-hidden">
-                {/* HUD Decorative background */}
-                <div className="absolute top-0 right-0 w-24 h-24 border-t border-r border-accent/20 rounded-tr-[4px]" />
-                <div className="absolute bottom-0 left-0 w-24 h-24 border-b border-l border-primary/20 rounded-bl-[4px]" />
-
-                {/* HUD Title */}
-                <div className="flex items-center justify-between border-b border-border/40 pb-3">
-                  <div className="flex items-center gap-2">
-                    <Terminal className="w-5 h-5 text-primary animate-pulse" />
-                    <span className="text-xs font-mono font-bold tracking-widest text-primary uppercase">dev_profile.sh</span>
-                  </div>
-                  <span className="text-[10px] font-mono text-foreground/60">VER: 2.1.0</span>
-                </div>
-
-                {/* Dev Stats / Core Info */}
-                <div className="flex flex-col gap-4 my-4">
-                  <div>
-                    <p className="text-[10px] font-mono text-foreground/50 dark:text-foreground/60 uppercase tracking-widest font-semibold">EDUCATION</p>
-                    <h4 className="text-sm font-bold text-foreground mt-1">Assam Down Town University</h4>
-                    <p className="text-xs text-foreground/70">B.Tech in Computer Science</p>
-                  </div>
-
-                  <div>
-                    <p className="text-[10px] font-mono text-foreground/50 dark:text-foreground/60 uppercase tracking-widest font-semibold">CORE SPECIALTIES</p>
-                    <div className="grid grid-cols-2 gap-2 mt-2">
-                      <div className="p-2 rounded-[4px] bg-card/60 border border-border/40 flex items-center gap-2 text-xs">
-                        <Code2 className="w-3.5 h-3.5 text-primary" />
-                        <span className="text-foreground/85 font-semibold">Full Stack</span>
-                      </div>
-                      <div className="p-2 rounded-[4px] bg-card/60 border border-border/40 flex items-center gap-2 text-xs">
-                        <Database className="w-3.5 h-3.5 text-accent" />
-                        <span className="text-foreground/85 font-semibold">Systems</span>
-                      </div>
-                      <div className="p-2 rounded-[4px] bg-card/60 border border-border/40 flex items-center gap-2 text-xs">
-                        <Palette className="w-3.5 h-3.5 text-pink-500" />
-                        <span className="text-foreground/85 font-semibold">UI & UX</span>
-                      </div>
-                      <div className="p-2 rounded-[4px] bg-card/60 border border-border/40 flex items-center gap-2 text-xs">
-                        <Terminal className="w-3.5 h-3.5 text-emerald-500" />
-                        <span className="text-foreground/85 font-semibold">DevOps</span>
-                      </div>
+                    <div className="flex items-center justify-between w-full px-2 pt-2 text-[11px] text-muted-foreground">
+                      <span className="flex items-center gap-1 font-mono">
+                        <MapPin className="w-3 h-3 text-primary" /> Bihar ➔ Assam
+                      </span>
+                      <span className="text-primary font-bold hover:underline flex items-center gap-1">
+                        Flip Profile <ArrowRight className="w-3 h-3 animate-bounce" />
+                      </span>
                     </div>
                   </div>
 
-                  <div>
-                    <p className="text-[10px] font-mono text-foreground/50 dark:text-foreground/60 uppercase tracking-widest font-semibold">CURRENT FOCUS</p>
-                    <p className="text-xs text-foreground/75 mt-1 leading-relaxed">
-                      Building ZiuroDB, learning Advanced System Design, improving DSA, and exploring cloud infrastructure.
-                    </p>
-                  </div>
-                </div>
+                  {/* BACK FACE (Terminal HUD Profile) */}
+                  <div className="flip-face back p-6 flex flex-col justify-between items-stretch text-left relative overflow-hidden bg-card/95">
+                    <div className="flex items-center justify-between border-b border-border/40 pb-3">
+                      <div className="flex items-center gap-2">
+                        <Terminal className="w-4 h-4 text-primary" />
+                        <span className="text-xs font-mono font-bold tracking-widest text-primary uppercase">
+                          dev_profile.sh
+                        </span>
+                      </div>
+                      <span className="text-[10px] font-mono text-muted-foreground">B.TECH CSE</span>
+                    </div>
 
-                {/* Bottom details */}
-                <div className="border-t border-border/40 pt-3 flex items-center justify-between">
-                  <span className="text-[10px] text-foreground/60">Located in Bihar, India</span>
-                  <span className="text-[10px] text-primary/90 hover:text-primary font-mono font-bold flex items-center gap-1">
-                    Flip back <ArrowRight className="w-3 h-3 rotate-180" />
-                  </span>
+                    <div className="space-y-3.5 my-3 text-xs">
+                      <div>
+                        <span className="text-[10px] font-mono text-muted-foreground uppercase tracking-wider block">
+                          ACADEMIC PURSUIT
+                        </span>
+                        <h4 className="font-bold text-foreground">Assam Down Town University</h4>
+                        <p className="text-[11px] text-muted-foreground">Computer Science & Engineering (2023-2027)</p>
+                      </div>
+
+                      <div>
+                        <span className="text-[10px] font-mono text-muted-foreground uppercase tracking-wider block mb-1.5">
+                          CORE SPECIALTIES
+                        </span>
+                        <div className="grid grid-cols-2 gap-1.5">
+                          <div className="p-1.5 rounded-[3px] bg-muted/40 border border-border/40 flex items-center gap-1.5 text-[11px]">
+                            <Code2 className="w-3 h-3 text-primary" />
+                            <span>Full-Stack MERN</span>
+                          </div>
+                          <div className="p-1.5 rounded-[3px] bg-muted/40 border border-border/40 flex items-center gap-1.5 text-[11px]">
+                            <Database className="w-3 h-3 text-accent" />
+                            <span>ZiuroDB Engine</span>
+                          </div>
+                          <div className="p-1.5 rounded-[3px] bg-muted/40 border border-border/40 flex items-center gap-1.5 text-[11px]">
+                            <Palette className="w-3 h-3 text-pink-500" />
+                            <span>UI/UX & Design</span>
+                          </div>
+                          <div className="p-1.5 rounded-[3px] bg-muted/40 border border-border/40 flex items-center gap-1.5 text-[11px]">
+                            <Link2 className="w-3 h-3 text-emerald-500" />
+                            <span>Web3 & Solidity</span>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div>
+                        <span className="text-[10px] font-mono text-muted-foreground uppercase tracking-wider block">
+                          CURRENT FOCUS
+                        </span>
+                        <p className="text-[11px] text-foreground/80 leading-snug">
+                          Building ZiuroDB, practicing System Design, & scalable distributed backends.
+                        </p>
+                      </div>
+                    </div>
+
+                    <div className="border-t border-border/40 pt-2.5 flex items-center justify-between text-[10px]">
+                      <span className="text-muted-foreground">Patna ➔ Guwahati</span>
+                      <span className="text-primary font-mono font-bold flex items-center gap-1">
+                        Flip Back <ArrowRight className="w-3 h-3 rotate-180" />
+                      </span>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
+
         </div>
-      </section>
+      </div>
     </section>
   );
 };
