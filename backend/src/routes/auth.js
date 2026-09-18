@@ -47,14 +47,14 @@ router.post("/login", async (req, res) => {
     // If email is provided, validate it
     if (email && email.toString().trim()) {
       const inputEmail = email.toString().replace(/^["']|["']$/g, "").trim().toLowerCase();
-      
+
       // Match against configured email or common variations
       const isEmailValid =
         inputEmail === configuredEmail ||
         (configuredEmail === "shani@gmai.com" && inputEmail === "shani@gmail.com") ||
         (configuredEmail === "shani@gmail.com" && inputEmail === "shani@gmai.com") ||
         inputEmail === "admin" ||
-        inputEmail === "balmikikumar00321@gmail.com";
+        inputEmail === "shanikumar00321@gmail.com";
 
       if (!isEmailValid) {
         return res.status(401).json({
@@ -94,7 +94,7 @@ router.post("/login", async (req, res) => {
         user: {
           role: "admin",
           email: effectiveEmail,
-          name: "Balmiki Kumar (Admin)",
+          name: "Shani Kumar (Admin)",
         },
       },
     });

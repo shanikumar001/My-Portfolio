@@ -1,18 +1,18 @@
 import React, { useState } from 'react';
-import { 
-  Mail, 
-  Linkedin, 
-  Github, 
-  Send, 
-  Loader2, 
-  Phone, 
-  MapPin, 
-  Copy, 
-  Check, 
-  Sparkles, 
-  Clock, 
-  ShieldCheck, 
-  ExternalLink 
+import {
+  Mail,
+  Linkedin,
+  Github,
+  Send,
+  Loader2,
+  Phone,
+  MapPin,
+  Copy,
+  Check,
+  Sparkles,
+  Clock,
+  ShieldCheck,
+  ExternalLink
 } from 'lucide-react';
 import { SiLinkedin, SiGithub } from 'react-icons/si';
 import { Card, CardContent } from '@/components/ui/card';
@@ -35,13 +35,14 @@ const Contact = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [copiedEmail, setCopiedEmail] = useState(false);
 
-  const email = profile?.email || 'balmikikumar00321@gmail.com';
+  const email = profile?.email || 'shanikumar00321@gmail.com';
   const phone = profile?.phone || '+91 6201970584';
   const location = profile?.location || 'Guwahati, Assam';
-  const linkedin = profile?.socialLinks?.linkedin || 'https://www.linkedin.com/in/balmiki-kumar';
+  const linkedin = profile?.socialLinks?.linkedin || 'https://www.linkedin.com/in/Shani-kumar';
   const github = profile?.socialLinks?.github || 'https://github.com/shanikumar001';
 
   const topics = [
+    'AIML',
     'Full-Stack Project',
     'Database Tooling',
     'Hiring / Full-Time',
@@ -58,7 +59,7 @@ const Contact = () => {
         email: formData.email,
         message: `[Topic: ${formData.subject}]\n\n${formData.message}`
       });
-      
+
       toast.success('Message delivered successfully! I will get back to you soon.');
       setFormData({ name: '', email: '', subject: 'Full-Stack Project', message: '' });
     } catch (error) {
@@ -111,7 +112,7 @@ const Contact = () => {
       name: 'LinkedIn Profile',
       icon: SiLinkedin,
       href: linkedin,
-      value: 'linkedin.com/in/balmiki-kumar',
+      value: 'linkedin.com/in/Shani-kumar',
       action: 'link',
     },
     {
@@ -133,18 +134,18 @@ const Contact = () => {
 
       <div className="container mx-auto px-6 sm:px-12 lg:px-24">
         <div className="max-w-7xl mx-auto space-y-16">
-          
+
           {/* Section Header */}
-          <div className="flex flex-col items-center text-center space-y-4">
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-[4px] border border-border/80 bg-foreground/5 backdrop-blur-md shadow-xs">
+          <div className="flex flex-col items-start text-start space-y-4">
+            {/* <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-[4px] border border-border/80 bg-foreground/5 backdrop-blur-md shadow-xs">
               <Sparkles className="w-3.5 h-3.5 text-foreground animate-pulse" />
               <span className="text-[11px] font-mono font-bold tracking-widest uppercase text-foreground/80">
                 LET'S COLLABORATE • AVAILABLE FOR NEW VENTURES
               </span>
-            </div>
+            </div> */}
 
-            <h2 className="text-4xl sm:text-5xl lg:text-6xl font-black tracking-tight text-foreground">
-              Get In <span className="underline decoration-foreground/40 underline-offset-8">Touch</span>
+            <h2 className="text-4xl sm:text-5xl lg:text-5xl font-black tracking-tight text-foreground">
+              Get In <span className="decoration-foreground/40 underline-offset-8">Touch</span>
             </h2>
 
             <p className="text-muted-foreground text-sm sm:text-base max-w-2xl leading-relaxed">
@@ -156,10 +157,10 @@ const Contact = () => {
 
           {/* Balanced 12-Column Responsive Layout */}
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-            
+
             {/* LEFT COLUMN: Channels & Opportunities (5 Cols) */}
             <div className="lg:col-span-5 flex flex-col gap-6">
-              
+
               {/* Contact Information Card */}
               <div className="p-6 sm:p-8 rounded-[4px] bg-card/70 dark:bg-card/35 border border-border/70 backdrop-blur-md shadow-sm space-y-6">
                 <div>
@@ -252,7 +253,7 @@ const Contact = () => {
 
             {/* RIGHT COLUMN: Send a Message Form (7 Cols) */}
             <div className="lg:col-span-7 p-6 sm:p-8 rounded-[4px] bg-card/70 dark:bg-card/35 border border-border/70 backdrop-blur-md shadow-sm space-y-6">
-              
+
               <div>
                 <h3 className="text-xl font-bold tracking-tight text-foreground">
                   Send a Message
@@ -263,7 +264,7 @@ const Contact = () => {
               </div>
 
               <form onSubmit={handleSubmit} className="space-y-5">
-                
+
                 {/* Name & Email Row */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div className="space-y-1.5">
@@ -278,7 +279,7 @@ const Contact = () => {
                       onChange={handleChange}
                       required
                       disabled={isSubmitting}
-                      className="rounded-[4px] border-border/70 bg-foreground/[0.02] focus:border-foreground text-sm"
+                      className="border-border text-foreground placeholder:text-muted-foreground focus:border-foreground text-sm"
                     />
                   </div>
 
@@ -295,7 +296,7 @@ const Contact = () => {
                       onChange={handleChange}
                       required
                       disabled={isSubmitting}
-                      className="rounded-[4px] border-border/70 bg-foreground/[0.02] focus:border-foreground text-sm"
+                      className="border-border text-foreground placeholder:text-muted-foreground focus:border-foreground text-sm"
                     />
                   </div>
                 </div>
@@ -313,10 +314,9 @@ const Contact = () => {
                         onClick={() => setFormData(prev => ({ ...prev, subject: topic }))}
                         className={`
                           px-3 py-1.5 rounded-[3px] text-xs font-mono font-semibold transition-all
-                          border ${
-                            formData.subject === topic
-                              ? 'bg-foreground text-background border-foreground shadow-xs'
-                              : 'bg-foreground/[0.03] text-foreground/75 border-border/70 hover:border-foreground/50 hover:text-foreground'
+                          border ${formData.subject === topic
+                            ? 'bg-foreground text-background border-foreground shadow-xs font-bold'
+                            : 'bg-muted/40 text-muted-foreground hover:text-foreground hover:bg-muted/70 border-border/70 hover:border-foreground/40'
                           }
                         `}
                       >
@@ -326,7 +326,7 @@ const Contact = () => {
                   </div>
                 </div>
 
-                {/* Message Textarea */}
+                {/* Message Details Textarea */}
                 <div className="space-y-1.5">
                   <Label htmlFor="message" className="text-xs font-mono font-semibold text-foreground/80 uppercase tracking-wider">
                     Message Details *
@@ -340,7 +340,7 @@ const Contact = () => {
                     required
                     disabled={isSubmitting}
                     rows={6}
-                    className="rounded-[4px] border-border/70 bg-foreground/[0.02] focus:border-foreground text-sm resize-y leading-relaxed"
+                    className="border-border text-foreground placeholder:text-muted-foreground focus:border-foreground text-sm resize-y leading-relaxed"
                   />
                 </div>
 
@@ -374,7 +374,7 @@ const Contact = () => {
                     <ShieldCheck className="w-3.5 h-3.5 text-foreground/70" />
                     <span>Encrypted & Stored in MongoDB</span>
                   </div>
-                  <span>Direct Notification to Balmiki</span>
+                  <span>Direct Notification to Shani</span>
                 </div>
 
               </form>

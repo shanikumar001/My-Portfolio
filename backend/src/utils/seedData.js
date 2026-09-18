@@ -62,7 +62,7 @@ export const initialProjects = [
 ];
 
 export const initialProfile = {
-  name: "Balmiki Kumar",
+  name: "Shani Kumar",
   statusPill: "FOUNDER @ ZIURODB & ZIUROCODING | B.TECH CSE (CGPA: 9.05)",
   typingTitles: [
     "FOUNDER OF ZIURODB & ZIUROCODING",
@@ -193,13 +193,13 @@ export const initialProfile = {
       side: "left",
     },
   ],
-  email: "balmikikumar00321@gmail.com",
+  email: "Shanikumar00321@gmail.com",
   phone: "+91 6201970584",
   location: "Guwahati, Assam",
   socialLinks: {
     youtube: "https://www.youtube.com/@Coding_with_Shani",
     instagram: "https://www.instagram.com/sr.coding01/",
-    linkedin: "https://www.linkedin.com/in/balmiki-kumar",
+    linkedin: "https://www.linkedin.com/in/Shani-kumar",
     github: "https://github.com/shanikumar001",
   },
 };

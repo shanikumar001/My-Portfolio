@@ -44,22 +44,22 @@ const Projects = () => {
   // Normalize project properties from MongoDB
   const projects = dbProjects && dbProjects.length > 0
     ? dbProjects.map((p) => {
-        let image = p.image;
-        if (!image) {
-          if (p.title?.toLowerCase().includes('ziurodb')) image = ziurodb;
-          else if (p.title?.toLowerCase().includes('coding') || p.title?.toLowerCase().includes('procoders')) image = procoders;
-          else if (p.title?.toLowerCase().includes('workers')) image = ziuroworkers;
-        }
-        return {
-          id: p._id || p.id,
-          title: p.title,
-          description: p.description,
-          tags: p.tags || [],
-          image,
-          liveURL: p.liveUrl || p.liveURL,
-          repoURL: p.githubUrl || p.repoURL,
-        };
-      })
+      let image = p.image;
+      if (!image) {
+        if (p.title?.toLowerCase().includes('ziurodb')) image = ziurodb;
+        else if (p.title?.toLowerCase().includes('coding') || p.title?.toLowerCase().includes('procoders')) image = procoders;
+        else if (p.title?.toLowerCase().includes('workers')) image = ziuroworkers;
+      }
+      return {
+        id: p._id || p.id,
+        title: p.title,
+        description: p.description,
+        tags: p.tags || [],
+        image,
+        liveURL: p.liveUrl || p.liveURL,
+        repoURL: p.githubUrl || p.repoURL,
+      };
+    })
     : defaultProjects;
 
   const displayProjects = projects;
@@ -76,14 +76,14 @@ const Projects = () => {
         <div className="max-w-8xl mx-auto">
 
           {/* Section Header */}
-          <div className="text-center mb-20">
+          <div className="text-start mb-20">
             <p className="text-xs sm:text-sm font-black tracking-[3px] uppercase text-foreground/50 mb-3">
               MY CREATIVE VENTURES
             </p>
             <h2 className="text-4xl sm:text-5xl font-black mb-4 tracking-tight">
               Featured <span className="bg-gradient-to-r from-foreground via-foreground/70 to-foreground bg-clip-text text-transparent">Projects</span>
             </h2>
-            <div className="w-16 h-1 bg-foreground mx-auto rounded-[2px] mt-3 opacity-80" />
+            {/* <div className="w-16 h-[1px] bg-foreground rounded-[2px] mt-3 opacity-80" /> */}
           </div>
 
           {/* Loading State */}

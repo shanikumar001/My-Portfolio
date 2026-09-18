@@ -21,7 +21,7 @@ const skillCategorySchema = new mongoose.Schema({
 const profileSchema = new mongoose.Schema(
   {
     // Hero Section
-    name: { type: String, default: "Balmiki Kumar" },
+    name: { type: String, default: "Shani Kumar" },
     statusPill: {
       type: String,
       default: "FOUNDER @ ZIURODB & ZIUROCODING | B.TECH CSE (CGPA: 9.05)",
@@ -80,13 +80,13 @@ const profileSchema = new mongoose.Schema(
     },
 
     // Contact & Socials
-    email: { type: String, default: "balmikikumar00321@gmail.com" },
+    email: { type: String, default: "shanikumar00321@gmail.com" },
     phone: { type: String, default: "+91 6201970584" },
     location: { type: String, default: "Guwahati, Assam" },
     socialLinks: {
       youtube: { type: String, default: "https://www.youtube.com/@Coding_with_Shani" },
       instagram: { type: String, default: "https://www.instagram.com/sr.coding01/" },
-      linkedin: { type: String, default: "https://www.linkedin.com/in/balmiki-kumar" },
+      linkedin: { type: String, default: "https://www.linkedin.com/in/Shani-kumar" },
       github: { type: String, default: "https://github.com/shanikumar001" },
     },
   },

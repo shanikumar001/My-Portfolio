@@ -8,7 +8,8 @@ import React, { useEffect, useRef } from 'react';
 const InteractiveGridBackground = ({
   gridSize = 48,
   containerRef,
-  className = ""
+  className = "",
+  fadeBottom = false,
 }) => {
   const canvasRef = useRef(null);
   const activeCellsRef = useRef(new Map());
@@ -53,8 +54,13 @@ const InteractiveGridBackground = ({
 
       if (x < 0 || x > rect.width || y < 0 || y > rect.height) return;
 
-      const col = Math.floor(x / gridSize);
-      const row = Math.floor(y / gridSize);
+      const centerX = Math.round(rect.width / 2);
+      const startX = ((centerX % gridSize) + gridSize) % gridSize;
+      const pageY = rect.top + window.scrollY;
+      const startY = ((gridSize - (Math.round(pageY) % gridSize)) % gridSize);
+
+      const col = Math.floor((x - startX) / gridSize);
+      const row = Math.floor((y - startY) / gridSize);
       const now = performance.now();
 
       // Main box touched by cursor
@@ -74,17 +80,15 @@ const InteractiveGridBackground = ({
       ];
 
       neighbors.forEach(([nCol, nRow]) => {
-        if (nCol >= 0 && nRow >= 0) {
-          const key = `${nCol},${nRow}`;
-          const existing = activeCellsRef.current.get(key);
-          if (!existing || existing.maxAlpha < 0.35) {
-            activeCellsRef.current.set(key, {
-              col: nCol,
-              row: nRow,
-              startTime: now,
-              maxAlpha: 0.35,
-            });
-          }
+        const key = `${nCol},${nRow}`;
+        const existing = activeCellsRef.current.get(key);
+        if (!existing || existing.maxAlpha < 0.35) {
+          activeCellsRef.current.set(key, {
+            col: nCol,
+            row: nRow,
+            startTime: now,
+            maxAlpha: 0.35,
+          });
         }
       });
     };
@@ -94,14 +98,13 @@ const InteractiveGridBackground = ({
     // Animation configuration
     const FADE_DURATION = 800; // ms for elegant fading trail
 
-    // Smooth vertical fade-out computation: grid gently disappears towards the bottom
+    // Smooth vertical fade-out computation: active only when fadeBottom is requested
     const getVerticalFade = (y) => {
-      const startFade = height * 0.45;
-      const endFade = height * 0.92;
+      if (!fadeBottom) return 1.0;
+      const startFade = height * 0.75;
       if (y <= startFade) return 1.0;
-      if (y >= endFade) return 0.0;
-      const progress = (y - startFade) / (endFade - startFade);
-      return Math.max(0, Math.cos(progress * Math.PI * 0.1));
+      const progress = Math.min(1, Math.max(0, (y - startFade) / (height - startFade)));
+      return Math.max(0, Math.cos(progress * (Math.PI / 2)));
     };
 
     const render = (time) => {
@@ -109,35 +112,66 @@ const InteractiveGridBackground = ({
 
       const isDark = document.documentElement.classList.contains('dark');
 
-      // 1. Draw vertical grid lines with smooth vertical fade-out gradient
+      // Center vertical grid lines exactly at width / 2 (50% horizontal center)
+      // This guarantees the center grid line aligns precisely with the center road track
+      const centerX = Math.round(width / 2);
+      const startX = ((centerX % gridSize) + gridSize) % gridSize;
+
+      // Page vertical offset to keep horizontal grid lines aligned globally across sections
+      const parent = canvas.parentElement;
+      const parentRect = parent ? parent.getBoundingClientRect() : null;
+      const pageY = parentRect ? parentRect.top + window.scrollY : 0;
+      const startY = ((gridSize - (Math.round(pageY) % gridSize)) % gridSize);
+
+      // 1. Draw vertical grid lines
       const vertGradient = ctx.createLinearGradient(0, 0, 0, height);
-      if (isDark) {
-        vertGradient.addColorStop(0, 'rgba(255, 255, 255, 0.08)');
-        vertGradient.addColorStop(0.45, 'rgba(255, 255, 255, 0.08)');
-        vertGradient.addColorStop(0.70, 'rgba(255, 255, 255, 0.04)');
-        vertGradient.addColorStop(0.92, 'rgba(255, 255, 255, 0.0)');
-        vertGradient.addColorStop(1, 'rgba(255, 255, 255, 0.0)');
+      if (fadeBottom) {
+        if (isDark) {
+          vertGradient.addColorStop(0, 'rgba(255, 255, 255, 0.08)');
+          vertGradient.addColorStop(0.75, 'rgba(255, 255, 255, 0.08)');
+          vertGradient.addColorStop(1.0, 'rgba(255, 255, 255, 0.0)');
+        } else {
+          vertGradient.addColorStop(0, 'rgba(0, 0, 0, 0.07)');
+          vertGradient.addColorStop(0.75, 'rgba(0, 0, 0, 0.07)');
+          vertGradient.addColorStop(1.0, 'rgba(0, 0, 0, 0.0)');
+        }
       } else {
-        vertGradient.addColorStop(0, 'rgba(0, 0, 0, 0.07)');
-        vertGradient.addColorStop(0.45, 'rgba(0, 0, 0, 0.07)');
-        vertGradient.addColorStop(0.70, 'rgba(0, 0, 0, 0.035)');
-        vertGradient.addColorStop(0.92, 'rgba(0, 0, 0, 0.0)');
-        vertGradient.addColorStop(1, 'rgba(0, 0, 0, 0.0)');
+        const stroke = isDark ? 'rgba(255, 255, 255, 0.08)' : 'rgba(0, 0, 0, 0.07)';
+        vertGradient.addColorStop(0, stroke);
+        vertGradient.addColorStop(1.0, stroke);
       }
 
       ctx.beginPath();
       ctx.lineWidth = 1;
       ctx.strokeStyle = vertGradient;
-      for (let x = 0; x <= width + gridSize; x += gridSize) {
+
+      for (let x = startX; x <= width + gridSize; x += gridSize) {
+        ctx.moveTo(x + 0.5, 0);
+        ctx.lineTo(x + 0.5, height);
+      }
+      for (let x = startX - gridSize; x >= -gridSize; x -= gridSize) {
         ctx.moveTo(x + 0.5, 0);
         ctx.lineTo(x + 0.5, height);
       }
       ctx.stroke();
 
       // 2. Draw horizontal grid lines with smooth per-line opacity decay
-      for (let y = 0; y <= height + gridSize; y += gridSize) {
+      for (let y = startY; y <= height + gridSize; y += gridSize) {
         const vFade = getVerticalFade(y);
         if (vFade <= 0.005) continue; // completely transparent
+
+        ctx.beginPath();
+        ctx.lineWidth = 1;
+        ctx.strokeStyle = isDark
+          ? `rgba(255, 255, 255, ${0.08 * vFade})`
+          : `rgba(0, 0, 0, ${0.07 * vFade})`;
+        ctx.moveTo(0, y + 0.5);
+        ctx.lineTo(width, y + 0.5);
+        ctx.stroke();
+      }
+      for (let y = startY - gridSize; y >= -gridSize; y -= gridSize) {
+        const vFade = getVerticalFade(y);
+        if (vFade <= 0.005) continue;
 
         ctx.beginPath();
         ctx.lineWidth = 1;
@@ -159,7 +193,10 @@ const InteractiveGridBackground = ({
           return;
         }
 
-        const cellY = cell.row * gridSize;
+        const x = startX + cell.col * gridSize;
+        const y = startY + cell.row * gridSize;
+
+        const cellY = y;
         const vFade = getVerticalFade(cellY + gridSize * 0.5);
         if (vFade <= 0.01) {
           return;
@@ -170,8 +207,9 @@ const InteractiveGridBackground = ({
         const fade = Math.max(0, 1 - progress);
         const currentAlpha = cell.maxAlpha * (fade * fade) * vFade;
 
-        const x = cell.col * gridSize;
-        const y = cell.row * gridSize;
+        if (x + gridSize < -20 || x > width + 20 || y + gridSize < -20 || y > height + 20) {
+          return;
+        }
 
         if (isDark) {
           // Dark Theme: Filled with White Glass & Illuminated White Outline
@@ -206,7 +244,7 @@ const InteractiveGridBackground = ({
         cancelAnimationFrame(animFrameIdRef.current);
       }
     };
-  }, [gridSize, containerRef]);
+  }, [gridSize, containerRef, fadeBottom]);
 
   return (
     <canvas

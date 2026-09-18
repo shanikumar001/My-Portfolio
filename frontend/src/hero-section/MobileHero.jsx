@@ -31,7 +31,7 @@ const MobileHero = ({ scrollToSection }) => {
   const [flipped, setFlipped] = useState(false);
   const { data: profile } = useProfile();
 
-  const name = profile?.name || "Balmiki Kumar";
+  const name = profile?.name || "Shani Kumar";
   const statusPill = profile?.statusPill || "FOUNDER @ ZIURODB & ZIUROCODING | CGPA: 9.05";
   const bio = profile?.bio || "Founder of ZiuroDB and ZiuroCoding. Building production-ready database management platforms, code execution engines, and full-stack software systems.";
   const avatarImage = profile?.avatarUrl || shani;
@@ -45,7 +45,7 @@ const MobileHero = ({ scrollToSection }) => {
   const socialLinks = [
     { icon: youtube2, href: profile?.socialLinks?.youtube || "https://www.youtube.com/@Coding_with_Shani", label: "YouTube" },
     { icon: instagram2, href: profile?.socialLinks?.instagram || "https://www.instagram.com/sr.coding01/", label: "Instagram" },
-    { icon: linkdin2, href: profile?.socialLinks?.linkedin || "https://www.linkedin.com/in/balmiki-kumar", label: "LinkedIn" },
+    { icon: linkdin2, href: profile?.socialLinks?.linkedin || "https://www.linkedin.com/in/Shani-kumar", label: "LinkedIn" },
   ];
 
   return (
@@ -57,7 +57,6 @@ const MobileHero = ({ scrollToSection }) => {
       {/* Interactive Cursor-Reactive Square Box Grid Background */}
       <div className="absolute inset-0 pointer-events-none z-0 overflow-hidden select-none">
         <InteractiveGridBackground gridSize={48} containerRef={heroRef} />
-        <div className="absolute inset-x-0 bottom-0 h-48 bg-gradient-to-t from-background via-background/80 to-transparent pointer-events-none" />
       </div>
 
       {/* Mobile Winding Road SVG */}
@@ -187,7 +186,7 @@ const MobileHero = ({ scrollToSection }) => {
                     <div className="flex items-center justify-between border-b border-border/40 pb-2 mb-2">
                       <div className="flex items-center gap-1.5 text-xs font-mono font-bold text-primary">
                         <Terminal className="w-3.5 h-3.5" />
-                        <span>balmiki@ziurodb</span>
+                        <span>Shani@ziurodb</span>
                       </div>
                       <span className="text-[9px] font-mono px-1.5 py-0.5 rounded bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 font-bold">
                         CGPA: 9.05

@@ -23,6 +23,7 @@ import {
   Flag,
   Milestone
 } from "lucide-react";
+import InteractiveGridBackground from "./ui/InteractiveGridBackground";
 
 const MyBackground = () => {
   const stateimages = [bihar, bihar2, bihar3];
@@ -79,15 +80,20 @@ const MyBackground = () => {
       ref={sectionRef}
       className="journey-section pt-0 pb-24 sm:pb-32 relative overflow-hidden bg-background text-foreground select-none"
     >
-      {/* Background Decorative Ambient Glows */}
-      <div className="absolute inset-0 -z-10 overflow-hidden pointer-events-none">
-        <div className="w-[500px] h-[500px] bg-primary/10 rounded-full blur-[100px] absolute top-[5%] -left-[100px]" />
-        <div className="w-[600px] h-[600px] bg-accent/10 rounded-full blur-[120px] absolute top-[40%] -right-[150px]" />
-        <div className="w-[550px] h-[550px] bg-primary/10 rounded-full blur-[100px] absolute bottom-[5%] left-[20%]" />
-        <div className="absolute inset-0 opacity-[0.03] dark:opacity-[0.05] bg-[radial-gradient(ellipse_at_center,#000_1px,transparent_1px)] dark:bg-[radial-gradient(ellipse_at_center,#fff_1px,transparent_1px)] bg-[size:24px_24px]" />
+      {/* Interactive Cursor-Reactive Square Box Grid Background */}
+      <div className="absolute inset-0 pointer-events-none z-0 overflow-hidden select-none">
+        <InteractiveGridBackground gridSize={48} containerRef={sectionRef} fadeBottom={true} />
+        
+        {/* Subtle Ambient Glows behind grid */}
+        <div className="w-[500px] h-[500px] bg-primary/10 rounded-full blur-[100px] absolute top-[5%] -left-[100px] pointer-events-none" />
+        <div className="w-[600px] h-[600px] bg-accent/10 rounded-full blur-[120px] absolute top-[40%] -right-[150px] pointer-events-none" />
+        <div className="w-[550px] h-[550px] bg-primary/10 rounded-full blur-[100px] absolute bottom-[5%] left-[20%] pointer-events-none" />
+
+        {/* Seamless bottom fade into solid background for About section */}
+        <div className="absolute inset-x-0 bottom-0 h-36 bg-gradient-to-t from-background to-transparent pointer-events-none" />
       </div>
 
-      <div className="container mx-auto px-4 sm:px-6 lg:px-12 max-w-8xl relative">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-12 max-w-8xl relative z-10">
         {/* ==================================================================== */}
         {/* ROAD TIMELINE HIGHWAY CONTAINER */}
         {/* ==================================================================== */}

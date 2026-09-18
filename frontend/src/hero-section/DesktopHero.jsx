@@ -34,7 +34,7 @@ const DesktopHero = ({ scrollToSection: externalScrollToSection }) => {
   const { resolvedTheme } = useTheme();
   const { data: profile } = useProfile();
 
-  const name = profile?.name || "Balmiki Kumar";
+  const name = profile?.name || "Shani Kumar";
   const statusPill = profile?.statusPill || "FOUNDER @ ZIURODB & ZIUROCODING | B.TECH CSE (CGPA: 9.05)";
   const bio = profile?.bio || "Founder of ZiuroDB and ZiuroCoding. Building production-ready database management platforms, automated REST API engines, code execution sandboxes, and modern full-stack systems.";
   const techChips = profile?.techChips && profile.techChips.length > 0 ? profile.techChips : [
@@ -67,7 +67,7 @@ const DesktopHero = ({ scrollToSection: externalScrollToSection }) => {
   const socialLinks = [
     { icon: youtube2, href: profile?.socialLinks?.youtube || "https://www.youtube.com/@Coding_with_Shani", label: "YouTube" },
     { icon: instagram2, href: profile?.socialLinks?.instagram || "https://www.instagram.com/sr.coding01/", label: "Instagram" },
-    { icon: linkdin2, href: profile?.socialLinks?.linkedin || "https://www.linkedin.com/in/balmiki-kumar", label: "LinkedIn" },
+    { icon: linkdin2, href: profile?.socialLinks?.linkedin || "https://www.linkedin.com/in/Shani-kumar", label: "LinkedIn" },
   ];
 
   return (
@@ -79,9 +79,6 @@ const DesktopHero = ({ scrollToSection: externalScrollToSection }) => {
       {/* Interactive Cursor-Reactive Square Box Grid Background */}
       <div className="absolute inset-0 pointer-events-none z-0 overflow-hidden select-none">
         <InteractiveGridBackground gridSize={48} containerRef={heroRef} />
-
-        {/* Seamless bottom fade into 100% solid background */}
-        <div className="absolute inset-x-0 bottom-0 h-64 bg-gradient-to-t from-background via-background/80 to-transparent pointer-events-none" />
 
         {/* Subtle top blend */}
         <div className="absolute inset-x-0 top-0 h-24 bg-gradient-to-b from-background/60 to-transparent pointer-events-none" />
@@ -368,7 +365,7 @@ const DesktopHero = ({ scrollToSection: externalScrollToSection }) => {
                           <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
                         </span>
                         <span className="text-[10px] font-mono font-bold tracking-wider text-muted-foreground uppercase">
-                          Balmiki Kumar
+                          Shani Kumar
                         </span>
                       </div>
 
@@ -438,7 +435,7 @@ const DesktopHero = ({ scrollToSection: externalScrollToSection }) => {
                           <span className="w-2.5 h-2.5 rounded-full bg-emerald-500/80 inline-block" />
                         </div>
                         <span className="text-[11px] font-mono font-bold text-foreground/90 pl-1">
-                          balmiki@ziurodb:~#
+                          Shani@ziurodb:~#
                         </span>
                       </div>
                       <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-500 border border-emerald-500/20 font-semibold">

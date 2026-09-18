@@ -21,7 +21,7 @@ router.post("/", async (req, res) => {
 
     res.status(201).json({
       success: true,
-      message: "Message sent successfully! Balmiki will get back to you soon.",
+      message: "Message sent successfully! Shani will get back to you soon.",
       data: newMessage,
     });
   } catch (error) {
