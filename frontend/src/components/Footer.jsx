@@ -23,7 +23,7 @@ const Footer = () => {
               <span>Balmiki Kumar</span>
             </button>
             <p className="text-xs text-foreground/60 leading-relaxed max-w-sm">
-              Founder & Full-Stack Engineer designing scalable developer infrastructure, query administrators, and user-centric software systems.
+              Founder of ZiuroDB & ZiuroCoding | B.Tech Computer Science & Engineering undergraduate at Assam Down Town University (CGPA: 9.05).
             </p>
           </div>
 

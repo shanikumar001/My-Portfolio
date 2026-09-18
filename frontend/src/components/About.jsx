@@ -4,24 +4,24 @@ import { Card, CardContent } from '@/components/ui/card';
 const About = () => {
   const skillCategories = [
     {
-      title: "Languages & Core",
+      title: "Programming Languages",
       icon: Terminal,
-      skills: ["Java", "JavaScript", "TypeScript", "SQL", "HTML", "CSS"]
+      skills: ["Java", "Python", "JavaScript", "TypeScript", "SQL"]
     },
     {
-      title: "Frontend & Mobile",
-      icon: Laptop,
-      skills: ["React", "Next.js", "Flutter", "Tailwind CSS", "Electron"]
-    },
-    {
-      title: "Backend & Cloud",
-      icon: Database,
-      skills: ["Node.js", "Express.js", "REST APIs", "Socket.IO", "Docker", "Redis", "BullMQ"]
-    },
-    {
-      title: "Databases & Tools",
+      title: "AI / ML & Data Science",
       icon: Box,
-      skills: ["MongoDB", "PostgreSQL", "MySQL", "Firebase", "Git", "Figma"]
+      skills: ["NumPy", "Pandas", "Matplotlib", "Seaborn", "Scikit-learn", "Machine Learning", "Deep Learning", "Prompt Engineering", "LLM Integration"]
+    },
+    {
+      title: "Full-Stack & Desktop",
+      icon: Laptop,
+      skills: ["React.js", "Next.js", "Node.js", "Express.js", "REST APIs", "Socket.io", "Electron.js", "Tailwind CSS", "Flutter"]
+    },
+    {
+      title: "Databases & Cloud / DevOps",
+      icon: Database,
+      skills: ["MongoDB", "MySQL", "PostgreSQL", "Firebase Firestore", "Redis", "Docker", "BullMQ", "Vercel", "Git", "GitHub"]
     }
   ];
 
@@ -49,10 +49,10 @@ const About = () => {
   ];
 
   const stats = [
-    { value: '2+', label: 'Years Coding' },
-    { value: '10+', label: 'Projects Built' },
-    { value: '2+', label: 'Smart Contracts Deployed' },
-    { value: 'B.Tech', label: 'CSE ADTU' }
+    { value: '9.05', label: 'B.Tech CGPA' },
+    { value: '2', label: 'Platforms Built' },
+    { value: '15+', label: 'Tech Stack Tools' },
+    { value: '2028', label: 'Graduation (CSE)' }
   ];
 
   return (
@@ -91,10 +91,10 @@ const About = () => {
                   </div>
 
                   <p className="text-foreground/75 leading-relaxed mb-4 text-sm sm:text-base">
-                    I'm a Computer Science undergraduate at Assam Down Town University with a strong interest in building production-ready software. I enjoy solving engineering problems through scalable backend systems, intuitive user interfaces, and modern cloud technologies.
+                    I'm a Computer Science and Engineering undergraduate at Assam Down Town University (Expected Graduation: 2028 | CGPA: 9.05) and the Founder of ZiuroDB and ZiuroCoding. I specialize in building production-ready distributed systems, database engines, and full-stack software.
                   </p>
                   <p className="text-foreground/75 leading-relaxed text-sm sm:text-base">
-                    My work primarily focuses on full-stack development, database engineering, desktop applications, distributed systems, and developer productivity tools. I am dedicated to continuous learning, designing clean database workflows, and exploring bleeding-edge artificial intelligence, system design, and DevOps principles.
+                    My engineering work centers on database-to-API gateways, isolated code execution queue engines, desktop software with Electron, and machine learning integration. I am deeply interested in system design, scalable cloud infrastructures, and AI-assisted developer workflows.
                   </p>
                 </CardContent>
               </Card>

@@ -5,7 +5,7 @@ import { Button } from '@/components/ui/button';
 import { useGetUserProjects } from '../hooks/useQueries';
 import ziurodb from "../assets/project-image/ziurodb.png";
 import ziuroworkers from "../assets/project-image/ziuroworkers.png";
-import procoders from "../assets/project-image/procoders.png";
+import procoders from "../assets/project-image/ziurocoding.png";
 
 const Projects = () => {
   const { data: projects, isLoading } = useGetUserProjects();
@@ -22,34 +22,34 @@ const Projects = () => {
     }
   }, [projects]);
 
-  // Updated projects based on new profile details
+  // Updated projects based on verified resume details
   const defaultProjects = [
     {
       id: '1',
       title: 'ZiuroDB',
-      description: 'A modern cross-platform database administration platform to connect, manage, explore, and monitor MongoDB, MySQL, and PostgreSQL databases from a single interface, featuring an automated Database-to-REST API engine.',
+      description: 'A modern database management platform supporting MongoDB, MySQL, PostgreSQL, Firebase, and Supabase. Features a dynamic Database-to-REST API gateway, Ziuro-AI natural language query assistant, universal ZQL query language, and an official npm package SDK.',
       image: ziurodb,
-      liveURL: 'https://ziurodb.ziuro.com',
-      repoURL: 'https://github.com/shanikumar001/ziurodb',
-      tags: ['React', 'TypeScript', 'Electron', 'Node.js', 'Express', 'MongoDB', 'PostgreSQL', 'MySQL', 'Redis', 'BullMQ', 'Docker']
+      liveURL: 'https://www.ziurodb.com',
+      repoURL: 'https://github.com/ziurodb',
+      tags: ['React', 'TypeScript', 'Electron', 'Tailwind CSS', 'Node.js', 'Express.js', 'MongoDB', 'MySQL', 'PostgreSQL', 'Socket.io', 'Docker', 'BullMQ', 'Redis', 'Firebase', 'Cloudinary', 'Vercel']
     },
     {
       id: '2',
-      title: 'ZiuroWorkers',
-      description: 'A service marketplace platform connecting customers with local freelancers for online and offline services, managing booking lifecycles, escrow payments, vendor dashboards, and live order tracking.',
-      image: ziuroworkers,
-      liveURL: 'https://workers.ziuro.com',
-      repoURL: 'https://github.com/shanikumar001/ziuroworkers_app',
-      tags: ['Flutter', 'Dart', 'Node.js', 'Express.js', 'MongoDB', 'Firebase', 'Razorpay', 'Cloudinary']
+      title: 'ZiuroCoding',
+      description: 'A full-stack coding assessment platform for conducting secure, timed programming tests with Monaco Editor supporting Java, C++, and Python. Implements scalable Redis + Bull queue execution with isolation, anti-cheating, real-time leaderboards, and an admin dashboard.',
+      image: procoders,
+      liveURL: 'https://coding.ziuro.com',
+      repoURL: 'https://github.com/ziurocoding',
+      tags: ['React (Vite)', 'Tailwind CSS', 'Node.js', 'Express.js', 'MongoDB', 'Socket.io', 'Redis', 'Bull Queue', 'JWT', 'Monaco Editor', 'Java', 'Python', 'C++', 'Docker']
     },
     {
       id: '3',
-      title: 'ProCoders',
-      description: 'A full-stack programming assessment platform (like HackerRank) enabling secure programming assessments via a browser-based Monaco Editor development workspace and isolated queue-based code compilation execution.',
-      image: procoders,
-      liveURL: 'https://procoders-ubpm.onrender.com',
-      repoURL: 'https://github.com/shanikumar001/procoders',
-      tags: ['React', 'Tailwind CSS', 'Node.js', 'Express.js', 'MongoDB', 'Redis', 'BullMQ', 'Docker', 'Monaco Editor']
+      title: 'ZiuroWorkers',
+      description: 'A service marketplace platform connecting customers with local and online freelancers, managing booking lifecycles, escrow payments, vendor dashboards, and live order tracking.',
+      image: ziuroworkers,
+      liveURL: 'https://workers.ziuro.com',
+      repoURL: 'https://github.com/shanikumar001/ziuroworkers_app',
+      tags: ['Flutter', 'Dart', 'Node.js', 'Express.js', 'MongoDB', 'Firebase', 'REST APIs', 'Cloudinary']
     }
   ];
 

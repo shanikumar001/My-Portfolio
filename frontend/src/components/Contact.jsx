@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Mail, Linkedin, Github, Send, Loader2 } from 'lucide-react';
+import { Mail, Linkedin, Github, Send, Loader2, Phone, MapPin } from 'lucide-react';
 import { SiLinkedin, SiGithub } from 'react-icons/si';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -16,7 +16,6 @@ const Contact = () => {
     message: ''
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
-
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -46,8 +45,20 @@ const Contact = () => {
     {
       name: 'Email',
       icon: Mail,
-      href: 'mailto:contact@balmikikumar.com',
-      label: 'contact@balmikikumar.com'
+      href: 'mailto:balmikikumar00321@gmail.com',
+      label: 'balmikikumar00321@gmail.com'
+    },
+    {
+      name: 'Phone',
+      icon: Phone,
+      href: 'tel:+916201970584',
+      label: '+91 6201970584'
+    },
+    {
+      name: 'Location',
+      icon: MapPin,
+      href: '#',
+      label: 'Guwahati, Assam'
     },
     {
       name: 'LinkedIn',

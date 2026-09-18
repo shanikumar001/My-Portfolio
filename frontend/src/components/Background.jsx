@@ -553,7 +553,10 @@ const MyBackground = () => {
                   <div className="p-6">
                     <div className="flex flex-wrap items-center gap-2 mb-3">
                       <span className="inline-flex items-center gap-1.5 text-[10px] font-mono font-bold tracking-wider uppercase border border-border/60 bg-muted/40 px-2 py-0.5 rounded-[3px] text-foreground/85">
-                        <Calendar className="w-3 h-3 text-primary" /> 2023 - 2027
+                        <Calendar className="w-3 h-3 text-primary" /> EXPECTED 2028
+                      </span>
+                      <span className="inline-flex items-center gap-1.5 text-[10px] font-mono font-bold tracking-wider uppercase border border-emerald-500/30 bg-emerald-500/10 px-2 py-0.5 rounded-[3px] text-emerald-600 dark:text-emerald-400 font-black">
+                        <Sparkles className="w-3 h-3" /> CGPA: 9.05
                       </span>
                       <span className="inline-flex items-center gap-1.5 text-[10px] font-mono font-bold tracking-wider uppercase border border-border/60 bg-muted/40 px-2 py-0.5 rounded-[3px] text-foreground/85">
                         <MapPin className="w-3 h-3 text-primary" /> GUWAHATI, ASSAM
@@ -568,8 +571,23 @@ const MyBackground = () => {
                     </h3>
 
                     <p className="text-xs sm:text-sm text-foreground/75 leading-relaxed mb-4">
-                      Assam Down Town University (ADTU) is a premier university in Northeast India, overlooking the Brahmaputra River. It provides state-of-the-art computer laboratories, full-stack engineering research, and cloud infrastructure.
+                      Pursuing Bachelor of Technology (B.Tech) in Computer Science and Engineering with a stellar 9.05 CGPA. Overlooking the Brahmaputra River, ADTU provides the academic environment where I built ZiuroDB and conducted coursework in AI/ML, OS, DBMS, and Distributed Systems.
                     </p>
+
+                    {/* Relevant Coursework */}
+                    <div className="mb-4">
+                      <span className="text-[10px] font-mono uppercase tracking-wider text-muted-foreground block mb-2 font-bold">
+                        Key Coursework:
+                      </span>
+                      <div className="flex flex-wrap gap-1.5 text-[10px] font-mono">
+                        <span className="px-2 py-0.5 rounded-[3px] bg-muted/30 border border-border/50 text-foreground/80">Data Structures & Algo</span>
+                        <span className="px-2 py-0.5 rounded-[3px] bg-muted/30 border border-border/50 text-foreground/80">AI & Machine Learning</span>
+                        <span className="px-2 py-0.5 rounded-[3px] bg-muted/30 border border-border/50 text-foreground/80">DBMS & SQL</span>
+                        <span className="px-2 py-0.5 rounded-[3px] bg-muted/30 border border-border/50 text-foreground/80">Operating Systems</span>
+                        <span className="px-2 py-0.5 rounded-[3px] bg-muted/30 border border-border/50 text-foreground/80">Computer Networks</span>
+                        <span className="px-2 py-0.5 rounded-[3px] bg-muted/30 border border-border/50 text-foreground/80">Software Engineering</span>
+                      </div>
+                    </div>
 
                     {/* Thumbnail Switcher */}
                     <div className="pt-3 border-t border-border/30 mb-4">

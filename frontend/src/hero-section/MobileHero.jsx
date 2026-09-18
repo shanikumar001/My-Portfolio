@@ -1,9 +1,23 @@
-import React, { useState, useEffect } from "react";
-import { ArrowDown, Download, ExternalLink, Code2, Link2, Palette, MapPin, Terminal, ArrowRight, Navigation } from "lucide-react";
+import React, { useState } from "react";
+import {
+  ArrowDown,
+  Download,
+  ExternalLink,
+  Code2,
+  Link2,
+  Palette,
+  MapPin,
+  Terminal,
+  ArrowRight,
+  Navigation,
+  Sparkles,
+  GraduationCap,
+  RotateCw,
+  ShieldCheck
+} from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useTheme } from "@/hooks/useTheme";
 import shani from "../assets/shani4.png";
-import shaniBack from "../assets/shani4.png";
 import instagram2 from "../assets/icon/instagram2.png";
 import youtube2 from "../assets/icon/youtube2.png";
 import linkdin2 from "../assets/icon/linkdin2.png";
@@ -11,11 +25,6 @@ import TypingHeading from "../components/ui/headingAnimation";
 
 const MobileHero = ({ scrollToSection }) => {
   const [flipped, setFlipped] = useState(false);
-  const { resolvedTheme } = useTheme();
-
-  useEffect(() => {
-    setFlipped(resolvedTheme === "dark");
-  }, [resolvedTheme]);
 
   const handleDownloadCV = () => {
     window.open("/cv.pdf", "_blank") || alert("CV download will be available soon!");
@@ -87,36 +96,111 @@ const MobileHero = ({ scrollToSection }) => {
         <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-primary/25 bg-primary/10 backdrop-blur-md shadow-sm">
           <span className="w-2 h-2 rounded-full bg-emerald-500 animate-ping" />
           <span className="text-[10px] font-mono font-bold tracking-widest uppercase text-foreground/80">
-            AVAILABLE FOR HIRE
+            FOUNDER @ ZIURODB & ZIUROCODING | CGPA: 9.05
           </span>
         </div>
 
-        {/* Profile Card */}
-        <div className="flex justify-center my-2">
-          <div className="p-[2px] bg-gradient-to-r from-primary via-accent to-primary animate-gradient rounded-[6px] shadow-xl">
-            <div className="flip-wrapper w-[210px] h-[260px]">
+        {/* Modern Profile Photo Card */}
+        <div className="flex justify-center my-2 relative">
+          {/* Ambient Glow */}
+          <div className="absolute -inset-4 bg-gradient-to-tr from-primary/30 via-accent/20 to-emerald-500/20 rounded-[32px] blur-2xl opacity-60 dark:opacity-40 pointer-events-none -z-10" />
+
+          <div className="p-[2px] bg-gradient-to-b from-primary/50 via-accent/30 to-border/40 rounded-[26px] shadow-2xl">
+            <div className="flip-wrapper w-[250px] h-[340px]">
               <div
                 className={`flip-card cursor-pointer ${flipped ? "flipped" : ""}`}
                 onClick={() => setFlipped(!flipped)}
               >
-                <div className="flip-face front p-2 bg-card">
-                  <img
-                    src={shani}
-                    alt="Balmiki Kumar"
-                    className="w-full h-full object-cover object-top rounded-[4px]"
-                  />
-                </div>
-                <div className="flip-face back p-4 bg-card text-left flex flex-col justify-between">
-                  <div>
-                    <div className="flex items-center gap-1.5 text-xs font-mono font-bold text-primary mb-2">
-                      <Terminal className="w-3.5 h-3.5" />
-                      <span>Balmiki.sh</span>
-                    </div>
-                    <p className="text-xs font-bold text-foreground">B.Tech CSE Scholar</p>
-                    <p className="text-[10px] text-muted-foreground">ADTU Guwahati (2023-2027)</p>
-                    <p className="text-[10px] text-foreground/80 mt-2">Full-Stack MERN & Systems Builder</p>
+                {/* FRONT FACE */}
+                <div className="flip-face front p-2.5 flex flex-col justify-between items-stretch text-center relative overflow-hidden bg-card/90 dark:bg-card/85 backdrop-blur-xl">
+                  {/* Top Bar */}
+                  <div className="flex items-center justify-between w-full px-1 py-0.5 mb-1 z-10">
+                    <span className="text-[9px] font-mono font-bold text-muted-foreground uppercase flex items-center gap-1.5">
+                      <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-ping" />
+                      Balmiki Kumar
+                    </span>
+                    <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-primary/10 text-primary border border-primary/20 text-[9px] font-mono font-bold">
+                      <RotateCw className="w-2.5 h-2.5" /> 3D Flip
+                    </span>
                   </div>
-                  <span className="text-[10px] text-primary font-mono font-bold">Tap to flip back</span>
+
+                  {/* Photo Frame */}
+                  <div className="relative flex-1 w-full rounded-[18px] overflow-hidden bg-gradient-to-b from-muted/20 to-card border border-border/40 shadow-inner">
+                    <img
+                      src={shani}
+                      alt="Balmiki Kumar"
+                      className="w-full h-full object-cover object-top"
+                      loading="eager"
+                    />
+
+                    {/* Camera Corner Marks */}
+                    <div className="absolute top-2 left-2 w-2.5 h-2.5 border-t-2 border-l-2 border-primary/60 rounded-tl-sm pointer-events-none" />
+                    <div className="absolute top-2 right-2 w-2.5 h-2.5 border-t-2 border-r-2 border-primary/60 rounded-tr-sm pointer-events-none" />
+                    <div className="absolute bottom-2 left-2 w-2.5 h-2.5 border-b-2 border-l-2 border-primary/60 rounded-bl-sm pointer-events-none" />
+                    <div className="absolute bottom-2 right-2 w-2.5 h-2.5 border-b-2 border-r-2 border-primary/60 rounded-br-sm pointer-events-none" />
+
+                    {/* Bottom gradient scrim */}
+                    <div className="absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-card via-card/40 to-transparent pointer-events-none" />
+
+                    {/* Floating HUD Pill inside photo */}
+                    <div className="absolute bottom-2 inset-x-2 flex items-center justify-between px-2.5 py-1 rounded-lg bg-card/85 dark:bg-card/80 backdrop-blur-md border border-border/70 shadow-md text-[10px] pointer-events-none">
+                      <span className="flex items-center gap-1 font-mono text-muted-foreground">
+                        <MapPin className="w-2.5 h-2.5 text-primary" /> Bihar ➔ Assam
+                      </span>
+                      <span className="font-mono font-bold text-foreground flex items-center gap-1">
+                        ADTU '28 <ShieldCheck className="w-3 h-3 text-emerald-500" />
+                      </span>
+                    </div>
+                  </div>
+
+                  {/* Bottom Bar */}
+                  <div className="flex items-center justify-between w-full px-1 pt-1.5 text-[10px]">
+                    <span className="text-muted-foreground font-mono">Founder & Developer</span>
+                    <span className="text-primary font-mono font-bold flex items-center gap-0.5">
+                      Credentials <ArrowRight className="w-2.5 h-2.5" />
+                    </span>
+                  </div>
+                </div>
+
+                {/* BACK FACE */}
+                <div className="flip-face back p-4 bg-card/95 dark:bg-card/90 backdrop-blur-xl text-left flex flex-col justify-between">
+                  <div>
+                    <div className="flex items-center justify-between border-b border-border/40 pb-2 mb-2">
+                      <div className="flex items-center gap-1.5 text-xs font-mono font-bold text-primary">
+                        <Terminal className="w-3.5 h-3.5" />
+                        <span>balmiki@ziurodb</span>
+                      </div>
+                      <span className="text-[9px] font-mono px-1.5 py-0.5 rounded bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 font-bold">
+                        CGPA: 9.05
+                      </span>
+                    </div>
+
+                    <div className="space-y-2 text-[11px]">
+                      <div>
+                        <p className="text-xs font-bold text-foreground">Assam Down Town University</p>
+                        <p className="text-[10px] text-muted-foreground">B.Tech CSE • Expected 2028</p>
+                      </div>
+
+                      <div className="p-1.5 rounded-lg bg-muted/30 border border-border/40">
+                        <p className="font-bold text-primary text-[10px]">ZiuroDB & ZiuroCoding</p>
+                        <p className="text-[9px] text-muted-foreground">DB & API Engine | Monaco Code Runner</p>
+                      </div>
+
+                      <div className="flex flex-wrap gap-1 text-[9px] font-mono pt-1">
+                        <span className="px-1.5 py-0.5 rounded bg-card border border-border/60">Java</span>
+                        <span className="px-1.5 py-0.5 rounded bg-card border border-border/60">Python</span>
+                        <span className="px-1.5 py-0.5 rounded bg-card border border-border/60">React</span>
+                        <span className="px-1.5 py-0.5 rounded bg-card border border-border/60">Docker</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="border-t border-border/40 pt-2 flex items-center justify-between text-[9px]">
+                    <span className="text-muted-foreground">Bihar ➔ Guwahati</span>
+                    <span className="text-primary font-mono font-bold flex items-center gap-1">
+                      <RotateCw className="w-2.5 h-2.5" /> Flip to Photo
+                    </span>
+                  </div>
                 </div>
               </div>
             </div>
@@ -141,7 +225,7 @@ const MobileHero = ({ scrollToSection }) => {
 
         {/* Description */}
         <p className="text-xs text-muted-foreground leading-relaxed px-2">
-          Building scalable full-stack software, developer tools, and database systems that solve real-world problems.
+          Founder of ZiuroDB and ZiuroCoding. Building production-ready database management platforms, code execution engines, and full-stack software systems.
         </p>
 
         {/* Action Buttons */}
