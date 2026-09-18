@@ -107,6 +107,20 @@
     perspective: 1400px;
   }
 
+  /* Hero Architectural Square Box Grid */
+  .hero-grid-pattern {
+    background-size: 48px 48px;
+    background-image: 
+      linear-gradient(to right, rgba(0, 0, 0, 0.08) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(0, 0, 0, 0.08) 1px, transparent 1px);
+  }
+
+  .dark .hero-grid-pattern {
+    background-image: 
+      linear-gradient(to right, rgba(255, 255, 255, 0.09) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(255, 255, 255, 0.09) 1px, transparent 1px);
+  }
+
   .flip-card {
     width: 100%;
     height: 100%;

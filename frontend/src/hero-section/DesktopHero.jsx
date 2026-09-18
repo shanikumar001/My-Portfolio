@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import frontImage from "../assets/shani4.png";
 import backImage from "../assets/shani4.png";
 import instagram2 from "../assets/icon/instagram2.png";
@@ -25,10 +25,29 @@ import {
 } from "lucide-react";
 import { useTheme } from "@/hooks/useTheme";
 import TypingHeading from "../components/ui/headingAnimation";
+import { useProfile } from "../hooks/usePortfolio";
+import InteractiveGridBackground from "../components/ui/InteractiveGridBackground";
 
 const DesktopHero = ({ scrollToSection: externalScrollToSection }) => {
+  const heroRef = useRef(null);
   const [flipped, setFlipped] = useState(false);
   const { resolvedTheme } = useTheme();
+  const { data: profile } = useProfile();
+
+  const name = profile?.name || "Balmiki Kumar";
+  const statusPill = profile?.statusPill || "FOUNDER @ ZIURODB & ZIUROCODING | B.TECH CSE (CGPA: 9.05)";
+  const bio = profile?.bio || "Founder of ZiuroDB and ZiuroCoding. Building production-ready database management platforms, automated REST API engines, code execution sandboxes, and modern full-stack systems.";
+  const techChips = profile?.techChips && profile.techChips.length > 0 ? profile.techChips : [
+    "Java & Python",
+    "React & Next.js",
+    "TypeScript & Node.js",
+    "MongoDB, MySQL & Postgres",
+    "Redis, BullMQ & Docker",
+    "ZiuroDB"
+  ];
+  const avatarImage = profile?.avatarUrl || frontImage;
+  const resumeUrl = profile?.resumeUrl || "/cv.pdf";
+  const typingTitles = profile?.typingTitles;
 
   const scrollToSection = (id) => {
     if (externalScrollToSection) {
@@ -42,25 +61,34 @@ const DesktopHero = ({ scrollToSection: externalScrollToSection }) => {
   };
 
   const handleDownloadCV = () => {
-    window.open("/cv.pdf", "_blank") || alert("CV download will be available soon!");
+    window.open(resumeUrl, "_blank") || alert("CV download will be available soon!");
   };
 
   const socialLinks = [
-    { icon: youtube2, href: "https://www.youtube.com/@Coding_with_Shani", label: "YouTube" },
-    { icon: instagram2, href: "https://www.instagram.com/sr.coding01/", label: "Instagram" },
-    { icon: linkdin2, href: "https://www.linkedin.com/in/balmiki-kumar", label: "LinkedIn" },
+    { icon: youtube2, href: profile?.socialLinks?.youtube || "https://www.youtube.com/@Coding_with_Shani", label: "YouTube" },
+    { icon: instagram2, href: profile?.socialLinks?.instagram || "https://www.instagram.com/sr.coding01/", label: "Instagram" },
+    { icon: linkdin2, href: profile?.socialLinks?.linkedin || "https://www.linkedin.com/in/balmiki-kumar", label: "LinkedIn" },
   ];
 
   return (
     <section
       id="hero"
-      className="flex justify-center items-center bg-gradient-to-br from-background via-background to-muted/10 pt-20 pb-0 select-none overflow-hidden min-h-[90vh] max-w-8xl"
+      ref={heroRef}
+      className="flex justify-center items-center relative bg-background pt-20 pb-0 select-none overflow-hidden min-h-[90vh] w-full"
     >
-      {/* Ambient background glows */}
-      <div className="absolute inset-0 pointer-events-none z-0 overflow-hidden">
-        <div className="absolute top-[10%] left-[8%] w-[28rem] h-[28rem] bg-primary/8 rounded-full blur-3xl" />
-        <div className="absolute bottom-[10%] right-[10%] w-[32rem] h-[32rem] bg-accent/8 rounded-full blur-3xl" />
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,#000_1px,transparent_1px)] dark:bg-[radial-gradient(ellipse_at_center,#fff_1px,transparent_1px)] opacity-[0.025] dark:opacity-[0.04] bg-[size:28px_28px]" />
+      {/* Interactive Cursor-Reactive Square Box Grid Background */}
+      <div className="absolute inset-0 pointer-events-none z-0 overflow-hidden select-none">
+        <InteractiveGridBackground gridSize={48} containerRef={heroRef} />
+
+        {/* Seamless bottom fade into 100% solid background */}
+        <div className="absolute inset-x-0 bottom-0 h-64 bg-gradient-to-t from-background via-background/80 to-transparent pointer-events-none" />
+
+        {/* Subtle top blend */}
+        <div className="absolute inset-x-0 top-0 h-24 bg-gradient-to-b from-background/60 to-transparent pointer-events-none" />
+
+        {/* Subtle Ambient glows */}
+        <div className="absolute top-[10%] left-[8%] w-[28rem] h-[28rem] bg-foreground/5 rounded-full blur-3xl pointer-events-none" />
+        <div className="absolute bottom-[10%] right-[10%] w-[32rem] h-[32rem] bg-foreground/5 rounded-full blur-3xl pointer-events-none" />
       </div>
 
       {/* ==================================================================== */}
@@ -147,15 +175,15 @@ const DesktopHero = ({ scrollToSection: externalScrollToSection }) => {
           {/* LEFT COLUMN: HERO TEXT & ACTIONS */}
           <div className="lg:col-span-7 flex flex-col justify-center items-center lg:items-start text-center lg:text-left">
             {/* Live Status Pill */}
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-primary/20 bg-primary/5 dark:bg-primary/10 backdrop-blur-md mb-5 shadow-sm">
+            {/* <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-primary/20 bg-primary/5 dark:bg-primary/10 backdrop-blur-md mb-5 shadow-sm">
               <span className="relative flex h-2 w-2">
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
                 <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
               </span>
               <span className="text-[11px] font-mono font-bold tracking-widest uppercase text-foreground/85">
-                FOUNDER @ ZIURODB & ZIUROCODING | B.TECH CSE (CGPA: 9.05)
+                {statusPill}
               </span>
-            </div>
+            </div> */}
 
             {/* Name & Title */}
             <h1 className="mb-3.5 flex flex-col gap-1">
@@ -163,28 +191,30 @@ const DesktopHero = ({ scrollToSection: externalScrollToSection }) => {
                 Hi, I'm
               </span>
               <span className="text-4xl sm:text-5xl lg:text-6xl font-black tracking-tight leading-none bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent bg-[length:200%_auto] animate-gradient">
-                Balmiki Kumar
+                {name}
               </span>
             </h1>
 
             {/* Typing Heading / Role */}
             <div className="mb-5 min-h-[3rem] flex items-center justify-center lg:justify-start">
-              <TypingHeading />
+              <TypingHeading titles={typingTitles} />
             </div>
 
             {/* Narrative Description */}
             <p className="text-sm sm:text-base text-muted-foreground leading-relaxed max-w-lg mb-6">
-              Founder of ZiuroDB and ZiuroCoding. Building production-ready database management platforms, automated REST API engines, code execution sandboxes, and modern full-stack systems.
+              {bio}
             </p>
 
             {/* Tech Chips */}
             <div className="flex flex-wrap gap-2 justify-center lg:justify-start mb-7 text-xs font-mono">
-              <span className="px-2.5 py-1 rounded-[3px] bg-card/70 border border-border/60 text-foreground/85">Java & Python</span>
-              <span className="px-2.5 py-1 rounded-[3px] bg-card/70 border border-border/60 text-foreground/85">React & Next.js</span>
-              <span className="px-2.5 py-1 rounded-[3px] bg-card/70 border border-border/60 text-foreground/85">TypeScript & Node.js</span>
-              <span className="px-2.5 py-1 rounded-[3px] bg-card/70 border border-border/60 text-foreground/85">MongoDB, MySQL & Postgres</span>
-              <span className="px-2.5 py-1 rounded-[3px] bg-card/70 border border-border/60 text-foreground/85">Redis, BullMQ & Docker</span>
-              <span className="px-2.5 py-1 rounded-[3px] bg-primary/10 border border-primary/30 text-primary font-bold">ZiuroDB</span>
+              {techChips.map((chip, idx) => (
+                <span
+                  key={idx}
+                  className="px-2.5 py-1 rounded-[3px] bg-card/70 border border-border/60 text-foreground/85"
+                >
+                  {chip}
+                </span>
+              ))}
             </div>
 
             {/* Action Buttons */}
@@ -359,8 +389,8 @@ const DesktopHero = ({ scrollToSection: externalScrollToSection }) => {
                     {/* Edge-to-Edge Portrait Frame */}
                     <div className="relative flex-1 w-full rounded-[4px] overflow-hidden bg-gradient-to-b from-muted/20 to-card border border-border/40 shadow-inner group/img">
                       <img
-                        src={frontImage}
-                        alt="Balmiki Kumar"
+                        src={avatarImage}
+                        alt={name}
                         className="w-full h-full object-cover object-top transition-transform duration-700 ease-out group-hover:scale-[1.04]"
                         loading="eager"
                       />

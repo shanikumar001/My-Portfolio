@@ -1,10 +1,10 @@
 import { useState, useEffect } from 'react';
-import { Menu, X, Moon, Sun } from 'lucide-react';
+import { Menu, X, Moon, Sun, Lock } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useTheme } from '@/hooks/useTheme';
 
 
-const Navigation = () => {
+const Navigation = ({ onOpenAdmin }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [activeSection, setActiveSection] = useState('hero');
@@ -73,10 +73,10 @@ const Navigation = () => {
                 variant="ghost"
                 onClick={() => scrollToSection(item.id)}
                 className={`
-                  relative text-foreground/80 hover:text-foreground hover:bg-accent/10
-                  transition-all duration-200
+                  text-foreground/80 hover:text-foreground hover:bg-accent/10
+                  transition-all duration-200 relative
                   ${activeSection === item.id 
-                    ? 'text-foreground bg-accent/10 font-semibold' 
+                    ? 'text-foreground font-semibold bg-accent/10' 
                     : ''
                   }
                 `}
@@ -92,13 +92,33 @@ const Navigation = () => {
               size="icon"
               onClick={() => setTheme(resolvedTheme === 'dark' ? 'light' : 'dark')}
               className="ml-2"
+              title="Toggle Theme"
             >
               {resolvedTheme === 'dark' ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
+            </Button>
+
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={onOpenAdmin}
+              className="ml-2 text-xs font-mono font-bold text-muted-foreground hover:text-primary flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-border/70 hover:border-primary/50"
+              title="Admin Dashboard"
+            >
+              <Lock className="w-3.5 h-3.5 text-primary" />
+              <span className="hidden lg:inline">Admin</span>
             </Button>
           </div>
 
           {/* Mobile Menu Button */}
           <div className="flex md:hidden items-center space-x-2">
+            <Button
+              variant="ghost"
+              size="icon"
+              onClick={onOpenAdmin}
+              title="Admin Portal"
+            >
+              <Lock className="h-4 w-4 text-primary" />
+            </Button>
             <Button
               variant="ghost"
               size="icon"
@@ -133,6 +153,17 @@ const Navigation = () => {
                   {item.label}
                 </Button>
               ))}
+
+              <Button
+                variant="outline"
+                onClick={() => {
+                  setIsOpen(false);
+                  if (onOpenAdmin) onOpenAdmin();
+                }}
+                className="justify-start text-primary border-primary/40 font-mono text-xs font-bold mt-2"
+              >
+                <Lock className="w-3.5 h-3.5 mr-2" /> Admin Studio
+              </Button>
             </div>
           </div>
         )}

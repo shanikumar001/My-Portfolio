@@ -1,6 +1,6 @@
-import { Heart, Github, Linkedin, Terminal, ExternalLink } from 'lucide-react';
+import { Heart, Github, Linkedin, Terminal, ExternalLink, Lock } from 'lucide-react';
 
-const Footer = () => {
+const Footer = ({ onOpenAdmin }) => {
   const scrollToSection = (id) => {
     const element = document.getElementById(id);
     if (element) {
@@ -102,10 +102,22 @@ const Footer = () => {
           <div>
             <span>© 2026 Balmiki Kumar. All rights reserved.</span>
           </div>
-          <div className="flex items-center gap-1.5">
-            <span>Built By</span>
-            {/* <Heart className="w-3.5 h-3.5 text-red-500 fill-red-500 animate-pulse" /> */}
-            <span>Balmiki Kumar</span>
+          <div className="flex items-center gap-4">
+            <div className="flex items-center gap-1.5">
+              <span>Built By</span>
+              <span>Balmiki Kumar</span>
+            </div>
+
+            {onOpenAdmin && (
+              <button
+                onClick={onOpenAdmin}
+                className="inline-flex items-center gap-1 text-[11px] font-mono font-bold text-muted-foreground hover:text-primary transition-colors border border-border/60 hover:border-primary/50 px-2 py-0.5 rounded"
+                title="Open Admin Portal"
+              >
+                <Lock className="w-3 h-3 text-primary" />
+                <span>Admin Studio</span>
+              </button>
+            )}
           </div>
         </div>
 

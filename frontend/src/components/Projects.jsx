@@ -1,28 +1,16 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { ExternalLink, Github, Loader2 } from 'lucide-react';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { useGetUserProjects } from '../hooks/useQueries';
+import { useProjects } from '../hooks/usePortfolio';
 import ziurodb from "../assets/project-image/ziurodb.png";
 import ziuroworkers from "../assets/project-image/ziuroworkers.png";
 import procoders from "../assets/project-image/ziurocoding.png";
 
 const Projects = () => {
-  const { data: projects, isLoading } = useGetUserProjects();
-  const [imageUrls, setImageUrls] = useState({});
+  const { data: dbProjects, isLoading } = useProjects();
 
-  useEffect(() => {
-    if (projects) {
-      projects.forEach((project) => {
-        if (project.image && typeof project.image === 'object' && 'getDirectURL' in project.image) {
-          const url = project.image.getDirectURL();
-          setImageUrls((prev) => ({ ...prev, [project.id]: url }));
-        }
-      });
-    }
-  }, [projects]);
-
-  // Updated projects based on verified resume details
+  // Initial verified fallback projects
   const defaultProjects = [
     {
       id: '1',
@@ -53,7 +41,28 @@ const Projects = () => {
     }
   ];
 
-  const displayProjects = projects && projects.length > 0 ? projects : defaultProjects;
+  // Normalize project properties from MongoDB
+  const projects = dbProjects && dbProjects.length > 0
+    ? dbProjects.map((p) => {
+        let image = p.image;
+        if (!image) {
+          if (p.title?.toLowerCase().includes('ziurodb')) image = ziurodb;
+          else if (p.title?.toLowerCase().includes('coding') || p.title?.toLowerCase().includes('procoders')) image = procoders;
+          else if (p.title?.toLowerCase().includes('workers')) image = ziuroworkers;
+        }
+        return {
+          id: p._id || p.id,
+          title: p.title,
+          description: p.description,
+          tags: p.tags || [],
+          image,
+          liveURL: p.liveUrl || p.liveURL,
+          repoURL: p.githubUrl || p.repoURL,
+        };
+      })
+    : defaultProjects;
+
+  const displayProjects = projects;
 
   return (
     <section id="projects" className="py-24 sm:py-32 relative overflow-hidden bg-background">
@@ -91,7 +100,7 @@ const Projects = () => {
                 <ProjectCard
                   key={project.id}
                   project={project}
-                  imageUrl={imageUrls[project.id]}
+                  imageUrl={project.image}
                 />
               ))}
             </div>
@@ -106,7 +115,7 @@ const ProjectCard = ({ project, imageUrl }) => {
   const [imageLoaded, setImageLoaded] = useState(false);
   const [imageError, setImageError] = useState(false);
 
-  const imageSrc = imageUrl || (typeof project.image === 'string' ? project.image : project.image);
+  const imageSrc = project.image || imageUrl;
 
   return (
     <Card className="group overflow-hidden border border-border/40 bg-card/45 dark:bg-card/25 backdrop-blur-md hover:border-foreground/25 hover:shadow-2xl hover:shadow-foreground/5 hover:-translate-y-1.5 transition-all duration-300 rounded-[4px] flex flex-col justify-between h-full">

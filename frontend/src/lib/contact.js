@@ -1,17 +1,4 @@
-export const contactAPI = {
-  submit: async (formData) => {
-    const res = await fetch("http://localhost:4000/contact", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(formData),
-    });
+import { contactAPI } from "./api.js";
 
-    if (!res.ok) {
-      throw new Error("Failed to submit");
-    }
-
-    return res.json();
-  },
-};
+export { contactAPI };
+export default contactAPI;

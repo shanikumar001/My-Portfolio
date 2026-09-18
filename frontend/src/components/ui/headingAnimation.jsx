@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-const lines = [
+const defaultLines = [
   "FOUNDER OF ZIURODB & ZIUROCODING",
   "FULL-STACK & DATABASE DEVELOPER",
   "B.TECH CSE (CGPA: 9.05 | ADTU)",
@@ -8,31 +8,38 @@ const lines = [
   "DESKTOP & DISTRIBUTED SYSTEMS CREATOR",
 ];
 
-export default function TypingHeading() {
+export default function TypingHeading({ titles }) {
+  const lines = titles && titles.length > 0 ? titles : defaultLines;
   const [displayText, setDisplayText] = useState("");
   const [lineIndex, setLineIndex] = useState(0);
   const [charIndex, setCharIndex] = useState(0);
 
+  // Reset indices if lines change
+  useEffect(() => {
+    setLineIndex(0);
+    setCharIndex(0);
+    setDisplayText("");
+  }, [lines.length]);
+
   useEffect(() => {
     let timeout;
+    const currentLine = lines[lineIndex] || lines[0] || "";
 
-    if (charIndex < lines[lineIndex].length) {
-      // Typing effect
+    if (charIndex < currentLine.length) {
       timeout = setTimeout(() => {
-        setDisplayText((prev) => prev + lines[lineIndex][charIndex]);
+        setDisplayText((prev) => prev + currentLine[charIndex]);
         setCharIndex((prev) => prev + 1);
-      }, 80);
+      }, 75);
     } else {
-      // Wait 5 seconds then move to next line
       timeout = setTimeout(() => {
         setDisplayText("");
         setCharIndex(0);
-        setLineIndex((prev) => (prev + 1) % lines.length); // 🔁 infinite loop
-      }, 5000);
+        setLineIndex((prev) => (prev + 1) % lines.length);
+      }, 4500);
     }
 
     return () => clearTimeout(timeout);
-  }, [charIndex, lineIndex]);
+  }, [charIndex, lineIndex, lines]);
 
   return (
     <h2

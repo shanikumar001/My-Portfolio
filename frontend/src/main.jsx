@@ -7,10 +7,18 @@ import './index.css';
 
 const queryClient = new QueryClient();
 
-if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', () => initEditor());
-} else {
-    initEditor();
+try {
+  if (typeof initEditor === 'function') {
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', () => {
+        try { initEditor(); } catch (e) { /* ignore editor communicator error */ }
+      });
+    } else {
+      initEditor();
+    }
+  }
+} catch (err) {
+  console.debug('Editor communicator ignored:', err);
 }
 
 const rootElement = document.getElementById('root');

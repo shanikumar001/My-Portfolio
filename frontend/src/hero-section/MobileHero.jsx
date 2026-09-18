@@ -1,46 +1,65 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import {
-  ArrowDown,
   Download,
   ExternalLink,
   Code2,
-  Link2,
+  Database,
   Palette,
-  MapPin,
   Terminal,
   ArrowRight,
+  ArrowDown,
   Navigation,
+  MapPin,
   Sparkles,
   GraduationCap,
   RotateCw,
-  ShieldCheck
+  ShieldCheck,
+  Layers,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useTheme } from "@/hooks/useTheme";
+import { useProfile } from "../hooks/usePortfolio";
 import shani from "../assets/shani4.png";
 import instagram2 from "../assets/icon/instagram2.png";
 import youtube2 from "../assets/icon/youtube2.png";
 import linkdin2 from "../assets/icon/linkdin2.png";
 import TypingHeading from "../components/ui/headingAnimation";
+import InteractiveGridBackground from "../components/ui/InteractiveGridBackground";
 
 const MobileHero = ({ scrollToSection }) => {
+  const heroRef = useRef(null);
   const [flipped, setFlipped] = useState(false);
+  const { data: profile } = useProfile();
+
+  const name = profile?.name || "Balmiki Kumar";
+  const statusPill = profile?.statusPill || "FOUNDER @ ZIURODB & ZIUROCODING | CGPA: 9.05";
+  const bio = profile?.bio || "Founder of ZiuroDB and ZiuroCoding. Building production-ready database management platforms, code execution engines, and full-stack software systems.";
+  const avatarImage = profile?.avatarUrl || shani;
+  const resumeUrl = profile?.resumeUrl || "/cv.pdf";
+  const typingTitles = profile?.typingTitles;
 
   const handleDownloadCV = () => {
-    window.open("/cv.pdf", "_blank") || alert("CV download will be available soon!");
+    window.open(resumeUrl, "_blank") || alert("CV download will be available soon!");
   };
 
   const socialLinks = [
-    { icon: youtube2, href: "https://www.youtube.com/@Coding_with_Shani", label: "YouTube" },
-    { icon: instagram2, href: "https://www.instagram.com/sr.coding01/", label: "Instagram" },
-    { icon: linkdin2, href: "https://www.linkedin.com/in/balmiki-kumar", label: "LinkedIn" },
+    { icon: youtube2, href: profile?.socialLinks?.youtube || "https://www.youtube.com/@Coding_with_Shani", label: "YouTube" },
+    { icon: instagram2, href: profile?.socialLinks?.instagram || "https://www.instagram.com/sr.coding01/", label: "Instagram" },
+    { icon: linkdin2, href: profile?.socialLinks?.linkedin || "https://www.linkedin.com/in/balmiki-kumar", label: "LinkedIn" },
   ];
 
   return (
     <section
       id="hero"
-      className="min-h-screen flex flex-col items-center justify-center relative overflow-hidden pt-20 pb-16 px-4 bg-gradient-to-br from-background via-background to-muted/20 select-none"
+      ref={heroRef}
+      className="min-h-screen flex flex-col items-center justify-center relative overflow-hidden pt-20 pb-16 px-4 bg-background select-none"
     >
+      {/* Interactive Cursor-Reactive Square Box Grid Background */}
+      <div className="absolute inset-0 pointer-events-none z-0 overflow-hidden select-none">
+        <InteractiveGridBackground gridSize={48} containerRef={heroRef} />
+        <div className="absolute inset-x-0 bottom-0 h-48 bg-gradient-to-t from-background via-background/80 to-transparent pointer-events-none" />
+      </div>
+
       {/* Mobile Winding Road SVG */}
       <div className="absolute inset-0 w-full h-full pointer-events-none z-0 overflow-hidden">
         <svg
@@ -96,7 +115,7 @@ const MobileHero = ({ scrollToSection }) => {
         <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-primary/25 bg-primary/10 backdrop-blur-md shadow-sm">
           <span className="w-2 h-2 rounded-full bg-emerald-500 animate-ping" />
           <span className="text-[10px] font-mono font-bold tracking-widest uppercase text-foreground/80">
-            FOUNDER @ ZIURODB & ZIUROCODING | CGPA: 9.05
+            {statusPill}
           </span>
         </div>
 
@@ -117,7 +136,7 @@ const MobileHero = ({ scrollToSection }) => {
                   <div className="flex items-center justify-between w-full px-1 py-0.5 mb-1 z-10">
                     <span className="text-[9px] font-mono font-bold text-muted-foreground uppercase flex items-center gap-1.5">
                       <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-ping" />
-                      Balmiki Kumar
+                      {name}
                     </span>
                     <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-primary/10 text-primary border border-primary/20 text-[9px] font-mono font-bold">
                       <RotateCw className="w-2.5 h-2.5" /> 3D Flip
@@ -127,8 +146,8 @@ const MobileHero = ({ scrollToSection }) => {
                   {/* Photo Frame */}
                   <div className="relative flex-1 w-full rounded-[18px] overflow-hidden bg-gradient-to-b from-muted/20 to-card border border-border/40 shadow-inner">
                     <img
-                      src={shani}
-                      alt="Balmiki Kumar"
+                      src={avatarImage}
+                      alt={name}
                       className="w-full h-full object-cover object-top"
                       loading="eager"
                     />
@@ -215,17 +234,17 @@ const MobileHero = ({ scrollToSection }) => {
           <h1 className="text-3xl font-black tracking-tight mb-2">
             Hi, I'm{" "}
             <span className="bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent bg-[length:200%_auto] animate-gradient">
-              Balmiki Kumar
+              {name}
             </span>
           </h1>
           <div className="min-h-[2.8rem] flex items-center justify-center">
-            <TypingHeading />
+            <TypingHeading titles={typingTitles} />
           </div>
         </div>
 
         {/* Description */}
         <p className="text-xs text-muted-foreground leading-relaxed px-2">
-          Founder of ZiuroDB and ZiuroCoding. Building production-ready database management platforms, code execution engines, and full-stack software systems.
+          {bio}
         </p>
 
         {/* Action Buttons */}
